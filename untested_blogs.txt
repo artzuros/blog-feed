@@ -1,0 +1,60 @@
+
+❌ Uber, https://eng.uber.com, https://eng.uber.com/feed/
+Spotify, https://engineering.atspotify.com, https://engineering.atspotify.com/feed/
+LinkedIn, https://engineering.linkedin.com/blog, https://engineering.linkedin.com/blog.rss
+Airbnb, https://medium.com/airbnb-engineering, https://medium.com/feed/airbnb-engineering
+Pinterest, https://medium.com/pinterest-engineering, https://medium.com/feed/pinterest-engineering
+Twitter, https://blog.twitter.com/engineering, https://blog.twitter.com/engineering/en_us/topics/insights.rss
+Dropbox, https://dropbox.tech, https://dropbox.tech/feed
+Square, https://developer.squareup.com/blog, https://developer.squareup.com/blog/rss.xml
+
+AWS, https://aws.amazon.com/blogs/aws, https://aws.amazon.com/blogs/aws/feed/
+Google Cloud, https://cloud.google.com/blog, https://cloud.google.com/blog/feeds/all.xml
+Azure, https://azure.microsoft.com/blog, https://azure.microsoft.com/en-us/blog/feed/
+DigitalOcean, https://www.digitalocean.com/blog, https://www.digitalocean.com/blog/rss
+Heroku, https://blog.heroku.com, https://blog.heroku.com/feed
+Vercel, https://vercel.com/blog, https://vercel.com/feed.xml
+Netlify, https://www.netlify.com/blog, https://www.netlify.com/blog/index.xml
+Render, https://render.com/blog, https://render.com/blog/rss.xml
+Railway, https://blog.railway.com, https://blog.railway.com/rss
+
+PlanetScale, https://planetscale.com/blog, https://planetscale.com/blog/rss.xml
+CockroachDB, https://www.cockroachlabs.com/blog, https://www.cockroachlabs.com/blog/rss.xml
+Neon, https://neon.tech/blog, https://neon.tech/blog/rss.xml
+Supabase, https://supabase.com/blog, https://supabase.com/feed.xml
+ClickHouse, https://clickhouse.com/blog, https://clickhouse.com/blog/rss.xml
+Redis, https://redis.com/blog, https://redis.com/blog/feed/
+MongoDB, https://www.mongodb.com/blog, https://www.mongodb.com/feed.xml
+
+GitHub, https://github.blog, https://github.blog/feed/
+GitLab, https://about.gitlab.com/blog, https://about.gitlab.com/atom.xml
+CircleCI, https://circleci.com/blog, https://circleci.com/blog/feed.xml
+Travis CI, https://blog.travis-ci.com, https://blog.travis-ci.com/feed
+Jenkins, https://www.jenkins.io/blog, https://www.jenkins.io/blog/feed.xml
+HashiCorp, https://www.hashicorp.com/blog, https://www.hashicorp.com/blog/feed.xml
+
+Postman, https://blog.postman.com, https://blog.postman.com/feed/
+Sentry, https://blog.sentry.io, https://blog.sentry.io/feed/
+New Relic, https://newrelic.com/blog, https://newrelic.com/blog/feed
+Datadog, https://www.datadoghq.com/blog, https://www.datadoghq.com/blog/feed/
+Linear, https://linear.app/blog, https://linear.app/blog/rss.xml
+Figma, https://www.figma.com/blog, https://www.figma.com/blog/feed.xml
+Canva, https://www.canva.com/newsroom/engineering, https://www.canva.com/newsroom/engineering/feed/
+
+Railway, https://blog.railway.com, https://blog.railway.com/rss
+Replit, https://blog.replit.com, https://blog.replit.com/feed
+TigerBeetle, https://tigerbeetle.com/blog, https://tigerbeetle.com/blog/rss.xml
+Spacelift, https://spacelift.io/blog, https://spacelift.io/blog/rss.xml
+Incus, https://incus.dev/blog, None
+Zed, https://zed.dev/blog, https://zed.dev/blog/rss.xml
+Warp, https://www.warp.dev/blog, https://www.warp.dev/blog/feed.xml
+PostHog, https://posthog.com/blog, https://posthog.com/rss.xml
+Temporal, https://temporal.io/blog, https://temporal.io/blog/feed.xml
+Dagster, https://dagster.io/blog, https://dagster.io/blog/rss.xml
+Prefect, https://www.prefect.io/blog, None
+Convex, https://stack.convex.dev, None
+
+Cloudflare, https://blog.cloudflare.com, https://blog.cloudflare.com/rss
+Snyk, https://snyk.io/blog, https://snyk.io/blog/feed/
+Grafana, https://grafana.com/blog, https://grafana.com/blog/feed/
+PagerDuty, https://www.pagerduty.com/blog, https://www.pagerduty.com/blog/feed/
