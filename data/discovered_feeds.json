@@ -1,0 +1,92 @@
+{
+  "reddit_blogs": [
+    "about.gitlab.com",
+    "denodell.com",
+    "incident.io",
+    "moq.dev",
+    "socket.dev"
+  ],
+  "company_blogs": [
+    {
+      "name": "tailscale.com",
+      "url": "https://tailscale.com/blog/"
+    },
+    {
+      "name": "fly.io",
+      "url": "https://fly.io/blog/"
+    },
+    {
+      "name": "temporal.io",
+      "url": "https://temporal.io/blog"
+    },
+    {
+      "name": "supabase.com",
+      "url": "https://supabase.com/blog"
+    },
+    {
+      "name": "posthog.com",
+      "url": "https://posthog.com/blog"
+    },
+    {
+      "name": "dagster.io",
+      "url": "https://dagster.io/blog"
+    },
+    {
+      "name": "prefect.io",
+      "url": "https://prefect.io/blog"
+    },
+    {
+      "name": "neon.tech",
+      "url": "https://neon.tech/blog"
+    },
+    {
+      "name": "convex.dev",
+      "url": "https://convex.dev/blog"
+    },
+    {
+      "name": "warp.dev",
+      "url": "https://warp.dev/blog"
+    },
+    {
+      "name": "pulumi.com",
+      "url": "https://pulumi.com/blog"
+    },
+    {
+      "name": "dagger.io",
+      "url": "https://dagger.io/blog"
+    },
+    {
+      "name": "netflixtechblog.com",
+      "url": "https://netflixtechblog.com/"
+    },
+    {
+      "name": "engineering.stripe.com",
+      "url": "https://engineering.stripe.com/"
+    },
+    {
+      "name": "blog.cloudflare.com",
+      "url": "https://blog.cloudflare.com/"
+    },
+    {
+      "name": "engineering.fb.com",
+      "url": "https://engineering.fb.com/"
+    },
+    {
+      "name": "eng.uber.com",
+      "url": "https://eng.uber.com/"
+    },
+    {
+      "name": "developers.googleblog.com",
+      "url": "https://developers.googleblog.com/"
+    },
+    {
+      "name": "engineering.linkedin.com",
+      "url": "https://engineering.linkedin.com/blog"
+    },
+    {
+      "name": "medium.engineering",
+      "url": "https://medium.engineering/"
+    }
+  ],
+  "timestamp": "2026-05-18T14:41:55.736756"
+}

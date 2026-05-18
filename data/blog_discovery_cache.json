@@ -1,0 +1,41 @@
+{
+  "https://tailscale.com/blog": {
+    "rss_url": "https://tailscale.com/blog/index.xml"
+  },
+  "https://fly.io/blog": {
+    "rss_url": "https://fly.io/blog/feed.xml"
+  },
+  "https://supabase.com/blog": {
+    "rss_url": "https://supabase.com/feed.xml"
+  },
+  "https://posthog.com/blog": {
+    "rss_url": "https://posthog.com/rss.xml"
+  },
+  "https://temporal.io/blog": {
+    "rss_url": "https://temporal.io/blog/feed.xml"
+  },
+  "https://dagster.io/blog": {
+    "rss_url": "https://dagster.io/blog/rss.xml"
+  },
+  "https://www.prefect.io/blog": {
+    "html_selector": "default"
+  },
+  "https://neon.tech/blog": {
+    "rss_url": "https://neon.tech/blog/rss.xml"
+  },
+  "https://stack.convex.dev": {
+    "html_selector": "default"
+  },
+  "https://www.warp.dev/blog": {
+    "rss_url": "https://www.warp.dev/blog/feed.xml"
+  },
+  "https://www.pulumi.com/blog": {
+    "rss_url": "https://www.pulumi.com/blog/rss.xml"
+  },
+  "https://stripe.com/blog": {
+    "html_selector": "default"
+  },
+  "https://blog.cloudflare.com": {
+    "rss_url": "https://blog.cloudflare.com/rss"
+  }
+}
