@@ -9,5 +9,7 @@ def load_cache():
     return {}
 
 def save_cache(cache):
+    # Ensure data directory exists
+    os.makedirs(os.path.dirname(CACHE_FILE), exist_ok=True)
     with open(CACHE_FILE, 'w') as f:
         json.dump(cache, f, indent=2)

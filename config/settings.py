@@ -3,11 +3,14 @@ import os
 # Paths
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(BASE_DIR, "data")
+CONFIG_DIR = os.path.join(BASE_DIR, "config")
+BLOGS_CSV = os.path.join(CONFIG_DIR, "blogs.csv")
 CACHE_FILE = os.path.join(DATA_DIR, "blog_discovery_cache.json")
 DB_FILE = os.path.join(DATA_DIR, "blog_scout.db")
 
-# Ensure data directory exists
+# Ensure directories exist
 os.makedirs(DATA_DIR, exist_ok=True)
+os.makedirs(CONFIG_DIR, exist_ok=True)
 
 # Fetch settings
 REQUEST_TIMEOUT = 20
