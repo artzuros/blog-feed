@@ -9,26 +9,31 @@ def init_db():
             url TEXT PRIMARY KEY,
             title TEXT,
             blog_name TEXT,
-            score REAL,                -- heuristic score
-            llm_score REAL,            -- LLM score (0-1)
-            combined_score REAL,       -- weighted combination
+            score REAL,
+            llm_score REAL,
+            combined_score REAL,
             reason TEXT,
-            keywords TEXT,             -- comma-separated
+            keywords TEXT,
+            source TEXT DEFAULT 'rss',  -- 'rss', 'reddit', 'manual'
+            reddit_suggestion_id TEXT,  -- reference to reddit_suggestions.json
+            added_by TEXT,               -- 'automated', 'manual_review'
             fetched_at TIMESTAMP
         )
     """)
-    conn.execute("CREATE INDEX IF NOT EXISTS idx_blog_name ON articles(blog_name)")
-    conn.execute("CREATE INDEX IF NOT EXISTS idx_combined_score ON articles(combined_score)")
-    conn.execute("CREATE INDEX IF NOT EXISTS idx_fetched_at ON articles(fetched_at)")
+    conn.execute("CREATE INDEX IF NOT EXISTS idx_source ON articles(source)")
+    conn.execute("CREATE INDEX IF NOT EXISTS idx_added_by ON articles(added_by)")
     conn.close()
 
-def save_article(url, title, blog_name, score, llm_score, combined_score, reason, keywords):
+def save_article(url, title, blog_name, score, llm_score, combined_score, reason, keywords, 
+                 source='rss', reddit_suggestion_id=None, added_by='automated'):
     conn = sqlite3.connect(DB_FILE)
     conn.execute("""
         INSERT OR REPLACE INTO articles 
-        (url, title, blog_name, score, llm_score, combined_score, reason, keywords, fetched_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    """, (url, title, blog_name, score, llm_score, combined_score, reason, keywords, datetime.now()))
+        (url, title, blog_name, score, llm_score, combined_score, reason, keywords, 
+         source, reddit_suggestion_id, added_by, fetched_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, (url, title, blog_name, score, llm_score, combined_score, reason, keywords,
+          source, reddit_suggestion_id, added_by, datetime.now()))
     conn.commit()
     conn.close()
 

@@ -45,20 +45,34 @@ TRACKING_FILE = "data/reddit_tracked_urls.json"
 # ----------------------------------------------------------------------
 def load_tracked_urls():
     if os.path.exists(TRACKING_FILE):
-        with open(TRACKING_FILE, 'r') as f:
-            return json.load(f)
+        try:
+            with open(TRACKING_FILE, 'r') as f:
+                content = f.read().strip()
+                if content:
+                    return json.loads(content)
+                else:
+                    return {}
+        except (json.JSONDecodeError, FileNotFoundError):
+            return {}
     return {}
+
+def load_suggestions():
+    if os.path.exists(SUGGESTIONS_FILE):
+        try:
+            with open(SUGGESTIONS_FILE, 'r') as f:
+                content = f.read().strip()
+                if content:
+                    return json.loads(content)
+                else:
+                    return []
+        except (json.JSONDecodeError, FileNotFoundError):
+            return []
+    return []
 
 def save_tracked_urls(tracked):
     os.makedirs(os.path.dirname(TRACKING_FILE), exist_ok=True)
     with open(TRACKING_FILE, 'w') as f:
         json.dump(tracked, f, indent=2)
-
-def load_suggestions():
-    if os.path.exists(SUGGESTIONS_FILE):
-        with open(SUGGESTIONS_FILE, 'r') as f:
-            return json.load(f)
-    return []
 
 def save_suggestions(suggestions):
     os.makedirs(os.path.dirname(SUGGESTIONS_FILE), exist_ok=True)
