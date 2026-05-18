@@ -1,0 +1,16 @@
+name,url,rss
+Tailscale,https://tailscale.com/blog,https://tailscale.com/blog/index.xml
+Fly.io,https://fly.io/blog,https://fly.io/blog/feed.xml
+Supabase,https://supabase.com/blog,https://supabase.com/feed.xml
+PostHog,https://posthog.com/blog,https://posthog.com/rss.xml
+Temporal,https://temporal.io/blog,https://temporal.io/blog/feed.xml
+Dagster,https://dagster.io/blog,https://dagster.io/blog/rss.xml
+Prefect,https://www.prefect.io/blog,
+Neon,https://neon.tech/blog,https://neon.tech/blog/rss.xml
+Convex,https://stack.convex.dev,
+Warp,https://www.warp.dev/blog,https://www.warp.dev/blog/feed.xml
+Pulumi,https://www.pulumi.com/blog,https://www.pulumi.com/blog/rss.xml
+Stripe,https://stripe.com/blog,
+Cloudflare,https://blog.cloudflare.com,https://blog.cloudflare.com/rss
+Netflix,https://netflixtechblog.com,https://netflixtechblog.com/feed
+Spotify,https://engineering.atspotify.com,
