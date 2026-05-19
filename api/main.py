@@ -1,17 +1,23 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
+
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
+
 from prometheus_fastapi_instrumentator import Instrumentator
 import os
 from datetime import datetime
+
 from api.routes import search, suggestions, blogs, admin, llm
 from api.dependencies import get_db
 from api.auth import verify_admin_key
 from api.logger import root_logger, api_logger, reconfigure_logging
 from config.settings import RATE_LIMIT_REQUESTS, RATE_LIMIT_PERIOD, LOG_LEVEL, LOG_FILE
+from sentence_transformers import SentenceTransformer
+import chromadb
+from core.embeddings import init_embeddings
 
 # Reconfigure logging with actual settings
 reconfigure_logging(LOG_LEVEL, LOG_FILE)
@@ -60,6 +66,13 @@ async def log_requests(request: Request, call_next):
 @app.on_event("startup")
 async def startup_event():
     api_logger.info("Blog Feed API starting up")
+    # Initialize embedding system
+    try:
+        init_embeddings()
+        api_logger.info("Embedding system initialized successfully")
+    except Exception as e:
+        api_logger.error(f"Failed to initialize embedding system: {e}", exc_info=True)
+    
     # Verify database exists
     if not os.path.exists("data/blog_scout.db"):
         api_logger.warning("Database file not found, will be created on first request")
@@ -80,6 +93,14 @@ api_router.include_router(suggestions.router, tags=["suggestions"])
 api_router.include_router(blogs.router, tags=["blogs"])
 api_router.include_router(admin.router, tags=["admin"])
 api_router.include_router(llm.router, tags=["llm"])
+
+embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
+# Persistent Chroma DB
+chroma_client = chromadb.PersistentClient(path="data/chroma_db")
+article_collection = chroma_client.get_or_create_collection(
+    name="article_keywords",
+    metadata={"hnsw:space": "cosine"}
+)
 
 # ---------- Public endpoints (no auth, but rate limited) ----------
 @api_router.get("/stats")

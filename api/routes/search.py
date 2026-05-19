@@ -206,3 +206,72 @@ async def get_article(request: Request, article_identifier: str):
     result['id'] = result.pop('rowid')
     
     return result
+
+@router.get("/semantic-search")
+@limiter.limit(f"{RATE_LIMIT_REQUESTS}/{RATE_LIMIT_PERIOD} second")
+async def semantic_search_articles(
+    request: Request,
+    q: str = Query(..., min_length=2, description="Search query"),
+    limit: int = Query(20, ge=1, le=100)
+):
+    """
+    Search articles by semantic similarity using embeddings.
+    Compares query meaning against article metadata (title, keywords, source).
+    """
+    api_logger.info(f"Semantic search: query='{q}', limit={limit} from {request.client.host}")
+    
+    from core.embeddings import semantic_search
+    
+    # Get semantic search results
+    article_ids, similarities = semantic_search(q, limit)
+    
+    if not article_ids:
+        api_logger.debug(f"No semantic results for '{q}'")
+        return {
+            "query": q,
+            "count": 0,
+            "articles": [],
+            "search_type": "semantic"
+        }
+    
+    # Fetch full article details from SQLite
+    conn = get_db()
+    if not conn:
+        raise HTTPException(status_code=500, detail="Database not initialized")
+    
+    placeholders = ','.join('?' * len(article_ids))
+    cursor = conn.execute(f"""
+        SELECT url, title, blog_name, score, llm_score, combined_score, 
+               reason, keywords, source, fetched_at 
+        FROM articles 
+        WHERE rowid IN ({placeholders})
+    """, article_ids)
+    
+    results = cursor.fetchall()
+    conn.close()
+    
+    # Map results with similarity scores
+    articles = []
+    for idx, (row, sim) in enumerate(zip(results, similarities)):
+        articles.append({
+            "url": row[0],
+            "title": row[1],
+            "blog_name": row[2],
+            "score": row[3],
+            "llm_score": row[4],
+            "combined_score": row[5],
+            "reason": row[6],
+            "keywords": row[7],
+            "source": row[8],
+            "fetched_at": row[9],
+            "semantic_relevance": round(sim, 4)  # Add similarity score
+        })
+    
+    api_logger.info(f"Semantic search for '{q}' returned {len(articles)} results")
+    
+    return {
+        "query": q,
+        "count": len(articles),
+        "articles": articles,
+        "search_type": "semantic"
+    }

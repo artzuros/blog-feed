@@ -5,7 +5,7 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from config.blogs_loader import load_blogs
-from storage.database import init_db, article_exists, save_article
+from storage.database import init_db, article_exists, save_article, update_article_embedding
 from storage.cache import load_cache, save_cache
 from core.fetcher import fetch_article_text
 from core.rss_reader import get_articles_via_rss

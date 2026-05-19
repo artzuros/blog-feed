@@ -2800,3 +2800,1082 @@ EOFError: EOF when reading a line
 2026-05-19 17:52:18,000 [INFO] blog-feed.api - log_requests:55 - GET /docs - 200 - 0.000s
 2026-05-19 17:52:18,217 [INFO] blog-feed.api - log_requests:55 - GET /openapi.json - 200 - 0.012s
 2026-05-19 17:52:18,217 [INFO] blog-feed.api - log_requests:55 - GET /openapi.json - 200 - 0.012s
+2026-05-19 18:19:55,829 [INFO] blog-feed.api - search_articles:85 - Search: query='perlin noise algorithm', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:19:55,829 [INFO] blog-feed.api - search_articles:85 - Search: query='perlin noise algorithm', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:19:55,829 [INFO] blog-feed.api - search_articles:121 - Search for 'perlin noise algorithm' returned 0 results
+2026-05-19 18:19:55,829 [INFO] blog-feed.api - search_articles:121 - Search for 'perlin noise algorithm' returned 0 results
+2026-05-19 18:19:55,831 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.003s
+2026-05-19 18:19:55,831 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.003s
+2026-05-19 18:19:59,855 [INFO] blog-feed.api - search_articles:85 - Search: query='perlin noise ', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:19:59,855 [INFO] blog-feed.api - search_articles:85 - Search: query='perlin noise ', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:19:59,856 [INFO] blog-feed.api - search_articles:121 - Search for 'perlin noise ' returned 0 results
+2026-05-19 18:19:59,856 [INFO] blog-feed.api - search_articles:121 - Search for 'perlin noise ' returned 0 results
+2026-05-19 18:19:59,856 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:19:59,856 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:02,103 [INFO] blog-feed.api - search_articles:85 - Search: query='perlin noise', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:20:02,103 [INFO] blog-feed.api - search_articles:85 - Search: query='perlin noise', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:20:02,104 [INFO] blog-feed.api - search_articles:121 - Search for 'perlin noise' returned 0 results
+2026-05-19 18:20:02,104 [INFO] blog-feed.api - search_articles:121 - Search for 'perlin noise' returned 0 results
+2026-05-19 18:20:02,104 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:02,104 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:04,530 [INFO] blog-feed.api - search_articles:85 - Search: query='perlin \', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:20:04,530 [INFO] blog-feed.api - search_articles:85 - Search: query='perlin \', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:20:04,531 [INFO] blog-feed.api - search_articles:121 - Search for 'perlin \' returned 0 results
+2026-05-19 18:20:04,531 [INFO] blog-feed.api - search_articles:121 - Search for 'perlin \' returned 0 results
+2026-05-19 18:20:04,531 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:04,531 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:07,675 [INFO] blog-feed.api - search_articles:85 - Search: query='perloin', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:20:07,675 [INFO] blog-feed.api - search_articles:85 - Search: query='perloin', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:20:07,676 [INFO] blog-feed.api - search_articles:121 - Search for 'perloin' returned 0 results
+2026-05-19 18:20:07,676 [INFO] blog-feed.api - search_articles:121 - Search for 'perloin' returned 0 results
+2026-05-19 18:20:07,676 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:07,676 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:16,207 [INFO] blog-feed.api - search_articles:85 - Search: query='perlin noise', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:20:16,207 [INFO] blog-feed.api - search_articles:85 - Search: query='perlin noise', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:20:16,208 [INFO] blog-feed.api - search_articles:121 - Search for 'perlin noise' returned 0 results
+2026-05-19 18:20:16,208 [INFO] blog-feed.api - search_articles:121 - Search for 'perlin noise' returned 0 results
+2026-05-19 18:20:16,208 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:16,208 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:18,585 [INFO] blog-feed.api - search_articles:85 - Search: query='ai', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:20:18,585 [INFO] blog-feed.api - search_articles:85 - Search: query='ai', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:20:18,586 [INFO] blog-feed.api - search_articles:121 - Search for 'ai' returned 24 results
+2026-05-19 18:20:18,586 [INFO] blog-feed.api - search_articles:121 - Search for 'ai' returned 24 results
+2026-05-19 18:20:18,587 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:20:18,587 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:20:19,083 [INFO] blog-feed.api - search_articles:85 - Search: query='ai', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:19,083 [INFO] blog-feed.api - search_articles:85 - Search: query='ai', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:19,084 [INFO] blog-feed.api - search_articles:121 - Search for 'ai' returned 24 results
+2026-05-19 18:20:19,084 [INFO] blog-feed.api - search_articles:121 - Search for 'ai' returned 24 results
+2026-05-19 18:20:19,085 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:20:19,085 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:20:24,842 [INFO] blog-feed.api - search_articles:85 - Search: query='gio', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:24,842 [INFO] blog-feed.api - search_articles:85 - Search: query='gio', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:24,842 [INFO] blog-feed.api - search_articles:121 - Search for 'gio' returned 0 results
+2026-05-19 18:20:24,842 [INFO] blog-feed.api - search_articles:121 - Search for 'gio' returned 0 results
+2026-05-19 18:20:24,843 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:24,843 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:25,817 [INFO] blog-feed.api - search_articles:85 - Search: query='go', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:20:25,817 [INFO] blog-feed.api - search_articles:85 - Search: query='go', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:20:25,818 [INFO] blog-feed.api - search_articles:121 - Search for 'go' returned 1 results
+2026-05-19 18:20:25,818 [INFO] blog-feed.api - search_articles:121 - Search for 'go' returned 1 results
+2026-05-19 18:20:25,818 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:25,818 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:26,508 [INFO] blog-feed.api - search_articles:85 - Search: query='go', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:26,508 [INFO] blog-feed.api - search_articles:85 - Search: query='go', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:26,509 [INFO] blog-feed.api - search_articles:121 - Search for 'go' returned 1 results
+2026-05-19 18:20:26,509 [INFO] blog-feed.api - search_articles:121 - Search for 'go' returned 1 results
+2026-05-19 18:20:26,509 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:26,509 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:30,237 [INFO] blog-feed.api - search_articles:85 - Search: query='cursor', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:20:30,237 [INFO] blog-feed.api - search_articles:85 - Search: query='cursor', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:20:30,237 [INFO] blog-feed.api - search_articles:121 - Search for 'cursor' returned 0 results
+2026-05-19 18:20:30,237 [INFO] blog-feed.api - search_articles:121 - Search for 'cursor' returned 0 results
+2026-05-19 18:20:30,237 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:30,237 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:32,805 [INFO] blog-feed.api - search_articles:85 - Search: query='micro', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:32,805 [INFO] blog-feed.api - search_articles:85 - Search: query='micro', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:32,806 [INFO] blog-feed.api - search_articles:121 - Search for 'micro' returned 0 results
+2026-05-19 18:20:32,806 [INFO] blog-feed.api - search_articles:121 - Search for 'micro' returned 0 results
+2026-05-19 18:20:32,806 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:32,806 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:34,686 [INFO] blog-feed.api - search_articles:85 - Search: query='node', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:34,686 [INFO] blog-feed.api - search_articles:85 - Search: query='node', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:34,687 [INFO] blog-feed.api - search_articles:121 - Search for 'node' returned 1 results
+2026-05-19 18:20:34,687 [INFO] blog-feed.api - search_articles:121 - Search for 'node' returned 1 results
+2026-05-19 18:20:34,687 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:20:34,687 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:20:36,576 [INFO] blog-feed.api - search_articles:85 - Search: query='node', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:36,576 [INFO] blog-feed.api - search_articles:85 - Search: query='node', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:36,577 [INFO] blog-feed.api - search_articles:121 - Search for 'node' returned 1 results
+2026-05-19 18:20:36,577 [INFO] blog-feed.api - search_articles:121 - Search for 'node' returned 1 results
+2026-05-19 18:20:36,577 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:36,577 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:37,125 [INFO] blog-feed.api - search_articles:85 - Search: query='node', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:37,125 [INFO] blog-feed.api - search_articles:85 - Search: query='node', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:37,126 [INFO] blog-feed.api - search_articles:121 - Search for 'node' returned 1 results
+2026-05-19 18:20:37,126 [INFO] blog-feed.api - search_articles:121 - Search for 'node' returned 1 results
+2026-05-19 18:20:37,126 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:37,126 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:37,188 [INFO] blog-feed.api - search_articles:85 - Search: query='node', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:37,188 [INFO] blog-feed.api - search_articles:85 - Search: query='node', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:37,189 [INFO] blog-feed.api - search_articles:121 - Search for 'node' returned 1 results
+2026-05-19 18:20:37,189 [INFO] blog-feed.api - search_articles:121 - Search for 'node' returned 1 results
+2026-05-19 18:20:37,189 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:37,189 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:37,251 [INFO] blog-feed.api - search_articles:85 - Search: query='node', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:37,251 [INFO] blog-feed.api - search_articles:85 - Search: query='node', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:37,251 [INFO] blog-feed.api - search_articles:121 - Search for 'node' returned 1 results
+2026-05-19 18:20:37,251 [INFO] blog-feed.api - search_articles:121 - Search for 'node' returned 1 results
+2026-05-19 18:20:37,252 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:37,252 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:39,267 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:39,267 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:39,268 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:39,268 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:39,268 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:20:39,268 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:20:40,165 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:40,165 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:40,165 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:40,165 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:40,166 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:20:40,166 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:20:40,409 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:40,409 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:40,409 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:40,409 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:40,410 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:40,410 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:40,547 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:40,547 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:40,547 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:40,547 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:40,547 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:40,547 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:40,680 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:40,680 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:40,681 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:40,681 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:40,681 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:40,681 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:40,815 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:40,815 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:40,816 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:40,816 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:40,816 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:40,816 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:40,948 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:40,948 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:40,949 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:40,949 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:40,949 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:20:40,949 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:20:41,076 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:41,076 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:41,076 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:41,076 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:41,077 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:41,077 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:41,195 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:41,195 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:41,195 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:41,195 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:41,196 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:41,196 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:41,349 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:41,349 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:41,349 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:41,349 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:41,350 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:41,350 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:41,594 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:41,594 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:20:41,594 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:41,594 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:20:41,595 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:41,595 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:41,746 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:41,746 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:41,882 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:41,882 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:42,031 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:42,031 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:42,220 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:42,220 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:42,358 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:42,358 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:42,452 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:42,452 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:42,581 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:42,581 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:42,725 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:42,725 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:42,863 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:42,863 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:43,018 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:43,018 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:43,116 [INFO] blog-feed.api - search_articles:85 - Search: query='angular cli ', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:20:43,116 [INFO] blog-feed.api - search_articles:85 - Search: query='angular cli ', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:20:43,116 [INFO] blog-feed.api - search_articles:121 - Search for 'angular cli ' returned 0 results
+2026-05-19 18:20:43,116 [INFO] blog-feed.api - search_articles:121 - Search for 'angular cli ' returned 0 results
+2026-05-19 18:20:43,117 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:43,117 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:44,897 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:44,897 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:45,047 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:45,047 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:45,192 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:45,192 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:45,361 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:45,361 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:45,512 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:45,512 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:45,669 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:45,669 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:45,883 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:45,883 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:45,998 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:45,998 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:46,169 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:46,169 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:46,337 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:46,337 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:46,448 [INFO] blog-feed.api - search_articles:85 - Search: query='ANGULAR ', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:20:46,448 [INFO] blog-feed.api - search_articles:85 - Search: query='ANGULAR ', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:20:46,449 [INFO] blog-feed.api - search_articles:121 - Search for 'ANGULAR ' returned 0 results
+2026-05-19 18:20:46,449 [INFO] blog-feed.api - search_articles:121 - Search for 'ANGULAR ' returned 0 results
+2026-05-19 18:20:46,449 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:20:46,449 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:20:46,510 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:46,510 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:46,670 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:46,670 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:50,558 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:50,558 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:50,728 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:50,728 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:50,868 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:50,868 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:51,015 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:51,015 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:51,174 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:51,174 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:51,323 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:51,323 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:20:58,927 [INFO] blog-feed.api - search_articles:85 - Search: query='back propagation alogrithm ', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:20:58,927 [INFO] blog-feed.api - search_articles:85 - Search: query='back propagation alogrithm ', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:20:58,927 [INFO] blog-feed.api - search_articles:121 - Search for 'back propagation alogrithm ' returned 0 results
+2026-05-19 18:20:58,927 [INFO] blog-feed.api - search_articles:121 - Search for 'back propagation alogrithm ' returned 0 results
+2026-05-19 18:20:58,928 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:20:58,928 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:08,423 [INFO] blog-feed.api - search_articles:85 - Search: query='grid array compiller', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:21:08,423 [INFO] blog-feed.api - search_articles:85 - Search: query='grid array compiller', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:21:08,423 [INFO] blog-feed.api - search_articles:121 - Search for 'grid array compiller' returned 0 results
+2026-05-19 18:21:08,423 [INFO] blog-feed.api - search_articles:121 - Search for 'grid array compiller' returned 0 results
+2026-05-19 18:21:08,424 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:08,424 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:09,772 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:09,772 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:12,154 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:12,154 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:12,341 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:12,341 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:12,462 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:12,462 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:12,578 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:12,578 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:12,794 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:12,794 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:17,339 [INFO] blog-feed.api - search_articles:85 - Search: query='grid array compiler', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:21:17,339 [INFO] blog-feed.api - search_articles:85 - Search: query='grid array compiler', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:21:17,340 [INFO] blog-feed.api - search_articles:121 - Search for 'grid array compiler' returned 0 results
+2026-05-19 18:21:17,340 [INFO] blog-feed.api - search_articles:121 - Search for 'grid array compiler' returned 0 results
+2026-05-19 18:21:17,340 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:17,340 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:20,099 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:20,099 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:20,100 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:20,100 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:20,100 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:21:20,100 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:21:24,066 [INFO] blog-feed.api - search_articles:85 - Search: query='grid compiler', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:21:24,066 [INFO] blog-feed.api - search_articles:85 - Search: query='grid compiler', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:21:24,067 [INFO] blog-feed.api - search_articles:121 - Search for 'grid compiler' returned 0 results
+2026-05-19 18:21:24,067 [INFO] blog-feed.api - search_articles:121 - Search for 'grid compiler' returned 0 results
+2026-05-19 18:21:24,067 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:24,067 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:27,455 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:27,455 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:27,456 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:27,456 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:27,456 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:21:27,456 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:21:41,027 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:41,027 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:41,028 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:41,028 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:41,028 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:21:41,028 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:21:41,164 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:41,164 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:41,165 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:41,165 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:41,165 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:41,165 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:41,307 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:41,307 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:41,307 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:41,307 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:41,308 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:41,308 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:41,452 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:41,452 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:41,453 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:41,453 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:41,453 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:41,453 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:41,593 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:41,593 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:41,594 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:41,594 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:41,594 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:41,594 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:41,743 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:41,743 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:41,743 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:41,743 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:41,744 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:21:41,744 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:21:41,897 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:41,897 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:41,898 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:41,898 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:41,899 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:21:41,899 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:21:42,028 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:42,028 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:42,029 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:42,029 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:42,029 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:42,029 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:42,165 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:42,165 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:42,166 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:42,166 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:42,166 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:42,166 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:42,298 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:42,298 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:42,298 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:42,298 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:42,299 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:42,299 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:42,430 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:42,430 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:42,431 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:42,431 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:42,431 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:42,431 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:42,556 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:42,556 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:42,557 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:42,557 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:42,557 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:42,557 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:42,696 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:42,696 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:42,697 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:42,697 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:42,697 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:42,697 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:42,846 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:42,846 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:42,846 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:42,846 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:42,847 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:42,847 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:43,001 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:43,001 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:43,001 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:43,001 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:43,002 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:21:43,002 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:21:43,154 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:43,154 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:43,155 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:43,155 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:43,155 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:21:43,155 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:21:43,308 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:43,308 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:43,309 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:43,309 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:43,309 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:43,309 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:21:43,461 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:43,461 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:21:43,462 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:43,462 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:21:43,462 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:21:43,462 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:21:43,654 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:43,654 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:43,768 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:43,768 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:43,921 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:43,921 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:44,076 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:44,076 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:44,230 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:44,230 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:44,385 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:44,385 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:44,538 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:44,538 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:44,713 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:44,713 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:44,879 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:44,879 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:45,045 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:45,045 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:45,203 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:45,203 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:45,369 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:45,369 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:45,570 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:45,570 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:45,683 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:45,683 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:45,835 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:45,835 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:46,001 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:46,001 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:46,160 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:46,160 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:46,307 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:46,307 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:46,454 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:46,454 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:46,617 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:46,617 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:46,778 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:46,778 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:46,976 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:46,976 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:47,083 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:47,083 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:47,254 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:47,254 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:47,429 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:47,429 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:47,561 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:47,561 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:47,715 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:47,715 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:47,868 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:47,868 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:48,059 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:48,059 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:48,201 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:48,201 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:48,350 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:48,350 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:48,506 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:48,506 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:48,665 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:48,665 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:48,822 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:48,822 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:48,990 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:48,990 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:49,158 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:49,158 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:49,320 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:49,320 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:49,473 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:49,473 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:49,637 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:49,637 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:49,912 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:49,912 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:50,122 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:50,122 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:50,275 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:50,275 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:50,440 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:50,440 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:50,598 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:50,598 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:50,808 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:50,808 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:50,937 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:50,937 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:51,095 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:51,095 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:51,268 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:51,268 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:51,442 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:51,442 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:51,609 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:51,609 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:51,777 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:51,777 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:51,937 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:51,937 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:52,107 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:52,107 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:52,273 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:52,273 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:52,475 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:52,475 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:52,598 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:52,598 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:52,759 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:52,759 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:52,941 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:52,941 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:53,118 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:53,118 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:53,272 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:53,272 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:53,427 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:53,427 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:53,609 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:53,609 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:53,779 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:53,779 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:53,938 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:53,938 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:54,102 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:54,102 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:54,261 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:54,261 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:54,427 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:54,427 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:54,624 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:54,624 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:54,758 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:54,758 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:54,979 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:54,979 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:55,134 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:55,134 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:55,303 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:55,303 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:55,475 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:55,475 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:55,641 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:55,641 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:55,814 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:55,814 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:55,974 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:55,974 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:56,144 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:56,144 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:56,247 [INFO] blog-feed.api - search_articles:85 - Search: query='scrub interpreter', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:21:56,247 [INFO] blog-feed.api - search_articles:85 - Search: query='scrub interpreter', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:21:56,248 [INFO] blog-feed.api - search_articles:121 - Search for 'scrub interpreter' returned 0 results
+2026-05-19 18:21:56,248 [INFO] blog-feed.api - search_articles:121 - Search for 'scrub interpreter' returned 0 results
+2026-05-19 18:21:56,248 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:21:56,248 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:21:56,296 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:56,296 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:56,466 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:56,466 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:56,624 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:56,624 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:56,789 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:21:56,789 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:22:00,072 [INFO] blog-feed.api - search_articles:85 - Search: query='interpretor', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:22:00,072 [INFO] blog-feed.api - search_articles:85 - Search: query='interpretor', limit=50, min_score=0.0, source=None from 2a00:23c8:6ab:8601:7585:ac3e:4e37:5a62
+2026-05-19 18:22:00,072 [INFO] blog-feed.api - search_articles:121 - Search for 'interpretor' returned 0 results
+2026-05-19 18:22:00,072 [INFO] blog-feed.api - search_articles:121 - Search for 'interpretor' returned 0 results
+2026-05-19 18:22:00,073 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:22:00,073 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:23:17,943 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:23:17,943 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:23:17,944 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:23:17,944 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:23:17,944 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:23:17,944 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:23:18,128 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:23:18,128 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:23:18,128 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:23:18,128 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:23:18,129 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:23:18,129 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:23:18,272 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:23:18,272 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:23:18,273 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:23:18,273 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:23:18,273 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:23:18,273 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:23:18,418 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:23:18,418 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:23:18,419 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:23:18,419 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:23:18,419 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:23:18,419 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:23:18,561 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:23:18,561 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:23:18,561 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:23:18,561 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:23:18,562 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:23:18,562 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:23:18,711 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:23:18,711 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:23:18,712 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:23:18,712 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:23:18,712 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:23:18,712 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:10,868 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:10,868 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:10,869 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:10,869 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:10,872 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.004s
+2026-05-19 18:24:10,872 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.004s
+2026-05-19 18:24:11,017 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:11,017 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:11,018 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:11,018 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:11,018 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:11,018 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:11,086 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:11,086 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:11,086 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:11,086 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:11,087 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:11,087 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:11,226 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:11,226 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:11,227 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:11,227 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:11,227 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:11,227 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:11,364 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:11,364 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:11,364 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:11,364 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:11,365 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:11,365 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:11,512 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:11,512 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:11,513 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:11,513 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:11,513 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:11,513 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:11,664 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:11,664 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:11,665 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:11,665 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:11,665 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:11,665 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:11,809 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:11,809 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:11,810 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:11,810 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:11,810 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:11,810 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:11,957 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:11,957 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:11,958 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:11,958 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:11,958 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:11,958 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:12,100 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:12,100 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:12,101 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:12,101 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:12,101 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:12,101 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:12,254 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:12,254 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:12,254 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:12,254 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:12,255 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:12,255 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:12,429 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:12,429 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:12,429 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:12,429 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:12,430 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:12,430 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:12,563 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:12,563 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:12,563 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:12,563 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:12,563 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:12,563 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:12,735 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:12,735 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:24:12,735 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:12,735 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:24:12,736 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:12,736 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:24:12,884 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:24:12,884 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:24:13,028 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:24:13,028 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:24:13,184 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:24:13,184 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:24:13,331 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:24:13,331 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:24:13,475 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:24:13,475 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:29,048 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:29,048 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:29,049 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:29,049 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:29,049 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:25:29,049 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:25:29,237 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:29,237 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:29,238 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:29,238 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:29,238 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:29,238 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:29,384 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:29,384 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:29,385 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:29,385 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:29,385 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:29,385 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:29,522 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:29,522 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:29,523 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:29,523 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:29,523 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:29,523 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:29,660 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:29,660 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:29,660 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:29,660 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:29,661 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:29,661 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:29,796 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:29,796 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:29,796 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:29,796 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:29,797 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:29,797 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:29,932 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:29,932 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:29,933 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:29,933 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:29,933 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:29,933 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:30,075 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:30,075 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:30,076 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:30,076 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:30,076 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:25:30,076 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:25:30,215 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:30,215 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:30,216 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:30,216 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:30,216 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:30,216 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:30,363 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:30,363 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:30,363 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:30,363 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:30,364 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:30,364 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:30,503 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:30,503 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:30,504 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:30,504 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:30,504 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:30,504 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:30,655 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:30,655 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:30,656 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:30,656 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:30,656 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:30,656 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:30,809 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:30,809 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:30,809 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:30,809 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:30,809 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:30,809 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:30,965 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:30,965 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:30,966 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:30,966 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:30,966 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:30,966 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:31,108 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:31,108 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:31,109 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:31,109 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:31,109 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:31,109 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:31,233 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:31,233 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:31,233 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:31,233 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:31,233 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:31,233 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:31,386 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:31,386 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:31,386 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:31,386 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:31,386 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:31,386 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:33,193 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:33,193 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:33,193 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:33,193 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:33,194 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:25:33,194 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:25:33,331 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:33,331 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:33,332 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:33,332 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:33,332 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:33,332 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:33,486 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:33,486 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:25:33,486 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:33,486 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:25:33,487 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:33,487 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:25:33,622 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:33,622 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:33,773 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:33,773 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:33,898 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:33,898 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:34,032 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:34,032 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:34,167 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:34,167 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:34,300 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:34,300 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:34,438 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:34,438 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:34,566 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:34,566 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:34,715 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:34,715 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:34,867 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:34,867 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:35,007 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:35,007 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:35,147 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:35,147 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:35,299 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:35,299 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:35,438 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:35,438 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:35,591 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:35,591 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:35,732 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:35,732 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:35,877 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:35,877 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:42,740 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:42,740 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:42,875 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:42,875 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:43,011 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:43,011 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:43,139 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:43,139 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:43,269 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:43,269 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:43,394 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:43,394 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:43,514 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:43,514 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:43,645 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:43,645 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:43,763 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:43,763 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:43,905 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:43,905 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:44,027 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:44,027 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:44,158 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:44,158 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:44,295 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:44,295 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:44,421 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:44,421 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:44,542 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:25:44,542 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:26:37,770 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:37,770 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:37,770 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:37,770 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:37,771 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:26:37,771 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:26:37,910 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:37,910 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:37,911 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:37,911 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:37,911 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:37,911 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:38,064 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:38,064 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:38,064 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:38,064 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:38,065 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:26:38,065 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:26:38,200 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:38,200 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:38,201 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:38,201 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:38,201 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:38,201 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:38,356 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:38,356 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:38,357 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:38,357 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:38,357 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:38,357 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:38,509 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:38,509 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:38,509 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:38,509 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:38,510 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:38,510 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:38,661 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:38,661 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:38,662 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:38,662 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:38,662 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:38,662 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:38,801 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:38,801 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:38,802 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:38,802 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:38,802 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:38,802 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:38,938 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:38,938 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:38,939 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:38,939 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:38,939 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:38,939 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:39,087 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:39,087 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:39,088 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:39,088 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:39,088 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:39,088 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:39,232 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:39,232 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:39,233 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:39,233 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:39,233 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:39,233 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:39,400 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:39,400 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:39,401 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:39,401 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:39,401 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:39,401 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:39,572 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:39,572 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:39,573 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:39,573 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:39,573 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:26:39,573 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:26:39,737 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:39,737 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:39,738 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:39,738 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:39,738 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:39,738 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:39,926 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:39,926 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:39,927 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:39,927 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:39,927 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:39,927 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:40,089 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:40,089 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:40,090 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:40,090 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:40,090 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:26:40,090 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 18:26:40,258 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:40,258 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:40,259 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:40,259 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:40,259 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:40,259 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:40,431 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:40,431 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:40,431 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:40,431 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:40,432 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:40,432 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:40,602 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:40,602 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:40,602 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:40,602 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:40,603 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:40,603 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:40,778 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:40,778 [INFO] blog-feed.api - search_articles:85 - Search: query='git', limit=50, min_score=0.0, source=None from 2406:7400:56:2109:2120:45b3:1073:1967
+2026-05-19 18:26:40,778 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:40,778 [INFO] blog-feed.api - search_articles:121 - Search for 'git' returned 3 results
+2026-05-19 18:26:40,778 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:40,778 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.001s
+2026-05-19 18:26:40,952 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:26:40,952 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:26:41,133 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:26:41,133 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:26:41,309 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:26:41,309 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:26:41,497 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:26:41,497 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:26:41,672 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 18:26:41,672 [WARNING] blog-feed.api - log_requests:53 - GET /api/search - 429 - 0.001s
+2026-05-19 22:03:30,112 [INFO] blog-feed.api - search_articles:85 - Search: query='cook', limit=50, min_score=0.0, source=None from 2a09:bac1:3680:5d68::2a8:71
+2026-05-19 22:03:30,112 [INFO] blog-feed.api - search_articles:85 - Search: query='cook', limit=50, min_score=0.0, source=None from 2a09:bac1:3680:5d68::2a8:71
+2026-05-19 22:03:30,118 [INFO] blog-feed.api - search_articles:121 - Search for 'cook' returned 0 results
+2026-05-19 22:03:30,118 [INFO] blog-feed.api - search_articles:121 - Search for 'cook' returned 0 results
+2026-05-19 22:03:30,118 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.007s
+2026-05-19 22:03:30,118 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.007s
+2026-05-19 22:03:35,030 [INFO] blog-feed.api - search_articles:85 - Search: query='postgres', limit=50, min_score=0.0, source=None from 2a09:bac1:36a0:5d68::2a8:71
+2026-05-19 22:03:35,030 [INFO] blog-feed.api - search_articles:85 - Search: query='postgres', limit=50, min_score=0.0, source=None from 2a09:bac1:36a0:5d68::2a8:71
+2026-05-19 22:03:35,030 [INFO] blog-feed.api - search_articles:121 - Search for 'postgres' returned 4 results
+2026-05-19 22:03:35,030 [INFO] blog-feed.api - search_articles:121 - Search for 'postgres' returned 4 results
+2026-05-19 22:03:35,031 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 22:03:35,031 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 22:06:11,265 [INFO] blog-feed - backfill_embeddings:13 - Starting embedding backfill...
+2026-05-19 22:06:11,265 [INFO] blog-feed - init_embeddings:17 - Initializing embedding model and vector DB...
+2026-05-19 22:06:22,734 [INFO] blog-feed - init_embeddings:31 - Embedding system initialized
+2026-05-19 22:06:22,735 [INFO] blog-feed - backfill_embeddings:32 - Found 102 articles to process
+2026-05-19 22:06:26,332 [INFO] blog-feed - backfill_embeddings:51 - Processed 100/102 articles
+2026-05-19 22:06:26,407 [INFO] blog-feed - backfill_embeddings:55 - Backfill complete: 102/102 articles embedded
+2026-05-19 22:08:09,502 [WARNING] blog-feed.api - log_requests:53 - GET /api/semantic-search - 404 - 0.000s
+2026-05-19 22:08:09,502 [WARNING] blog-feed.api - log_requests:53 - GET /api/semantic-search - 404 - 0.000s
+2026-05-19 22:08:14,094 [INFO] blog-feed.api - search_articles:85 - Search: query='database', limit=50, min_score=0.0, source=None from 2a09:bac5:3aec:1aaa::2a8:71
+2026-05-19 22:08:14,094 [INFO] blog-feed.api - search_articles:85 - Search: query='database', limit=50, min_score=0.0, source=None from 2a09:bac5:3aec:1aaa::2a8:71
+2026-05-19 22:08:14,095 [INFO] blog-feed.api - search_articles:121 - Search for 'database' returned 7 results
+2026-05-19 22:08:14,095 [INFO] blog-feed.api - search_articles:121 - Search for 'database' returned 7 results
+2026-05-19 22:08:14,095 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 22:08:14,095 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 22:08:26,484 [INFO] blog-feed.api - search_articles:85 - Search: query='postgres', limit=50, min_score=0.0, source=None from 2a09:bac1:36c0:5d68::2a8:71
+2026-05-19 22:08:26,484 [INFO] blog-feed.api - search_articles:85 - Search: query='postgres', limit=50, min_score=0.0, source=None from 2a09:bac1:36c0:5d68::2a8:71
+2026-05-19 22:08:26,484 [INFO] blog-feed.api - search_articles:121 - Search for 'postgres' returned 4 results
+2026-05-19 22:08:26,484 [INFO] blog-feed.api - search_articles:121 - Search for 'postgres' returned 4 results
+2026-05-19 22:08:26,485 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 22:08:26,485 [INFO] blog-feed.api - log_requests:55 - GET /api/search - 200 - 0.002s
+2026-05-19 22:08:30,210 [WARNING] blog-feed.api - log_requests:53 - GET /api/semantic-search - 404 - 0.000s
+2026-05-19 22:08:30,210 [WARNING] blog-feed.api - log_requests:53 - GET /api/semantic-search - 404 - 0.000s
+2026-05-19 22:08:38,864 [WARNING] blog-feed.api - log_requests:53 - GET /api/semantic-search - 404 - 0.000s
+2026-05-19 22:08:38,864 [WARNING] blog-feed.api - log_requests:53 - GET /api/semantic-search - 404 - 0.000s
+2026-05-19 22:09:26,867 [WARNING] blog-feed.api - log_requests:53 - GET /api/semantic-search - 404 - 0.000s
+2026-05-19 22:09:26,867 [WARNING] blog-feed.api - log_requests:53 - GET /api/semantic-search - 404 - 0.000s
+2026-05-19 22:10:12,268 [INFO] blog-feed.api - shutdown_event:71 - Blog Feed API shutting down
+2026-05-19 22:10:12,268 [INFO] blog-feed.api - shutdown_event:71 - Blog Feed API shutting down
+2026-05-19 22:10:18,621 [INFO] blog-feed - reconfigure_logging:64 - Logging reconfigured - Level: INFO, File: logs/api.log
+2026-05-19 22:10:23,829 [WARNING] blog-feed.api - <module>:164 - Frontend directory not found: apps/frontend
+2026-05-19 22:10:23,829 [WARNING] blog-feed.api - <module>:164 - Frontend directory not found: apps/frontend
+2026-05-19 22:10:23,830 [INFO] blog-feed.api - startup_event:68 - Blog Feed API starting up
+2026-05-19 22:10:23,830 [INFO] blog-feed.api - startup_event:68 - Blog Feed API starting up
+2026-05-19 22:10:23,830 [INFO] blog-feed - init_embeddings:17 - Initializing embedding model and vector DB...
+2026-05-19 22:10:28,988 [INFO] blog-feed - init_embeddings:31 - Embedding system initialized
+2026-05-19 22:10:28,988 [INFO] blog-feed.api - startup_event:72 - Embedding system initialized successfully
+2026-05-19 22:10:28,988 [INFO] blog-feed.api - startup_event:72 - Embedding system initialized successfully
+2026-05-19 22:10:28,988 [INFO] blog-feed.api - startup_event:80 - Database found
+2026-05-19 22:10:28,988 [INFO] blog-feed.api - startup_event:80 - Database found
+2026-05-19 22:10:38,372 [INFO] blog-feed.api - semantic_search_articles:221 - Semantic search: query='postgres', limit=50 from 2a09:bac1:36e0:5d68::2a8:71
+2026-05-19 22:10:38,372 [INFO] blog-feed.api - semantic_search_articles:221 - Semantic search: query='postgres', limit=50 from 2a09:bac1:36e0:5d68::2a8:71
+2026-05-19 22:10:38,402 [INFO] blog-feed.api - semantic_search_articles:270 - Semantic search for 'postgres' returned 50 results
+2026-05-19 22:10:38,402 [INFO] blog-feed.api - semantic_search_articles:270 - Semantic search for 'postgres' returned 50 results
+2026-05-19 22:10:38,404 [INFO] blog-feed.api - log_requests:61 - GET /api/semantic-search - 200 - 0.033s
+2026-05-19 22:10:38,404 [INFO] blog-feed.api - log_requests:61 - GET /api/semantic-search - 200 - 0.033s
+2026-05-19 22:12:57,855 [INFO] blog-feed.api - semantic_search_articles:221 - Semantic search: query='postgres', limit=50 from 2a09:bac1:3680:5d68::2a8:71
+2026-05-19 22:12:57,855 [INFO] blog-feed.api - semantic_search_articles:221 - Semantic search: query='postgres', limit=50 from 2a09:bac1:3680:5d68::2a8:71
+2026-05-19 22:12:57,870 [INFO] blog-feed.api - semantic_search_articles:270 - Semantic search for 'postgres' returned 50 results
+2026-05-19 22:12:57,870 [INFO] blog-feed.api - semantic_search_articles:270 - Semantic search for 'postgres' returned 50 results
+2026-05-19 22:12:57,872 [INFO] blog-feed.api - log_requests:61 - GET /api/semantic-search - 200 - 0.017s
+2026-05-19 22:12:57,872 [INFO] blog-feed.api - log_requests:61 - GET /api/semantic-search - 200 - 0.017s

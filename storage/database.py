@@ -3,6 +3,9 @@ from datetime import datetime
 from config.settings import DB_FILE
 from api.logger import db_logger
 
+from core.embeddings import get_article_embedding_text
+from core.embeddings import update_article_embedding
+
 def init_db():
     """Initialize database with all tables."""
     db_logger.info(f"Initializing database at {DB_FILE}")
@@ -74,6 +77,44 @@ def save_article(url, title, blog_name, score, llm_score, combined_score, reason
         conn.close()
         
         db_logger.info(f"Article saved: {title[:50]} (score: {combined_score:.2f})")
+    except Exception as e:
+        db_logger.error(f"Failed to save article {url}: {e}", exc_info=True)
+
+
+def save_article(url, title, blog_name, score, llm_score, combined_score, reason, keywords, 
+                 source='rss', reddit_suggestion_id=None, added_by='automated', text_content=None):
+    """Save or update an article."""
+    db_logger.debug(f"Saving article: {title[:50]}... from {blog_name}")
+    
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        conn.execute("""
+            INSERT OR REPLACE INTO articles 
+            (url, title, blog_name, score, llm_score, combined_score, reason, keywords, 
+             source, reddit_suggestion_id, added_by, fetched_at, text_content)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, (url, title, blog_name, score, llm_score, combined_score, reason, keywords,
+              source, reddit_suggestion_id, added_by, datetime.now(), text_content))
+        conn.commit()
+        
+        # Get the rowid of the inserted/updated article
+        cursor = conn.execute("SELECT rowid FROM articles WHERE url = ?", (url,))
+        rowid = cursor.fetchone()[0]
+        conn.close()
+        
+        db_logger.info(f"Article saved: {title[:50]} (score: {combined_score:.2f})")
+        
+        # Generate embedding for semantic search
+        article_data = {
+            'title': title,
+            'keywords': keywords,
+            'blog_name': blog_name,
+            'source': source,
+            'combined_score': combined_score,
+            'url': url
+        }
+        update_article_embedding(rowid, article_data)
+        
     except Exception as e:
         db_logger.error(f"Failed to save article {url}: {e}", exc_info=True)
 
