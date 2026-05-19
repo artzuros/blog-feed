@@ -212,18 +212,19 @@ async def get_article(request: Request, article_identifier: str):
 async def semantic_search_articles(
     request: Request,
     q: str = Query(..., min_length=2, description="Search query"),
-    limit: int = Query(20, ge=1, le=100)
+    limit: int = Query(20, ge=1, le=100),
+    min_relevance: float = Query(0.5, ge=0.0, le=1.0, description="Minimum relevance score (0-1)")
 ):
     """
     Search articles by semantic similarity using embeddings.
-    Compares query meaning against article metadata (title, keywords, source).
+    Only returns results with relevance >= min_relevance (default 0.5).
     """
-    api_logger.info(f"Semantic search: query='{q}', limit={limit} from {request.client.host}")
+    api_logger.info(f"Semantic search: query='{q}', limit={limit}, min_relevance={min_relevance} from {request.client.host}")
     
     from core.embeddings import semantic_search
     
     # Get semantic search results
-    article_ids, similarities = semantic_search(q, limit)
+    article_ids, similarities = semantic_search(q, limit * 2)  # Get extra to filter
     
     if not article_ids:
         api_logger.debug(f"No semantic results for '{q}'")
@@ -234,25 +235,44 @@ async def semantic_search_articles(
             "search_type": "semantic"
         }
     
+    # Filter by min_relevance and take top limit
+    filtered_results = []
+    for idx, (article_id, sim) in enumerate(zip(article_ids, similarities)):
+        if sim >= min_relevance:
+            filtered_results.append((article_id, sim))
+            if len(filtered_results) >= limit:
+                break
+    
+    if not filtered_results:
+        api_logger.debug(f"No results above {min_relevance} relevance for '{q}'")
+        return {
+            "query": q,
+            "count": 0,
+            "articles": [],
+            "search_type": "semantic",
+            "min_relevance": min_relevance
+        }
+    
     # Fetch full article details from SQLite
     conn = get_db()
     if not conn:
         raise HTTPException(status_code=500, detail="Database not initialized")
     
-    placeholders = ','.join('?' * len(article_ids))
+    placeholders = ','.join('?' * len(filtered_results))
+    article_ids_filtered = [id for id, _ in filtered_results]
     cursor = conn.execute(f"""
         SELECT url, title, blog_name, score, llm_score, combined_score, 
-               reason, keywords, source, fetched_at 
+               reason, source, fetched_at 
         FROM articles 
         WHERE rowid IN ({placeholders})
-    """, article_ids)
+    """, article_ids_filtered)
     
     results = cursor.fetchall()
     conn.close()
     
-    # Map results with similarity scores
+    # Map results with similarity scores (NO keywords!)
     articles = []
-    for idx, (row, sim) in enumerate(zip(results, similarities)):
+    for (article_id, sim), row in zip(filtered_results, results):
         articles.append({
             "url": row[0],
             "title": row[1],
@@ -261,17 +281,18 @@ async def semantic_search_articles(
             "llm_score": row[4],
             "combined_score": row[5],
             "reason": row[6],
-            "keywords": row[7],
-            "source": row[8],
-            "fetched_at": row[9],
-            "semantic_relevance": round(sim, 4)  # Add similarity score
+            "source": row[7],
+            "fetched_at": row[8],
+            "semantic_relevance": round(sim, 4)  # Keep relevance score
+            # keywords intentionally omitted
         })
     
-    api_logger.info(f"Semantic search for '{q}' returned {len(articles)} results")
+    api_logger.info(f"Semantic search for '{q}' returned {len(articles)} results (filtered from {len(article_ids)})")
     
     return {
         "query": q,
         "count": len(articles),
         "articles": articles,
-        "search_type": "semantic"
+        "search_type": "semantic",
+        "min_relevance": min_relevance
     }
