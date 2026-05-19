@@ -12,10 +12,9 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from core.fetcher import fetch_article_text
 from quality.slop_detector import is_likely_ai_slop
-from core.llm_scorer import score_with_llm
 from config.blogs_loader import load_blogs
 from config.settings import USER_AGENT
-from api.logger import scan_logger, llm_logger
+from api.logger import scan_logger
 
 # Configuration
 SUBREDDITS = [
@@ -119,6 +118,7 @@ def run_discovery():
     total_tested = 0
     
     for subreddit in SUBREDDITS:
+        scan_logger.info(f"Scanning r/{subreddit}")
         posts = fetch_reddit_posts(subreddit, MAX_ARTICLES_PER_SUBREDDIT)
         if not posts:
             continue
@@ -136,6 +136,7 @@ def run_discovery():
                 tracked_urls[url] = {'skipped': 'already_curated', 'domain': domain, 'timestamp': datetime.now().isoformat()}
                 continue
             
+            scan_logger.debug(f"Testing {domain}: {post['title'][:50]}...")
             text = fetch_article_text(url)
             if not text or len(text) < 200:
                 tracked_urls[url] = {'skipped': 'no_extractable_text', 'domain': domain, 'timestamp': datetime.now().isoformat()}
@@ -160,7 +161,7 @@ def run_discovery():
                     new_suggestions.append(suggestion)
                     scan_logger.info(f"New suggestion: {domain} (score: {heuristic_score:.2f})")
             else:
-                scan_logger.debug(f"Rejected {domain}: score {heuristic_score:.2f}")
+                scan_logger.debug(f"Rejected {domain}: score {heuristic_score:.2f} > threshold")
             
             tracked_urls[url] = {
                 'domain': domain,
