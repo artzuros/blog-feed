@@ -1,6 +1,6 @@
 
 ❌ Uber, https://eng.uber.com, https://eng.uber.com/feed/
-Spotify, https://engineering.atspotify.com, https://engineering.atspotify.com/feed/
+✅ Spotify, https://engineering.atspotify.com, https://engineering.atspotify.com/feed/
 LinkedIn, https://engineering.linkedin.com/blog, https://engineering.linkedin.com/blog.rss
 Airbnb, https://medium.com/airbnb-engineering, https://medium.com/feed/airbnb-engineering
 Pinterest, https://medium.com/pinterest-engineering, https://medium.com/feed/pinterest-engineering

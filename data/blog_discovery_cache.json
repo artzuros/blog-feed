@@ -47,5 +47,17 @@
   },
   "https://engineering.atspotify.com": {
     "html_selector": "default"
+  },
+  "https://kevinpatel.xyz": {
+    "html_selector": "default"
+  },
+  "https://internals-for-interns.com": {
+    "html_selector": "default"
+  },
+  "https://mwalterskirchen.dev": {
+    "html_selector": "default"
+  },
+  "https://www.netlify.com/blog": {
+    "html_selector": "default"
   }
 }

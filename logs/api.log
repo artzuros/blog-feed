@@ -118,3 +118,14 @@
 2026-05-19 10:25:31,263 [INFO] blog-scout - GET /api/suggestions - 200 - 0.003s
 2026-05-19 10:25:33,080 [INFO] blog-scout - GET /api/suggestions - 200 - 0.002s
 2026-05-19 10:26:01,306 [INFO] blog-scout - GET /api/search - 200 - 0.006s
+2026-05-19 10:59:31,317 [INFO] blog-scout - GET /docs - 200 - 0.001s
+2026-05-19 10:59:31,450 [INFO] blog-scout - GET /openapi.json - 200 - 0.021s
+2026-05-19 10:59:46,884 [INFO] blog-scout - GET /metrics - 200 - 0.006s
+2026-05-19 10:59:54,951 [INFO] blog-scout - GET /api/stats - 200 - 0.011s
+2026-05-19 11:03:12,272 [INFO] blog-scout - GET /api/blogs - 200 - 0.011s
+2026-05-19 11:56:17,161 [INFO] blog-scout - GET /api/search - 200 - 0.017s
+2026-05-19 11:56:18,028 [INFO] blog-scout - GET /api/search - 200 - 0.005s
+2026-05-19 12:34:29,101 [INFO] blog-scout - GET /api/search - 200 - 0.014s
+2026-05-19 12:34:38,727 [INFO] blog-scout - GET /api/search - 200 - 0.002s
+2026-05-19 12:34:41,243 [INFO] blog-scout - GET /api/search - 200 - 0.002s
+2026-05-19 13:14:42,657 [INFO] blog-scout - GET /api/search - 200 - 0.019s

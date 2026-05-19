@@ -1,369 +1,329 @@
-# Signal Engine
+# Blog Feed
 
-A high-signal engineering knowledge search engine.
+**A high-signal engineering reading list — searched, scored, and surfaced.**
 
-Signal Engine discovers, extracts, ranks, embeds, and indexes
-high-quality software engineering content while filtering out
-AI slop, SEO spam, and superficial tutorials.
+Blog Feed discovers, ranks, and serves the best technical content from company engineering blogs, incident reports, and deep dives — while filtering out AI slop, SEO spam, and superficial tutorials.
 
-The goal is to build:
-- a search engine for implementation knowledge
-- an engineering intelligence system
-- a curated infra/AI/devops knowledge base
+**Live:** [blog-hub.pranav-bansal.com](https://blog-hub.pranav-bansal.com)
 
 ---
 
-# Core Idea
+## Core Philosophy
 
 The modern internet is flooded with:
+
 - AI-generated blogs
 - SEO-optimized content farms
 - shallow Medium tutorials
 - repetitive LLM summaries
 
-Meanwhile the best engineering knowledge exists in:
-- company engineering blogs
-- production incident reports
-- migration writeups
-- distributed systems deep dives
-- niche infra startups
+Blog Feed indexes blogs that actually matter:
 
-Signal Engine indexes and ranks:
-- depth
-- originality
-- implementation quality
-- technical density
-
-instead of:
-- engagement
-- SEO
-- virality
+- **depth** — implementation specifics, not overviews
+- **originality** — unique insights, not rewrites
+- **technical density** — code, benchmarks, architecture
+- **operational wisdom** — incidents, migrations, war stories
 
 ---
 
-# Features
+## Features
 
-## Discovery Engine
+### 🔍 Search
 
-Discovers blogs from:
-- Reddit
-- Hacker News
-- RSS feeds
-- GitHub awesome lists
-- engineering blog directories
+- Full‑text search across articles (title, keywords, blog name)
+- Filter by source (curated RSS / Reddit‑suggested)
+- Sort by combined quality score
 
----
+### 📊 Ranking
 
-## Content Extraction
+- **Heuristic scoring** — technical density, weasel words, repetition (fast, offline)
+- **LLM scoring** — optional Ollama integration for deeper semantic judgement
+- **Combined score** — weighted average for final ranking
 
-Extracts:
-- full article text
-- code snippets
-- architecture discussions
-- benchmarks
-- metadata
+### 🗳️ Community Suggestions
 
-using:
-- trafilatura
-- readability-lxml
-- BeautifulSoup
+- Users discover and submit engineering blog posts via Reddit integration
+- Upvote/downvote system for community validation
+- LLM‑assisted pre‑screening before admin review
 
----
+### 🔧 Admin Interface
 
-## AI Quality Ranking
+- Approve/reject suggestions (with API key authentication)
+- Add curated RSS feeds manually
+- Trigger manual article scans
+- Monitor discovery cache and processed blogs
 
-Scores content based on:
-- implementation depth
-- originality
-- benchmark density
-- operational insights
-- architecture specificity
+### 📡 Automated Discovery
 
-Penalizes:
-- AI slop
-- SEO spam
-- generic tutorials
-- keyword stuffing
+- Daily scheduled scans of curated RSS feeds
+- Weekly Reddit discovery for new high‑signal domains
+- Auto‑extraction of article text with Playwright fallback
 
 ---
 
-## Semantic Search
+## Tech Stack
 
-Supports:
-- vector search
-- BM25 keyword search
-- hybrid reranking
+### Backend
 
-Example searches:
-- kubernetes autoscaling failures
-- production RAG pipelines
-- kafka migration stories
-- observability war stories
+| Component     | Technology                                      |
+| ------------- | ----------------------------------------------- |
+| API           | FastAPI                                         |
+| Database      | SQLite (with full‑text search)                  |
+| Crawler       | feedparser, trafilatura, Playwright, requests   |
+| Ranking       | Custom heuristic + optional Ollama              |
+| Authentication | API key (X‑API‑Key header)                     |
+| Rate Limiting | slowapi                                         |
+| Metrics       | Prometheus (/metrics endpoint)                  |
 
----
+### Frontend
 
-## AI Summaries
+| Component  | Technology                       |
+| ---------- | -------------------------------- |
+| Framework  | React (via lovable.dev)          |
+| Styling    | Tailwind CSS                     |
+| Deployment | Cloudflare Pages                 |
 
-Uses local LLMs via Ollama to:
-- summarize articles
-- classify topics
-- generate tags
-- extract key insights
+### Infrastructure
 
----
-
-# Tech Stack
-
-## Backend
-- FastAPI
-- PostgreSQL
-- pgvector
-
-## Crawling
-- feedparser
-- trafilatura
-- Playwright
-
-## AI
-- Ollama
-- bge-large embeddings
-- rerankers
-
-## Search
-- pgvector
-- BM25
-- hybrid search
-
-## Frontend
-- Next.js
-- Tailwind
-
-## Infra
-- Docker Compose
-- Nginx
+| Component     | Technology                        |
+| ------------- | --------------------------------- |
+| Hosting       | Home server / localhost           |
+| Reverse Proxy | Cloudflare Tunnel                 |
+| Scheduling    | Cron (daily/weekly scans)         |
+| Monitoring    | Logging (api.log) + Prometheus    |
 
 ---
 
-# Setup
+## API Endpoints
 
-# 1. Clone Repository
+### Public (read‑only, rate‑limited)
 
-```bash
-git clone https://github.com/yourname/signal-engine.git
-cd signal-engine
-```
+| Method | Endpoint                                | Description                       |
+| ------ | --------------------------------------- | --------------------------------- |
+| GET    | `/api/search?q={query}`                 | Search articles                   |
+| GET    | `/api/articles/top`                     | Highest scored articles           |
+| GET    | `/api/articles/recent`                  | Most recent articles              |
+| GET    | `/api/articles/by-blog/{blog_name}`     | Articles from specific blog       |
+| GET    | `/api/suggestions`                      | List pending suggestions          |
+| POST   | `/api/suggestions/{id}/review`          | Upvote/downvote suggestion        |
+| GET    | `/api/blogs`                            | List curated RSS feeds            |
+| GET    | `/api/stats`                            | System statistics                 |
+| GET    | `/api/health`                           | Health check                      |
+| GET    | `/metrics`                              | Prometheus metrics                |
 
----
+### Admin (API key required)
 
-# 2. Create Environment File
-
-Create `.env`
-
-```env
-POSTGRES_USER=signal
-POSTGRES_PASSWORD=signalpassword
-POSTGRES_DB=signaldb
-
-OLLAMA_HOST=http://localhost:11434
-
-OPENAI_API_KEY=
-REDDIT_CLIENT_ID=
-REDDIT_CLIENT_SECRET=
-```
-
----
-
-# 3. Install Ollama
-
-Install:
-https://ollama.com
-
-Pull models:
-
-```bash
-ollama pull mistral
-ollama pull nomic-embed-text
-```
-
-Recommended later:
-- llama3
-- deepseek-coder
-- bge-large
+| Method | Endpoint                                | Description                       |
+| ------ | --------------------------------------- | --------------------------------- |
+| POST   | `/api/suggestions/accept`               | Approve suggestion (adds to feed) |
+| POST   | `/api/blogs`                            | Add RSS feed manually             |
+| DELETE | `/api/blogs/{blog_name}`                | Remove RSS feed                   |
+| POST   | `/api/blogs/refresh`                    | Trigger manual article scan       |
+| POST   | `/api/suggestions/import-accepted`      | Bulk import accepted suggestions  |
 
 ---
 
-# 4. Start PostgreSQL + pgvector
+## Ranking Formula
 
-```bash
-docker compose up -d postgres
-```
+Articles are scored using heuristic + optional LLM:
 
-Initialize extension:
+### Heuristic Score (0–1, 0 = best)
 
-```sql
-CREATE EXTENSION vector;
-```
+- **Technical density** — code indicators, numbers, technical terms
+- **Weasel words** — marketing phrases ("revolutionize", "unlock the power")
+- **Repetition** — sentence similarity penalties
+- **Readability** — oversimplified text penalty
 
----
+### LLM Score (0–1, 1 = best)
 
-# 5. Install Python Dependencies
+- Local Ollama model (Mistral / TinyLlama)
+- Rates articles on technical depth and originality
 
-```bash
-pip install -r requirements.txt
-```
-
----
-
-# 6. Run Initial Feed Seeding
-
-```bash
-python scripts/seed_feeds.py
-```
-
-This adds:
-- Netflix
-- Stripe
-- Cloudflare
-- Tailscale
-- Fly.io
-- Swiggy
-- OpenAI
-- Anthropic
-- etc.
-
----
-
-# 7. Run Crawler
-
-```bash
-python apps/crawler/pipelines/crawl_pipeline.py
-```
-
-Pipeline:
-1. discover feeds
-2. fetch articles
-3. extract content
-4. score quality
-5. generate embeddings
-6. store database
-
----
-
-# 8. Start API
-
-```bash
-uvicorn apps.api.main:app --reload
-```
-
-API:
-http://localhost:8000
-
----
-
-# 9. Start Frontend
-
-```bash
-cd apps/frontend
-
-npm install
-npm run dev
-```
-
-Frontend:
-http://localhost:3000
-
----
-
-# Search Examples
-
-```bash
-GET /search?q=distributed+systems+failures
-GET /search?q=rag+architecture
-GET /search?q=kafka+migration
-```
-
----
-
-# Ranking Strategy
-
-Score articles based on:
+### Combined Score
 
 ```python
-score =
-    depth_score * 0.35 +
-    originality_score * 0.25 +
-    technical_density * 0.20 +
-    reputation_score * 0.10 +
-    freshness_score * 0.10
+combined_score = (heuristic_score * 0.6) + (llm_score * 0.4)  # if LLM available
+# Falls back to heuristic_score if LLM not used
 ```
 
-Penalties:
-- AI slop
-- excessive SEO
-- low specificity
-- generic phrasing
+**Penalties applied for:**
+
+- AI‑generated content detection
+- Keyword stuffing
+- Generic advice without specifics
+- Missing code/architecture details
 
 ---
 
-# Recommended First Milestones
+## Source Configuration
 
-## Phase 1
-- RSS ingestion
-- PostgreSQL storage
-- basic frontend
-- keyword search
+### Default RSS Feeds (curated)
 
-## Phase 2
-- embeddings
-- semantic search
-- AI summaries
-
-## Phase 3
-- Reddit/HN discovery
-- ranking engine
-- AI slop detection
-
-## Phase 4
-- user collections
-- personalized feeds
-- recommendation engine
-
----
-
-# Long-Term Vision
-
-Signal Engine becomes:
-- a search engine for engineering depth
-- a curated implementation knowledge graph
-- a semantic archive of production engineering insights
-
-Instead of:
-"content"
-
-Optimize for:
-"technical insight density"
-
----
-
-# Recommended Reading Sources
-
-## Big Tech
 - Netflix TechBlog
-- Stripe Engineering
-- Cloudflare
-- Uber Engineering
-
-## High Signal Smaller Companies
+- Cloudflare Blog
+- Stripe Engineering (via HTML fallback)
 - Tailscale
 - Fly.io
-- Temporal
 - Supabase
+- Temporal
 - PostHog
 - Dagster
-- Prefect
+- Neon
+- Warp
+- Pulumi
+- Convex (HTML extraction)
+
+### Add Your Own
+
+Admin endpoint: `POST /api/blogs` with `{name, url, rss}` (requires API key)
 
 ---
 
-# License
+## Deployment
 
-MIT
+### Backend (Home Server)
+
+```bash
+# Clone repository
+git clone https://github.com/artzuros/blog-feed
+cd blog-feed
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Set environment variable for admin API key
+export BLOG_SCOUT_API_KEY="your-secure-key"
+
+# Run the API
+uvicorn api.main:app --host 0.0.0.0 --port 8000
+
+# Set up cron jobs
+# Daily: python scripts/scheduled_scan.py
+# Weekly: python scripts/reddit_discovery.py --auto
+```
+
+### Frontend (Cloudflare Pages)
+
+1. Push frontend code (from lovable.dev) to GitHub
+2. Connect to Cloudflare Pages
+3. Set build command: `npm run build` (if applicable)
+4. Set output directory: `dist` or `build`
+5. Add environment variable: `VITE_API_BASE=https://your-api-domain.com/api`
+
+### Cloudflare Tunnel
+
+```bash
+cloudflared tunnel create blog-feed
+cloudflared tunnel route dns blog-feed api.yourdomain.com
+cloudflared tunnel run blog-feed
+```
+
+---
+
+## Development Roadmap
+
+### ✅ Phase 1 (Complete)
+
+- RSS ingestion pipeline
+- SQLite storage with full‑text search
+- Heuristic slop detection
+- Basic search (keyword)
+- Admin approval workflow (API key auth)
+- Reddit discovery integration
+- Community voting system
+
+### 🚧 Phase 2 (Current)
+
+- LLM scoring (Ollama integration)
+- Suggestion acceptance workflow (Reddit → review → approve → fetch)
+- Prometheus metrics and logging
+- Scheduled automation (cron)
+
+### 📅 Phase 3 (Planned)
+
+- Full‑text search index optimization (FTS5)
+- User accounts + saved articles
+- Email digests for new articles
+- Browser extension
+
+### 🔮 Phase 4 (Future)
+
+- Collaborative filtering recommendations
+- Source reputation scoring over time
+- Semantic search with embeddings (pgvector)
+- Federated sharing of curated lists
+
+---
+
+## Project Structure
+
+```
+blog-feed/
+├── api/              # FastAPI backend (routes, auth, models)
+├── apps/frontend/    # Static frontend (lovable.dev output)
+├── config/           # Settings, blog list (blogs.csv)
+├── core/             # Fetcher, extractor, RSS reader, scorer
+├── quality/          # Slop detection heuristics
+├── scripts/          # Scheduled scans, Reddit discovery, imports
+├── storage/          # Database, cache management
+└── data/             # SQLite DB, JSON caches, logs
+```
+
+---
+
+## Contributing
+
+We welcome contributions! Especially:
+
+- New RSS feed sources (add to `config/blogs.csv`)
+- Ranking algorithm improvements (heuristics or prompts)
+- Bug fixes and performance tweaks
+- Frontend UI/UX enhancements
+
+**How to contribute:**
+
+1. Fork the repository
+2. Create a feature branch
+3. Submit a pull request
+
+**Report issues or suggest features:**  
+GitHub Issues: [artzuros/blog-feed/issues](https://github.com/artzuros/blog-feed/issues)
+
+---
+
+## License
+
+MIT © Pranav Bansal
+
+---
+
+## Acknowledgments
+
+Built with:
+
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [TanStack Start](https://tanstack.com/start) (frontend)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Ollama](https://ollama.ai/) (optional LLM scoring)
+- [Playwright](https://playwright.dev/) (JavaScript fallback)
+- [lovable.dev](https://lovable.dev) (frontend generation)
+
+---
+
+## Related Projects
+
+- [Signal Engine](https://github.com/artzuros/signal-engine) — Original concept (this project's predecessor)
+- [Marginalia Search](https://search.marginalia.nu/) — Inspiration for ranking over engagement
+- [Kagi Small Web](https://blog.kagi.com/small-web) — Curated small internet
+
+---
+
+## Environment Variables
+
+| Variable                | Default                     | Description                    |
+| ----------------------- | --------------------------- | ------------------------------ |
+| `BLOG_SCOUT_API_KEY`    | `change-me-in-production`   | Admin API key                  |
+| `RATE_LIMIT_REQUESTS`   | `20`                        | Requests per time period       |
+| `RATE_LIMIT_PERIOD`     | `60`                        | Time period in seconds         |
+| `LOG_LEVEL`             | `INFO`                      | Logging level                  |
+| `LOG_FILE`              | `logs/api.log`              | Log file path                  |
