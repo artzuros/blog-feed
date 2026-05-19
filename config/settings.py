@@ -1,4 +1,8 @@
 import os
+from dotenv import load_dotenv
+from api.logger import root_logger
+
+load_dotenv()
 
 # Paths
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -12,9 +16,11 @@ DB_FILE = os.path.join(DATA_DIR, "blog_scout.db")
 os.makedirs(DATA_DIR, exist_ok=True)
 os.makedirs(CONFIG_DIR, exist_ok=True)
 
+root_logger.debug(f"Settings loaded: DB_FILE={DB_FILE}, BLOGS_CSV={BLOGS_CSV}")
+
 # Fetch settings
 REQUEST_TIMEOUT = 20
-USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
 
 # Article settings
 ARTICLES_PER_BLOG = 3
@@ -25,13 +31,14 @@ SLOP_THRESHOLD = 0.6
 REQUEST_DELAY = 1
 
 # API settings
-from dotenv import load_dotenv
-load_dotenv()
-
 API_KEY = os.getenv("BLOG_SCOUT_API_KEY", "your-secret-key")
 RATE_LIMIT_REQUESTS = int(os.getenv("RATE_LIMIT_REQUESTS", "20"))
-RATE_LIMIT_PERIOD = int(os.getenv("RATE_LIMIT_PERIOD", "60"))  # seconds
+RATE_LIMIT_PERIOD = int(os.getenv("RATE_LIMIT_PERIOD", "60"))
 
 # Logging
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 LOG_FILE = os.getenv("LOG_FILE", "logs/api.log")
+
+# Validate critical settings
+if API_KEY == "your-secret-key":
+    root_logger.warning("Using default API key! Please set BLOG_SCOUT_API_KEY in .env")

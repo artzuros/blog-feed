@@ -1,6 +1,7 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 from typing import Optional, List
 from datetime import datetime
+from api.logger import api_logger
 
 # Article schemas
 class ArticleBase(BaseModel):
@@ -14,6 +15,13 @@ class ArticleBase(BaseModel):
     keywords: Optional[str] = None
     source: str = 'rss'
     added_by: str = 'automated'
+    
+    @validator('score', 'combined_score')
+    def validate_score(cls, v):
+        if v < 0 or v > 1:
+            api_logger.warning(f"Invalid score value: {v}")
+            raise ValueError('Score must be between 0 and 1')
+        return v
 
 class ArticleResponse(ArticleBase):
     fetched_at: datetime
@@ -28,6 +36,13 @@ class BlogBase(BaseModel):
     name: str
     url: str
     rss: Optional[str] = None
+    
+    @validator('url')
+    def validate_url(cls, v):
+        if not v.startswith(('http://', 'https://')):
+            api_logger.warning(f"Invalid URL format: {v}")
+            raise ValueError('URL must start with http:// or https://')
+        return v
 
 class BlogResponse(BlogBase):
     pass
@@ -55,6 +70,13 @@ class SuggestionResponse(SuggestionBase):
 
 class SuggestionReview(BaseModel):
     action: str  # 'upvote', 'downvote'
+    
+    @validator('action')
+    def validate_action(cls, v):
+        if v not in ['upvote', 'downvote']:
+            api_logger.warning(f"Invalid vote action: {v}")
+            raise ValueError('Action must be upvote or downvote')
+        return v
 
 class StatsResponse(BaseModel):
     total_articles: int
@@ -63,3 +85,5 @@ class StatsResponse(BaseModel):
     accepted_suggestions: int
     articles_by_source: dict
     avg_scores: dict
+
+api_logger.debug("Pydantic schemas initialized")

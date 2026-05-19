@@ -16,6 +16,7 @@ from quality.slop_detector import is_likely_ai_slop
 from core.llm_scorer import score_with_llm
 from config.blogs_loader import load_blogs
 from config.settings import USER_AGENT
+from api.logger import scan_logger, llm_logger
 
 # ----------------------------------------------------------------------
 # Configuration
@@ -44,28 +45,36 @@ TRACKING_FILE = "data/reddit_tracked_urls.json"
 # Helpers
 # ----------------------------------------------------------------------
 def load_tracked_urls():
+    scan_logger.debug(f"Loading tracked URLs from {TRACKING_FILE}")
     if os.path.exists(TRACKING_FILE):
         try:
             with open(TRACKING_FILE, 'r') as f:
                 content = f.read().strip()
                 if content:
-                    return json.loads(content)
+                    tracked = json.loads(content)
+                    scan_logger.debug(f"Loaded {len(tracked)} tracked URLs")
+                    return tracked
                 else:
                     return {}
-        except (json.JSONDecodeError, FileNotFoundError):
+        except (json.JSONDecodeError, FileNotFoundError) as e:
+            scan_logger.error(f"Error loading tracked URLs: {e}")
             return {}
     return {}
 
 def load_suggestions():
+    scan_logger.debug(f"Loading suggestions from {SUGGESTIONS_FILE}")
     if os.path.exists(SUGGESTIONS_FILE):
         try:
             with open(SUGGESTIONS_FILE, 'r') as f:
                 content = f.read().strip()
                 if content:
-                    return json.loads(content)
+                    suggestions = json.loads(content)
+                    scan_logger.debug(f"Loaded {len(suggestions)} suggestions")
+                    return suggestions
                 else:
                     return []
-        except (json.JSONDecodeError, FileNotFoundError):
+        except (json.JSONDecodeError, FileNotFoundError) as e:
+            scan_logger.error(f"Error loading suggestions: {e}")
             return []
     return []
 
@@ -73,11 +82,13 @@ def save_tracked_urls(tracked):
     os.makedirs(os.path.dirname(TRACKING_FILE), exist_ok=True)
     with open(TRACKING_FILE, 'w') as f:
         json.dump(tracked, f, indent=2)
+    scan_logger.debug(f"Saved {len(tracked)} tracked URLs")
 
 def save_suggestions(suggestions):
     os.makedirs(os.path.dirname(SUGGESTIONS_FILE), exist_ok=True)
     with open(SUGGESTIONS_FILE, 'w') as f:
         json.dump(suggestions, f, indent=2)
+    scan_logger.info(f"Saved {len(suggestions)} suggestions")
 
 def is_domain_in_blogs(domain, blogs):
     """Check if domain (e.g., tailscale.com) is already in our curated list."""
@@ -95,6 +106,8 @@ def fetch_reddit_posts(subreddit, limit=25):
     """Fetch top posts from Reddit using JSON API (more reliable than RSS)."""
     json_url = f"https://www.reddit.com/r/{subreddit}/top.json?t=month&limit={limit}"
     headers = {'User-Agent': USER_AGENT}
+    
+    scan_logger.debug(f"Fetching posts from r/{subreddit}")
     
     try:
         resp = requests.get(json_url, headers=headers, timeout=15)
@@ -134,28 +147,33 @@ def fetch_reddit_posts(subreddit, limit=25):
             if VERBOSE:
                 print(f"    ✅ Found external: {title[:60]}... ({urlparse(url).netloc}) [{score} upvotes]")
         
+        scan_logger.info(f"Found {len(entries)} external links from r/{subreddit}")
         return entries
     except Exception as e:
-        print(f"  ⚠️ Failed to fetch r/{subreddit} via JSON: {e}")
+        scan_logger.error(f"Failed to fetch r/{subreddit} via JSON: {e}", exc_info=True)
         return []
 
 def review_with_llm(suggestion):
     """Review a suggestion using LLM and update its status."""
+    llm_logger.info(f"Reviewing with LLM: {suggestion['domain']}")
     print(f"\n🤖 Reviewing with LLM: {suggestion['domain']}")
     print(f"   Article: {suggestion['title'][:70]}...")
     
     # Fetch full article text
     text = fetch_article_text(suggestion['url'])
     if not text or len(text) < 200:
+        llm_logger.warning(f"Cannot review {suggestion['url']} - insufficient text")
         print(f"   ❌ Cannot review - insufficient text extracted")
         return None
     
     # Get LLM score
     llm_score = score_with_llm(text)
     if llm_score is None:
+        llm_logger.error(f"LLM scoring failed for {suggestion['url']}")
         print(f"   ❌ LLM scoring failed")
         return None
     
+    llm_logger.info(f"LLM score for {suggestion['domain']}: {llm_score:.2f}")
     print(f"   📊 LLM score: {llm_score:.2f}")
     
     # Update suggestion with LLM review
@@ -167,6 +185,8 @@ def review_with_llm(suggestion):
     return suggestion
 
 def process_reddit_posts():
+    scan_logger.info("Starting Reddit discovery process")
+    
     blogs = load_blogs()
     tracked_urls = load_tracked_urls()
     suggestions = load_suggestions()
@@ -209,6 +229,7 @@ def process_reddit_posts():
             # Fetch and score the article (heuristic only for speed)
             text = fetch_article_text(url)
             if not text or len(text) < 200:
+                scan_logger.warning(f"Failed to extract text from {url}")
                 print(f"      ❌ Failed to extract text (too short or blocked)")
                 tracked_urls[url] = {'skipped': 'no_extractable_text', 'domain': domain, 'timestamp': datetime.now().isoformat()}
                 continue
@@ -233,11 +254,13 @@ def process_reddit_posts():
                 # Avoid duplicate suggestions
                 if not any(s['url'] == url for s in suggestions):
                     new_suggestions.append(suggestion)
+                    scan_logger.info(f"New suggestion: {domain} (score: {heuristic_score:.2f})")
                     print(f"      ✅ ** SUGGESTION: Consider adding {domain} (heuristic score {heuristic_score:.2f})")
                     print(f"         URL: {url}")
                 else:
                     print(f"      ℹ️ Already suggested previously")
             else:
+                scan_logger.debug(f"Rejected {domain}: score {heuristic_score:.2f} > threshold")
                 print(f"      ❌ Score {heuristic_score:.2f} > threshold {SCORE_THRESHOLD} – not suggesting (likely slop)")
             
             tracked_urls[url] = {
@@ -261,11 +284,13 @@ def process_reddit_posts():
     if new_suggestions:
         suggestions.extend(new_suggestions)
         save_suggestions(suggestions)
+        scan_logger.info(f"Added {len(new_suggestions)} new suggestions")
         print(f"\n✨ Added {len(new_suggestions)} new suggestion(s) to {SUGGESTIONS_FILE}")
     else:
         print("\n📭 No new suggestions. Try running again later or adjust SCORE_THRESHOLD.")
     
     save_tracked_urls(tracked_urls)
+    scan_logger.info("Reddit discovery completed")
     print(f"✅ Tracking saved to {TRACKING_FILE}")
 
 def list_suggestions():
@@ -304,6 +329,7 @@ def review_suggestions_with_llm():
         print("\n📭 No pending suggestions to review. All suggestions have been reviewed.")
         return
     
+    llm_logger.info(f"Starting LLM review of {len(pending)} suggestions")
     print(f"\n🤖 LLM Review: {len(pending)} pending suggestion(s)")
     print("-" * 60)
     
@@ -323,8 +349,10 @@ def review_suggestions_with_llm():
     
     if updated > 0:
         save_suggestions(suggestions)
+        llm_logger.info(f"LLM reviewed {updated} suggestions")
         print(f"\n✅ Reviewed {updated} suggestion(s) with LLM")
     else:
+        llm_logger.warning("No suggestions were successfully reviewed with LLM")
         print("\n❌ No suggestions were successfully reviewed")
 
 def mark_reviewed(suggestion_index, review_type='manual'):
@@ -335,6 +363,7 @@ def mark_reviewed(suggestion_index, review_type='manual'):
         suggestions[idx]['reviewed'] = review_type
         suggestions[idx]['reviewed_at'] = datetime.now().isoformat()
         save_suggestions(suggestions)
+        scan_logger.info(f"Marked suggestion #{suggestion_index} as {review_type} review")
         print(f"✅ Marked suggestion #{suggestion_index} ({suggestions[idx]['domain']}) as {review_type} review.")
     else:
         print(f"❌ Invalid index. Choose 1-{len(suggestions)}")
@@ -344,6 +373,7 @@ def clear_all_suggestions():
     confirm = input("⚠️ This will delete ALL suggestions. Are you sure? (y/n): ")
     if confirm.lower() == 'y':
         save_suggestions([])
+        scan_logger.warning("All suggestions cleared")
         print("✅ All suggestions cleared.")
 
 def show_stats():
@@ -408,6 +438,7 @@ def export_suggestions():
                 s.get('discovered_at', '')
             ])
     
+    scan_logger.info(f"Exported {len(suggestions)} suggestions to {export_file}")
     print(f"✅ Exported {len(suggestions)} suggestions to {export_file}")
 
 if __name__ == "__main__":
@@ -450,6 +481,7 @@ if __name__ == "__main__":
         elif choice == "7":
             clear_all_suggestions()
         elif choice == "8":
+            scan_logger.info("Reddit discovery tool exited by user")
             print("\nGoodbye! Keep discovering great engineering content.")
             break
         else:

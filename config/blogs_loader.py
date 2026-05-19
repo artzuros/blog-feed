@@ -1,28 +1,32 @@
-#!/usr/bin/env python3
-"""Load blogs from CSV file."""
 import csv
 import os
 from config.settings import BLOGS_CSV
+from api.logger import root_logger, scan_logger
 
 def load_blogs():
     """Load blogs from CSV file."""
     blogs = []
+    scan_logger.debug(f"Loading blogs from {BLOGS_CSV}")
     
     if not os.path.exists(BLOGS_CSV):
-        print(f"⚠️ Blogs CSV not found at {BLOGS_CSV}")
-        print("Creating template blogs.csv...")
+        scan_logger.warning(f"Blogs CSV not found at {BLOGS_CSV}, creating template")
         create_template_csv()
         return []
     
-    with open(BLOGS_CSV, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            name = row['name'].strip()
-            url = row['url'].strip()
-            rss = row['rss'].strip() if row.get('rss') and row['rss'].strip() else None
-            blogs.append((name, url, rss))
-    
-    return blogs
+    try:
+        with open(BLOGS_CSV, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                name = row['name'].strip()
+                url = row['url'].strip()
+                rss = row['rss'].strip() if row.get('rss') and row['rss'].strip() else None
+                blogs.append((name, url, rss))
+        
+        scan_logger.info(f"Loaded {len(blogs)} blogs from {BLOGS_CSV}")
+        return blogs
+    except Exception as e:
+        scan_logger.error(f"Error loading blogs CSV: {e}", exc_info=True)
+        return []
 
 def create_template_csv():
     """Create a template blogs.csv file."""
@@ -33,25 +37,34 @@ def create_template_csv():
         ("Another Blog", "https://another.com/blog", None),
     ]
     
-    with open(BLOGS_CSV, 'w', encoding='utf-8', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow(['name', 'url', 'rss'])
-        for name, url, rss in template_blogs:
-            writer.writerow([name, url, rss if rss else ''])
-    
-    print(f"✅ Created template at {BLOGS_CSV}")
-    print("Please edit this file with your blogs and run the scanner again.")
+    try:
+        with open(BLOGS_CSV, 'w', encoding='utf-8', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(['name', 'url', 'rss'])
+            for name, url, rss in template_blogs:
+                writer.writerow([name, url, rss if rss else ''])
+        
+        scan_logger.info(f"Created template CSV at {BLOGS_CSV}")
+        print(f"✅ Created template at {BLOGS_CSV}")
+        print("Please edit this file with your blogs and run the scanner again.")
+    except Exception as e:
+        scan_logger.error(f"Failed to create template CSV: {e}", exc_info=True)
 
 def save_blogs(blogs):
     """Save blogs to CSV file."""
-    with open(BLOGS_CSV, 'w', encoding='utf-8', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow(['name', 'url', 'rss'])
-        for name, url, rss in blogs:
-            writer.writerow([name, url, rss if rss else ''])
+    try:
+        with open(BLOGS_CSV, 'w', encoding='utf-8', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(['name', 'url', 'rss'])
+            for name, url, rss in blogs:
+                writer.writerow([name, url, rss if rss else ''])
+        scan_logger.info(f"Saved {len(blogs)} blogs to {BLOGS_CSV}")
+    except Exception as e:
+        scan_logger.error(f"Failed to save blogs: {e}", exc_info=True)
 
 def add_blog(name, url, rss=None):
     """Add a single blog to CSV."""
+    scan_logger.info(f"Adding blog: {name} ({url})")
     blogs = load_blogs()
     blogs.append((name, url, rss))
     save_blogs(blogs)
@@ -59,9 +72,11 @@ def add_blog(name, url, rss=None):
 
 def remove_blog(name):
     """Remove a blog from CSV."""
+    scan_logger.info(f"Removing blog: {name}")
     blogs = load_blogs()
     filtered = [b for b in blogs if b[0] != name]
     if len(filtered) == len(blogs):
+        scan_logger.warning(f"Blog '{name}' not found for removal")
         print(f"❌ Blog '{name}' not found")
         return False
     save_blogs(filtered)
