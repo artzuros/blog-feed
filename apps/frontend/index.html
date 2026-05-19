@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Scout – Search Engineering Blogs</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .score-badge { background: #2d3748; color: #a0aec0; padding: 0.25rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; }
+        .good { color: #48bb78; }
+        .medium { color: #ed8936; }
+        .poor { color: #f56565; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <h1 class="text-4xl font-bold mb-2">🔍 Blog Scout</h1>
+        <p class="text-gray-400 mb-6">Search high‑signal engineering blog posts</p>
+        
+        <div class="mb-8">
+            <input type="text" id="searchInput" placeholder="e.g., kubernetes, postgres, distributed systems" 
+                   class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-600">
+            <div class="flex gap-4 mt-3">
+                <label class="flex items-center gap-2"><input type="checkbox" id="minScoreCheck"> Min score ≥0.5</label>
+                <select id="sourceFilter" class="bg-gray-800 border border-gray-700 rounded px-2 py-1">
+                    <option value="">All sources</option>
+                    <option value="rss">Curated blogs</option>
+                    <option value="reddit">From Reddit</option>
+                </select>
+                <button id="searchBtn" class="bg-blue-600 hover:bg-blue-700 px-4 py-1 rounded">Search</button>
+            </div>
+        </div>
+        
+        <div id="results" class="space-y-4"></div>
+        <div id="loading" class="text-center text-gray-400 hidden">Loading...</div>
+    </div>
+
+    <script>
+        const API_BASE = '/api';  // Relative to same origin
+
+        async function search() {
+            const q = document.getElementById('searchInput').value.trim();
+            if (!q) return;
+            
+            const loading = document.getElementById('loading');
+            const resultsDiv = document.getElementById('results');
+            loading.classList.remove('hidden');
+            resultsDiv.innerHTML = '';
+            
+            let url = `${API_BASE}/search?q=${encodeURIComponent(q)}&limit=50`;
+            if (document.getElementById('minScoreCheck').checked) url += '&min_score=0.5';
+            const source = document.getElementById('sourceFilter').value;
+            if (source) url += `&source=${source}`;
+            
+            try {
+                const resp = await fetch(url);
+                const data = await resp.json();
+                loading.classList.add('hidden');
+                if (data.total === 0) {
+                    resultsDiv.innerHTML = '<div class="text-center text-gray-500">No results found.</div>';
+                    return;
+                }
+                resultsDiv.innerHTML = data.results.map(article => `
+                    <div class="bg-gray-800 rounded-lg p-4 hover:bg-gray-750 transition">
+                        <h2 class="text-xl font-semibold mb-1"><a href="${article.url}" target="_blank" class="text-blue-400 hover:underline">${escapeHtml(article.title)}</a></h2>
+                        <div class="flex flex-wrap gap-3 text-sm text-gray-400 mb-2">
+                            <span>📌 ${escapeHtml(article.blog_name)}</span>
+                            <span>📅 ${new Date(article.fetched_at).toLocaleDateString()}</span>
+                            <span class="${getScoreClass(article.combined_score)}">⭐ Score: ${article.combined_score.toFixed(2)}</span>
+                            <span class="bg-gray-700 px-2 rounded">${article.source === 'rss' ? '📡 Curated' : '🔴 Reddit'}</span>
+                        </div>
+                        ${article.keywords ? `<div class="text-xs text-gray-500">🏷️ ${escapeHtml(article.keywords)}</div>` : ''}
+                    </div>
+                `).join('');
+            } catch (err) {
+                loading.classList.add('hidden');
+                resultsDiv.innerHTML = '<div class="text-center text-red-400">Error fetching results. Is the API running?</div>';
+                console.error(err);
+            }
+        }
+        
+        function getScoreClass(score) {
+            if (score >= 0.7) return 'good';
+            if (score >= 0.4) return 'medium';
+            return 'poor';
+        }
+        
+        function escapeHtml(str) {
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+        
+        document.getElementById('searchBtn').addEventListener('click', search);
+        document.getElementById('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') search(); });
+    </script>
+</body>
+</html>

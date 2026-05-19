@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin – Blog Scout</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-gray-200">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <h1 class="text-3xl font-bold mb-2">🔧 Admin Panel</h1>
+        <p class="text-gray-400 mb-6">Manage accepted suggestions and curated blogs</p>
+        
+        <div class="mb-6">
+            <label class="block text-sm font-medium mb-1">API Key</label>
+            <input type="password" id="apiKeyInput" placeholder="Enter your admin API key" class="w-full p-2 bg-gray-800 border border-gray-700 rounded">
+            <button id="saveKeyBtn" class="mt-2 bg-gray-700 px-3 py-1 rounded text-sm">Save (session only)</button>
+        </div>
+        
+        <div id="adminContent" style="display: none;">
+            <div class="grid grid-cols-2 gap-4 mb-8">
+                <div class="bg-gray-800 p-4 rounded">
+                    <h2 class="text-xl font-semibold mb-2">Suggestions pending acceptance</h2>
+                    <div id="pendingSuggestions"></div>
+                </div>
+                <div class="bg-gray-800 p-4 rounded">
+                    <h2 class="text-xl font-semibold mb-2">Add new blog manually</h2>
+                    <input type="text" id="newBlogName" placeholder="Name" class="w-full mb-2 p-2 bg-gray-700 rounded">
+                    <input type="text" id="newBlogUrl" placeholder="URL (https://...)" class="w-full mb-2 p-2 bg-gray-700 rounded">
+                    <input type="text" id="newBlogRss" placeholder="RSS URL (optional)" class="w-full mb-2 p-2 bg-gray-700 rounded">
+                    <button id="addBlogBtn" class="bg-green-700 px-4 py-1 rounded">Add Blog</button>
+                </div>
+            </div>
+            <div>
+                <button id="refreshScanBtn" class="bg-blue-700 px-4 py-2 rounded mr-2">Trigger manual scan</button>
+                <span id="statusMsg" class="text-sm text-gray-400"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let apiKey = sessionStorage.getItem('adminApiKey') || '';
+        document.getElementById('apiKeyInput').value = apiKey;
+        
+        function getHeaders() {
+            return {
+                'Content-Type': 'application/json',
+                'X-API-Key': apiKey
+            };
+        }
+        
+        async function loadPendingSuggestions() {
+            try {
+                const resp = await fetch('/api/suggestions?accepted=false&status=llm');
+                const suggestions = await resp.json();
+                const container = document.getElementById('pendingSuggestions');
+                if (!suggestions.length) {
+                    container.innerHTML = '<div class="text-gray-500">No LLM-reviewed suggestions pending.</div>';
+                    return;
+                }
+                container.innerHTML = suggestions.map(s => `
+                    <div class="border-b border-gray-700 py-2">
+                        <div><a href="${s.url}" target="_blank" class="text-blue-400 text-sm">${escapeHtml(s.title.substring(0, 80))}</a></div>
+                        <div class="text-xs text-gray-400">${s.domain} · score: ${s.combined_score?.toFixed(2) || s.heuristic_score.toFixed(2)}</div>
+                        <button class="accept-btn bg-green-800 text-xs px-2 py-1 rounded mt-1" data-url="${s.url}">✅ Accept & add to blogs</button>
+                    </div>
+                `).join('');
+                document.querySelectorAll('.accept-btn').forEach(btn => {
+                    btn.addEventListener('click', async (e) => {
+                        const url = btn.dataset.url;
+                        await acceptSuggestion(url);
+                        await loadPendingSuggestions(); // refresh
+                    });
+                });
+            } catch (err) {
+                console.error(err);
+                document.getElementById('pendingSuggestions').innerHTML = '<div class="text-red-400">Error loading suggestions</div>';
+            }
+        }
+        
+        async function acceptSuggestion(suggestionUrl) {
+            try {
+                const resp = await fetch(`/api/suggestions/accept?${new URLSearchParams({suggestion_url: suggestionUrl})}`, {
+                    method: 'POST',
+                    headers: getHeaders()
+                });
+                const data = await resp.json();
+                showStatus(resp.ok ? `✅ ${data.message}` : `❌ ${data.detail || 'Error'}`, resp.ok);
+                if (resp.ok) {
+                    setTimeout(() => loadPendingSuggestions(), 1000);
+                }
+            } catch (err) {
+                showStatus('❌ Network error', false);
+                console.error(err);
+            }
+        }
+        
+        async function addBlog() {
+            const name = document.getElementById('newBlogName').value.trim();
+            const url = document.getElementById('newBlogUrl').value.trim();
+            const rss = document.getElementById('newBlogRss').value.trim() || null;
+            if (!name || !url) {
+                showStatus('❌ Name and URL required', false);
+                return;
+            }
+            try {
+                const resp = await fetch('/api/blogs', {
+                    method: 'POST',
+                    headers: getHeaders(),
+                    body: JSON.stringify({ name, url, rss })
+                });
+                const data = await resp.json();
+                if (resp.ok) {
+                    showStatus(`✅ ${data.message}`, true);
+                    document.getElementById('newBlogName').value = '';
+                    document.getElementById('newBlogUrl').value = '';
+                    document.getElementById('newBlogRss').value = '';
+                } else {
+                    showStatus(`❌ ${data.detail || 'Error'}`, false);
+                }
+            } catch (err) {
+                showStatus('❌ Network error', false);
+            }
+        }
+        
+        async function triggerScan() {
+            showStatus('⏳ Running scan (may take minutes)...', true);
+            try {
+                const resp = await fetch('/api/blogs/refresh', {
+                    method: 'POST',
+                    headers: getHeaders()
+                });
+                const data = await resp.json();
+                showStatus(`✅ Scan completed: ${data.message || 'Done'}`, true);
+            } catch (err) {
+                showStatus('❌ Scan failed', false);
+            }
+        }
+        
+        function showStatus(msg, isOk) {
+            const el = document.getElementById('statusMsg');
+            el.textContent = msg;
+            el.style.color = isOk ? '#68d391' : '#fc8181';
+            setTimeout(() => { el.textContent = ''; }, 5000);
+        }
+        
+        function escapeHtml(str) {
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+        
+        document.getElementById('saveKeyBtn').addEventListener('click', () => {
+            const key = document.getElementById('apiKeyInput').value.trim();
+            if (key) {
+                apiKey = key;
+                sessionStorage.setItem('adminApiKey', key);
+                document.getElementById('adminContent').style.display = 'block';
+                loadPendingSuggestions();
+                showStatus('API key saved (session only)', true);
+            } else {
+                alert('Enter a valid API key');
+            }
+        });
+        
+        document.getElementById('addBlogBtn').addEventListener('click', addBlog);
+        document.getElementById('refreshScanBtn').addEventListener('click', triggerScan);
+        
+        if (apiKey) {
+            document.getElementById('adminContent').style.display = 'block';
+            loadPendingSuggestions();
+        }
+    </script>
+</body>
+</html>

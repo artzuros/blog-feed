@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Suggestions – Blog Scout</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .vote-btn { cursor: pointer; transition: all 0.1s; }
+        .vote-btn:hover { transform: scale(1.1); }
+        .upvote { color: #48bb78; }
+        .downvote { color: #f56565; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <h1 class="text-3xl font-bold mb-2">🗳️ Community Suggestions</h1>
+        <p class="text-gray-400 mb-4">Help discover great engineering blogs. Upvote promising ones, downvote low‑quality.</p>
+        
+        <div class="flex gap-4 mb-6">
+            <select id="sortSelect" class="bg-gray-800 border border-gray-700 rounded px-3 py-1">
+                <option value="discovered_at">Newest first</option>
+                <option value="net_votes">Highest net votes</option>
+                <option value="reddit_score">Highest Reddit score</option>
+            </select>
+            <button id="refreshBtn" class="bg-blue-600 px-4 py-1 rounded">Refresh</button>
+        </div>
+        
+        <div id="suggestionsList" class="space-y-4"></div>
+        <div id="loading" class="text-center text-gray-400 hidden">Loading suggestions...</div>
+    </div>
+
+    <script>
+        const API_BASE = '/api';
+        
+        async function loadSuggestions() {
+            const sortBy = document.getElementById('sortSelect').value;
+            const url = `${API_BASE}/suggestions?status=pending&sort_by=${sortBy}`;
+            const container = document.getElementById('suggestionsList');
+            const loading = document.getElementById('loading');
+            
+            loading.classList.remove('hidden');
+            container.innerHTML = '';
+            
+            try {
+                const resp = await fetch(url);
+                const suggestions = await resp.json();
+                loading.classList.add('hidden');
+                if (suggestions.length === 0) {
+                    container.innerHTML = '<div class="text-center text-gray-500">No pending suggestions. Check back later.</div>';
+                    return;
+                }
+                container.innerHTML = suggestions.map(s => `
+                    <div class="bg-gray-800 rounded-lg p-4" data-url="${s.url}">
+                        <div class="flex justify-between items-start">
+                            <div class="flex-1">
+                                <h3 class="text-xl font-semibold"><a href="${s.url}" target="_blank" class="text-blue-400 hover:underline">${escapeHtml(s.title)}</a></h3>
+                                <div class="text-sm text-gray-400 mt-1">
+                                    📌 ${escapeHtml(s.domain)} · r/${s.subreddit} · 👍 ${s.reddit_score} upvotes
+                                </div>
+                                <div class="text-sm mt-2">
+                                    Heuristic score: ${s.heuristic_score.toFixed(2)} 
+                                    ${s.combined_score ? `· Combined: ${s.combined_score.toFixed(2)}` : ''}
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end gap-2">
+                                <div class="flex gap-3 text-2xl">
+                                    <span class="vote-btn upvote" data-vote="up">👍 <span class="upvote-count">${s.upvotes || 0}</span></span>
+                                    <span class="vote-btn downvote" data-vote="down">👎 <span class="downvote-count">${s.downvotes || 0}</span></span>
+                                </div>
+                                <div class="text-sm text-gray-500">net: <span class="net-votes">${s.net_votes || 0}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+                
+                // Attach vote handlers
+                document.querySelectorAll('.vote-btn').forEach(btn => {
+                    btn.addEventListener('click', async (e) => {
+                        e.stopPropagation();
+                        const voteType = btn.dataset.vote;
+                        const card = btn.closest('[data-url]');
+                        const url = card.dataset.url;
+                        await submitVote(url, voteType);
+                        await loadSuggestions(); // refresh list
+                    });
+                });
+            } catch (err) {
+                loading.classList.add('hidden');
+                container.innerHTML = '<div class="text-center text-red-400">Failed to load suggestions.</div>';
+                console.error(err);
+            }
+        }
+        
+        async function submitVote(suggestionUrl, voteType) {
+            const action = voteType === 'up' ? 'upvote' : 'downvote';
+            try {
+                const resp = await fetch(`${API_BASE}/suggestions/${encodeURIComponent(suggestionUrl)}/review`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action })
+                });
+                if (!resp.ok) {
+                    const err = await resp.json();
+                    alert(`Error: ${err.detail || 'Vote failed'}`);
+                }
+            } catch (err) {
+                alert('Network error while voting');
+                console.error(err);
+            }
+        }
+        
+        function escapeHtml(str) {
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+        
+        document.getElementById('refreshBtn').addEventListener('click', loadSuggestions);
+        document.getElementById('sortSelect').addEventListener('change', loadSuggestions);
+        
+        loadSuggestions();
+    </script>
+</body>
+</html>
