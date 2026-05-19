@@ -55,7 +55,6 @@ class SuggestionResponse(SuggestionBase):
 
 class SuggestionReview(BaseModel):
     action: str  # 'accept', 'reject', 'llm_review'
-    
 class StatsResponse(BaseModel):
     total_articles: int
     total_blogs: int

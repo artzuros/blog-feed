@@ -20,6 +20,17 @@ def init_db():
             fetched_at TIMESTAMP
         )
     """)
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS suggestion_reviews (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            suggestion_url TEXT NOT NULL,
+            vote INTEGER NOT NULL,  -- 1 for upvote, -1 for downvote
+            ip_address TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE(suggestion_url, ip_address)
+        )
+    """)
+    conn.execute("CREATE INDEX IF NOT EXISTS idx_review_suggestion ON suggestion_reviews(suggestion_url)")
     conn.execute("CREATE INDEX IF NOT EXISTS idx_source ON articles(source)")
     conn.execute("CREATE INDEX IF NOT EXISTS idx_added_by ON articles(added_by)")
     conn.close()

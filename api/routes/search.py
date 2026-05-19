@@ -10,7 +10,7 @@ def search_articles(
     q: str = Query(..., min_length=1, description="Search query"),
     limit: int = Query(50, ge=1, le=200, description="Results limit"),
     min_score: Optional[float] = Query(None, ge=0, le=1, description="Minimum combined score"),
-    source: Optional[str] = Query(None, regex="^(rss|reddit)$", description="Filter by source")
+    source: Optional[str] = Query(None, pattern="^(rss|reddit)$", description="Filter by source")
 ):
     """Search articles by title, keywords, or blog name."""
     conn = get_db()

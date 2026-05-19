@@ -23,3 +23,15 @@ SLOP_THRESHOLD = 0.6
 
 # Delay between requests (seconds)
 REQUEST_DELAY = 1
+
+# API settings
+from dotenv import load_dotenv
+load_dotenv()
+
+API_KEY = os.getenv("BLOG_SCOUT_API_KEY", "your-secret-key")
+RATE_LIMIT_REQUESTS = int(os.getenv("RATE_LIMIT_REQUESTS", "20"))
+RATE_LIMIT_PERIOD = int(os.getenv("RATE_LIMIT_PERIOD", "60"))  # seconds
+
+# Logging
+LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
+LOG_FILE = os.getenv("LOG_FILE", "logs/api.log")

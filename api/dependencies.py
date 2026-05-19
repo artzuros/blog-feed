@@ -1,6 +1,6 @@
 import sqlite3
 from config.settings import DB_FILE, BLOGS_CSV
-import json
+import json, os
 
 def get_db():
     """Get database connection."""
