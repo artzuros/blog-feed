@@ -59,5 +59,8 @@
   },
   "https://www.netlify.com/blog": {
     "html_selector": "default"
+  },
+  "https://arstechnica.com": {
+    "html_selector": "default"
   }
 }

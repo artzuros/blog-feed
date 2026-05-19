@@ -1,7 +1,8 @@
 import ollama
 import re
 
-def score_with_llm(text, model="mistral"):
+# def score_with_llm(text, model="mistral"):
+def score_with_llm(text, model="granite3.3:2b"):
     """Return a score between 0 and 1 (1 = excellent, 0 = slop)."""
     prompt = f"""Rate this engineering article on a scale 0-10 for technical depth and originality.
 0-2: AI-generated fluff, SEO spam, no substance

@@ -24,7 +24,7 @@ logging.basicConfig(
         logging.StreamHandler()
     ]
 )
-logger = logging.getLogger("blog-scout")
+logger = logging.getLogger("blog-feed")
 
 # ---------- Rate Limiting ----------
 limiter = Limiter(key_func=get_remote_address, default_limits=[f"{RATE_LIMIT_REQUESTS}/{RATE_LIMIT_PERIOD} second"])
@@ -39,7 +39,8 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 # ---------- CORS & Security ----------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Replace with your domain in production
+    # allow_origins=["192.168.0.18:8080", "https://blog-hub.pranav-bansal.com/"],  # Replace with your domain in production
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

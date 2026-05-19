@@ -54,7 +54,8 @@ class SuggestionResponse(SuggestionBase):
     accepted_at: Optional[datetime] = None
 
 class SuggestionReview(BaseModel):
-    action: str  # 'accept', 'reject', 'llm_review'
+    action: str  # 'upvote', 'downvote'
+
 class StatsResponse(BaseModel):
     total_articles: int
     total_blogs: int
