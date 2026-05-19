@@ -1,69 +1,131 @@
 import sqlite3
 from datetime import datetime
 from config.settings import DB_FILE
+from api.logger import db_logger
 
 def init_db():
-    conn = sqlite3.connect(DB_FILE)
-    conn.execute("""
-        CREATE TABLE IF NOT EXISTS articles (
-            url TEXT PRIMARY KEY,
-            title TEXT,
-            blog_name TEXT,
-            score REAL,
-            llm_score REAL,
-            combined_score REAL,
-            reason TEXT,
-            keywords TEXT,
-            source TEXT DEFAULT 'rss',  -- 'rss', 'reddit', 'manual'
-            reddit_suggestion_id TEXT,  -- reference to reddit_suggestions.json
-            added_by TEXT,               -- 'automated', 'manual_review'
-            fetched_at TIMESTAMP
-        )
-    """)
-    conn.execute("""
-        CREATE TABLE IF NOT EXISTS suggestion_reviews (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            suggestion_url TEXT NOT NULL,
-            vote INTEGER NOT NULL,  -- 1 for upvote, -1 for downvote
-            ip_address TEXT,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            UNIQUE(suggestion_url, ip_address)
-        )
-    """)
-    conn.execute("CREATE INDEX IF NOT EXISTS idx_review_suggestion ON suggestion_reviews(suggestion_url)")
-    conn.execute("CREATE INDEX IF NOT EXISTS idx_source ON articles(source)")
-    conn.execute("CREATE INDEX IF NOT EXISTS idx_added_by ON articles(added_by)")
-    conn.close()
+    """Initialize database with all tables."""
+    db_logger.info(f"Initializing database at {DB_FILE}")
+    
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        
+        # Articles table
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS articles (
+                url TEXT PRIMARY KEY,
+                title TEXT,
+                blog_name TEXT,
+                score REAL,
+                llm_score REAL,
+                combined_score REAL,
+                reason TEXT,
+                keywords TEXT,
+                source TEXT DEFAULT 'rss',
+                reddit_suggestion_id TEXT,
+                added_by TEXT,
+                fetched_at TIMESTAMP,
+                text_content TEXT
+            )
+        """)
+        
+        # Suggestion reviews table
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS suggestion_reviews (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                suggestion_url TEXT NOT NULL,
+                vote INTEGER NOT NULL,
+                ip_address TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                UNIQUE(suggestion_url, ip_address)
+            )
+        """)
+        
+        # Create indexes
+        conn.execute("CREATE INDEX IF NOT EXISTS idx_review_suggestion ON suggestion_reviews(suggestion_url)")
+        conn.execute("CREATE INDEX IF NOT EXISTS idx_source ON articles(source)")
+        conn.execute("CREATE INDEX IF NOT EXISTS idx_added_by ON articles(added_by)")
+        conn.execute("CREATE INDEX IF NOT EXISTS idx_combined_score ON articles(combined_score)")
+        conn.execute("CREATE INDEX IF NOT EXISTS idx_fetched_at ON articles(fetched_at)")
+        
+        conn.commit()
+        conn.close()
+        
+        db_logger.info("Database initialized successfully")
+    except Exception as e:
+        db_logger.error(f"Failed to initialize database: {e}", exc_info=True)
+        raise
 
 def save_article(url, title, blog_name, score, llm_score, combined_score, reason, keywords, 
-                 source='rss', reddit_suggestion_id=None, added_by='automated'):
-    conn = sqlite3.connect(DB_FILE)
-    conn.execute("""
-        INSERT OR REPLACE INTO articles 
-        (url, title, blog_name, score, llm_score, combined_score, reason, keywords, 
-         source, reddit_suggestion_id, added_by, fetched_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    """, (url, title, blog_name, score, llm_score, combined_score, reason, keywords,
-          source, reddit_suggestion_id, added_by, datetime.now()))
-    conn.commit()
-    conn.close()
-
-def get_articles_by_blog(blog_name, limit=50):
-    conn = sqlite3.connect(DB_FILE)
-    cursor = conn.execute("""
-        SELECT url, title, score, reason, fetched_at 
-        FROM articles 
-        WHERE blog_name = ? 
-        ORDER BY fetched_at DESC 
-        LIMIT ?
-    """, (blog_name, limit))
-    results = cursor.fetchall()
-    conn.close()
-    return results
+                 source='rss', reddit_suggestion_id=None, added_by='automated', text_content=None):
+    """Save or update an article."""
+    db_logger.debug(f"Saving article: {title[:50]}... from {blog_name}")
+    
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        conn.execute("""
+            INSERT OR REPLACE INTO articles 
+            (url, title, blog_name, score, llm_score, combined_score, reason, keywords, 
+             source, reddit_suggestion_id, added_by, fetched_at, text_content)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, (url, title, blog_name, score, llm_score, combined_score, reason, keywords,
+              source, reddit_suggestion_id, added_by, datetime.now(), text_content))
+        conn.commit()
+        conn.close()
+        
+        db_logger.info(f"Article saved: {title[:50]} (score: {combined_score:.2f})")
+    except Exception as e:
+        db_logger.error(f"Failed to save article {url}: {e}", exc_info=True)
 
 def article_exists(url):
-    conn = sqlite3.connect(DB_FILE)
-    cur = conn.execute("SELECT 1 FROM articles WHERE url = ?", (url,))
-    exists = cur.fetchone() is not None
-    conn.close()
-    return exists
+    """Check if article already exists."""
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        cur = conn.execute("SELECT 1 FROM articles WHERE url = ?", (url,))
+        exists = cur.fetchone() is not None
+        conn.close()
+        return exists
+    except Exception as e:
+        db_logger.error(f"Error checking article existence: {e}", exc_info=True)
+        return False
+
+def get_articles_by_blog(blog_name, limit=50):
+    """Get articles for a specific blog."""
+    db_logger.debug(f"Fetching articles for blog: {blog_name} (limit={limit})")
+    
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        cursor = conn.execute("""
+            SELECT url, title, score, combined_score, reason, fetched_at 
+            FROM articles 
+            WHERE blog_name = ? 
+            ORDER BY fetched_at DESC 
+            LIMIT ?
+        """, (blog_name, limit))
+        results = cursor.fetchall()
+        conn.close()
+        
+        db_logger.debug(f"Found {len(results)} articles for {blog_name}")
+        return results
+    except Exception as e:
+        db_logger.error(f"Error fetching articles for {blog_name}: {e}", exc_info=True)
+        return []
+
+def update_llm_score(url, llm_score):
+    """Update LLM score for an article."""
+    db_logger.debug(f"Updating LLM score for {url[:50]}... to {llm_score:.2f}")
+    
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        conn.execute(
+            "UPDATE articles SET llm_score = ?, combined_score = (score * 0.6 + ? * 0.4) WHERE url = ?",
+            (llm_score, llm_score, url)
+        )
+        conn.commit()
+        conn.close()
+        
+        db_logger.info(f"LLM score updated for {url[:50]}")
+        return True
+    except Exception as e:
+        db_logger.error(f"Failed to update LLM score: {e}", exc_info=True)
+        return False
