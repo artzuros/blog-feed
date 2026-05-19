@@ -8,9 +8,17 @@ from storage.cache import save_cache
 from core.llm_scorer import score_with_llm
 from core.keywords import extract_keywords
 from api.logger import root_logger
+from core.embeddings import init_embeddings
+from quality.content_classifier import is_marketing_or_news
 
 HEURISTIC_WEIGHT = 0.6
 LLM_WEIGHT = 0.4
+
+# Initialize embeddings when module loads
+try:
+    init_embeddings()
+except Exception as e:
+    root_logger.warning(f"Could not initialize embeddings: {e}")
 
 def get_articles(blog_name, base_url, rss_override, cache, limit=ARTICLES_PER_BLOG):
     """Get articles via RSS or HTML extraction."""
@@ -58,8 +66,12 @@ def score_blog(blog_name, base_url, rss_override, cache):
         
         root_logger.debug(f"Processing article: {title[:70]}...")
         text = fetch_article_text(url)
-        
         if text and len(text) > 200:
+            # Check if it's marketing/news
+            marketing_score, marketing_reason = is_marketing_or_news(title, text)
+            if marketing_score > 0.7:  # threshold, adjust as needed
+                root_logger.info(f"⏭️ Skipping marketing/news article: {title[:50]}... (score: {marketing_score:.2f}, reason: {marketing_reason})")
+                continue  # Don't save this article
             from quality.slop_detector import is_likely_ai_slop
             score, reason = is_likely_ai_slop(text)
             

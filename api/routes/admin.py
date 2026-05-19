@@ -16,6 +16,7 @@ from storage.cache import load_cache, save_cache
 from core.scorer import score_blog
 from core.llm_scorer import score_with_llm
 from core.fetcher import fetch_article_text
+from quality.content_classifier import is_marketing_or_news
 
 router = APIRouter(dependencies=[Depends(verify_admin_key)])
 
