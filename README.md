@@ -24,43 +24,6 @@ Blog Feed indexes blogs that actually matter:
 - **technical density** — code, benchmarks, architecture
 - **operational wisdom** — incidents, migrations, war stories
 
----
-
-## Features
-
-### 🔍 Search
-
-- Full‑text search across articles (title, keywords, blog name)
-- Filter by source (curated RSS / Reddit‑suggested)
-- Sort by combined quality score
-
-### 📊 Ranking
-
-- **Heuristic scoring** — technical density, weasel words, repetition (fast, offline)
-- **LLM scoring** — optional Ollama integration for deeper semantic judgement
-- **Combined score** — weighted average for final ranking
-
-### 🗳️ Community Suggestions
-
-- Users discover and submit engineering blog posts via Reddit integration
-- Upvote/downvote system for community validation
-- LLM‑assisted pre‑screening before admin review
-
-### 🔧 Admin Interface
-
-- Approve/reject suggestions (with API key authentication)
-- Add curated RSS feeds manually
-- Trigger manual article scans
-- Monitor discovery cache and processed blogs
-
-### 📡 Automated Discovery
-
-- Daily scheduled scans of curated RSS feeds
-- Weekly Reddit discovery for new high‑signal domains
-- Auto‑extraction of article text with Playwright fallback
-
----
-
 ## Tech Stack
 
 ### Backend
@@ -89,37 +52,8 @@ Blog Feed indexes blogs that actually matter:
 | ------------- | --------------------------------- |
 | Hosting       | Home server / localhost           |
 | Reverse Proxy | Cloudflare Tunnel                 |
-| Scheduling    | Cron (daily/weekly scans)         |
+| Scheduling    | Cron (daily/weekly scans) # Not yet implemented        | 
 | Monitoring    | Logging (api.log) + Prometheus    |
-
----
-
-## API Endpoints
-
-### Public (read‑only, rate‑limited)
-
-| Method | Endpoint                                | Description                       |
-| ------ | --------------------------------------- | --------------------------------- |
-| GET    | `/api/search?q={query}`                 | Search articles                   |
-| GET    | `/api/articles/top`                     | Highest scored articles           |
-| GET    | `/api/articles/recent`                  | Most recent articles              |
-| GET    | `/api/articles/by-blog/{blog_name}`     | Articles from specific blog       |
-| GET    | `/api/suggestions`                      | List pending suggestions          |
-| POST   | `/api/suggestions/{id}/review`          | Upvote/downvote suggestion        |
-| GET    | `/api/blogs`                            | List curated RSS feeds            |
-| GET    | `/api/stats`                            | System statistics                 |
-| GET    | `/api/health`                           | Health check                      |
-| GET    | `/metrics`                              | Prometheus metrics                |
-
-### Admin (API key required)
-
-| Method | Endpoint                                | Description                       |
-| ------ | --------------------------------------- | --------------------------------- |
-| POST   | `/api/suggestions/accept`               | Approve suggestion (adds to feed) |
-| POST   | `/api/blogs`                            | Add RSS feed manually             |
-| DELETE | `/api/blogs/{blog_name}`                | Remove RSS feed                   |
-| POST   | `/api/blogs/refresh`                    | Trigger manual article scan       |
-| POST   | `/api/suggestions/import-accepted`      | Bulk import accepted suggestions  |
 
 ---
 
@@ -137,7 +71,7 @@ Articles are scored using heuristic + optional LLM:
 ### LLM Score (0–1, 1 = best)
 
 - Local Ollama model (Mistral / TinyLlama)
-- Rates articles on technical depth and originality
+- Rates articles on technical depth and originality # Very simple prompt given right now.
 
 ### Combined Score
 
@@ -157,7 +91,7 @@ combined_score = (heuristic_score * 0.6) + (llm_score * 0.4)  # if LLM available
 
 ## Source Configuration
 
-### Default RSS Feeds (curated)
+### RSS Feeds (curated)
 
 - Netflix TechBlog
 - Cloudflare Blog
@@ -172,10 +106,7 @@ combined_score = (heuristic_score * 0.6) + (llm_score * 0.4)  # if LLM available
 - Warp
 - Pulumi
 - Convex (HTML extraction)
-
-### Add Your Own
-
-Admin endpoint: `POST /api/blogs` with `{name, url, rss}` (requires API key)
+- to add a whole lot more
 
 ---
 
@@ -197,14 +128,11 @@ export BLOG_SCOUT_API_KEY="your-secure-key"
 # Run the API
 uvicorn api.main:app --host 0.0.0.0 --port 8000
 
-# Set up cron jobs
-# Daily: python scripts/scheduled_scan.py
-# Weekly: python scripts/reddit_discovery.py --auto
 ```
 
 ### Frontend (Cloudflare Pages)
 
-1. Push frontend code (from lovable.dev) to GitHub
+1. Fork https://github.com/artzuros/blog-feed-hub 
 2. Connect to Cloudflare Pages
 3. Set build command: `npm run build` (if applicable)
 4. Set output directory: `dist` or `build`
@@ -216,57 +144,6 @@ uvicorn api.main:app --host 0.0.0.0 --port 8000
 cloudflared tunnel create blog-feed
 cloudflared tunnel route dns blog-feed api.yourdomain.com
 cloudflared tunnel run blog-feed
-```
-
----
-
-## Development Roadmap
-
-### ✅ Phase 1 (Complete)
-
-- RSS ingestion pipeline
-- SQLite storage with full‑text search
-- Heuristic slop detection
-- Basic search (keyword)
-- Admin approval workflow (API key auth)
-- Reddit discovery integration
-- Community voting system
-
-### 🚧 Phase 2 (Current)
-
-- LLM scoring (Ollama integration)
-- Suggestion acceptance workflow (Reddit → review → approve → fetch)
-- Prometheus metrics and logging
-- Scheduled automation (cron)
-
-### 📅 Phase 3 (Planned)
-
-- Full‑text search index optimization (FTS5)
-- User accounts + saved articles
-- Email digests for new articles
-- Browser extension
-
-### 🔮 Phase 4 (Future)
-
-- Collaborative filtering recommendations
-- Source reputation scoring over time
-- Semantic search with embeddings (pgvector)
-- Federated sharing of curated lists
-
----
-
-## Project Structure
-
-```
-blog-feed/
-├── api/              # FastAPI backend (routes, auth, models)
-├── apps/frontend/    # Static frontend (lovable.dev output)
-├── config/           # Settings, blog list (blogs.csv)
-├── core/             # Fetcher, extractor, RSS reader, scorer
-├── quality/          # Slop detection heuristics
-├── scripts/          # Scheduled scans, Reddit discovery, imports
-├── storage/          # Database, cache management
-└── data/             # SQLite DB, JSON caches, logs
 ```
 
 ---
@@ -306,24 +183,5 @@ Built with:
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Ollama](https://ollama.ai/) (optional LLM scoring)
 - [Playwright](https://playwright.dev/) (JavaScript fallback)
-- [lovable.dev](https://lovable.dev) (frontend generation)
 
 ---
-
-## Related Projects
-
-- [Signal Engine](https://github.com/artzuros/signal-engine) — Original concept (this project's predecessor)
-- [Marginalia Search](https://search.marginalia.nu/) — Inspiration for ranking over engagement
-- [Kagi Small Web](https://blog.kagi.com/small-web) — Curated small internet
-
----
-
-## Environment Variables
-
-| Variable                | Default                     | Description                    |
-| ----------------------- | --------------------------- | ------------------------------ |
-| `BLOG_SCOUT_API_KEY`    | `change-me-in-production`   | Admin API key                  |
-| `RATE_LIMIT_REQUESTS`   | `20`                        | Requests per time period       |
-| `RATE_LIMIT_PERIOD`     | `60`                        | Time period in seconds         |
-| `LOG_LEVEL`             | `INFO`                      | Logging level                  |
-| `LOG_FILE`              | `logs/api.log`              | Log file path                  |
