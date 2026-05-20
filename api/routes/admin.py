@@ -391,12 +391,12 @@ async def accept_reddit_suggestion(request: Request, suggestion_url: str):
 
 # ---------- Legacy Suggestions Accept (keep for compatibility) ----------
 @router.post("/suggestions/accept")
-async def accept_suggestion_legacy(request: Request, suggestion_url: str):
-    """Accept a Reddit suggestion (base64 encoded URL) - legacy endpoint."""
+async def accept_suggestion(request: Request, suggestion_url: str):
+    """Accept a Reddit suggestion and save ONLY the specific article (not the whole blog)."""
     import base64
     try:
         url = base64.b64decode(suggestion_url).decode()
-        api_logger.info(f"Admin accepting suggestion (legacy): {url} from {request.client.host}")
+        api_logger.info(f"Accepting suggestion and saving article: {url} from {request.client.host}")
     except:
         api_logger.error(f"Invalid suggestion URL encoding: {suggestion_url}")
         raise HTTPException(status_code=400, detail="Invalid suggestion URL")
@@ -408,23 +408,75 @@ async def accept_suggestion_legacy(request: Request, suggestion_url: str):
     with open(suggestions_file, 'r') as f:
         suggestions = json.load(f)
     
-    found = False
+    found_suggestion = None
     for suggestion in suggestions:
         if suggestion['url'] == url:
             suggestion['accepted'] = True
             suggestion['accepted_at'] = datetime.now().isoformat()
-            found = True
+            found_suggestion = suggestion
             break
     
-    if not found:
-        api_logger.warning(f"Suggestion not found: {url}")
+    if not found_suggestion:
         raise HTTPException(status_code=404, detail="Suggestion not found")
     
+    # Save the article directly to database
+    from core.fetcher import fetch_article_text
+    from quality.slop_detector import is_likely_ai_slop
+    from core.keywords import extract_keywords
+    from storage.database import save_article
+    
+    # Fetch full article text
+    text = fetch_article_text(url)
+    if not text or len(text) < 200:
+        raise HTTPException(status_code=400, detail="Could not extract enough article text")
+    
+    # Re-run heuristic scoring
+    heuristic_score, reason = is_likely_ai_slop(text)
+    
+    # Use LLM score if available
+    llm_score = found_suggestion.get('llm_score')
+    combined = heuristic_score
+    if llm_score is not None:
+        combined = heuristic_score * 0.6 + llm_score * 0.4
+    
+    # Extract keywords
+    keywords = extract_keywords(text)
+    
+    # Save article
+    try:
+        save_article(
+            url=url,
+            title=found_suggestion.get('title', ''),
+            blog_name=found_suggestion.get('domain', 'reddit-discovery'),
+            score=heuristic_score,
+            llm_score=llm_score,
+            combined_score=combined,
+            reason=reason,
+            keywords=keywords,
+            source='reddit',
+            reddit_suggestion_id=url,
+            added_by='manual_review'
+        )
+        api_logger.info(f"Article saved from accepted suggestion: {url}")
+    except Exception as e:
+        api_logger.error(f"Failed to save article: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Failed to save article: {str(e)}")
+    
+    # Save updated suggestions (mark as accepted)
     with open(suggestions_file, 'w') as f:
         json.dump(suggestions, f, indent=2)
     
-    api_logger.info(f"Suggestion accepted: {url}")
-    return {"success": True, "message": "Suggestion accepted"}
+    return {"success": True, "message": "Article accepted and saved to database"}
+
+async def scan_new_blog(blog_name, blog_url, rss_url):
+    """Background task to fetch articles for a newly added blog."""
+    from core.scorer import score_blog
+    from storage.cache import load_cache
+    cache = load_cache()
+    score_blog(blog_name, blog_url, rss_url, cache)
+    from storage.cache import save_cache
+    save_cache(cache)
+    api_logger.info(f"Completed initial scan for new blog: {blog_name}")
 
 # ---------- Admin Verification ----------
 @router.get("/verify")

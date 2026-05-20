@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request, HTTPException, Depends, Query
+from fastapi import APIRouter, Request, HTTPException, Depends, Query, BackgroundTasks
 from pydantic import BaseModel
 from slowapi import Limiter
 from slowapi.util import get_remote_address
@@ -29,7 +29,7 @@ async def get_suggestions(
     suggestions_file = "data/reddit_suggestions.json"
     if not os.path.exists(suggestions_file):
         api_logger.warning("Suggestions file not found")
-        return {"suggestions": []}
+        return []
     
     try:
         with open(suggestions_file, 'r') as f:
@@ -141,3 +141,100 @@ async def vote_suggestion(
         api_logger.error(f"Error recording vote for {url}: {e}", exc_info=True)
         conn.close()
         raise HTTPException(status_code=500, detail=str(e))
+
+@router.post("/suggestions/{suggestion_url}/llm-review")
+@limiter.limit(f"{RATE_LIMIT_REQUESTS}/{RATE_LIMIT_PERIOD} second")
+async def llm_review_suggestion(
+    request: Request,
+    suggestion_url: str,
+    background_tasks: BackgroundTasks
+):
+    """Trigger LLM review for a Reddit suggestion."""
+    import base64
+    
+    try:
+        url = base64.b64decode(suggestion_url).decode()
+        api_logger.info(f"Triggering LLM review for suggestion: {url[:100]}... from {request.client.host}")
+    except:
+        api_logger.warning(f"Invalid suggestion URL encoding: {suggestion_url}")
+        raise HTTPException(status_code=400, detail="Invalid suggestion URL")
+    
+    suggestions_file = "data/reddit_suggestions.json"
+    if not os.path.exists(suggestions_file):
+        raise HTTPException(status_code=404, detail="Suggestions file not found")
+    
+    with open(suggestions_file, 'r') as f:
+        suggestions = json.load(f)
+    
+    # Find the suggestion
+    suggestion = None
+    idx = None
+    for i, s in enumerate(suggestions):
+        if s['url'] == url:
+            suggestion = s
+            idx = i
+            break
+    
+    if not suggestion:
+        raise HTTPException(status_code=404, detail="Suggestion not found")
+    
+    # Mark as processing
+    suggestion['reviewed'] = 'processing'
+    suggestions[idx] = suggestion
+    with open(suggestions_file, 'w') as f:
+        json.dump(suggestions, f, indent=2)
+    
+    # Trigger background LLM review
+    background_tasks.add_task(process_suggestion_llm_review, url, suggestions_file)
+    
+    return {"success": True, "message": "LLM review started for suggestion"}
+
+
+async def process_suggestion_llm_review(url: str, suggestions_file: str):
+    """Background task to review a suggestion with LLM."""
+    from core.fetcher import fetch_article_text
+    from core.llm_scorer import score_with_llm
+    
+    api_logger.info(f"Processing LLM review for suggestion: {url}")
+    
+    # Fetch article text
+    text = fetch_article_text(url)
+    
+    # Load current suggestions
+    with open(suggestions_file, 'r') as f:
+        all_suggestions = json.load(f)
+    
+    # Find the suggestion
+    suggestion = None
+    idx = None
+    for i, s in enumerate(all_suggestions):
+        if s['url'] == url:
+            suggestion = s
+            idx = i
+            break
+    
+    if not suggestion:
+        api_logger.error(f"Suggestion not found during LLM review: {url}")
+        return
+    
+    if not text or len(text) < 200:
+        api_logger.warning(f"Insufficient text for LLM review: {url}")
+        suggestion['reviewed'] = 'failed'
+        suggestion['llm_error'] = 'Insufficient text (less than 200 chars)'
+    else:
+        llm_score = score_with_llm(text)
+        if llm_score is not None:
+            suggestion['llm_score'] = llm_score
+            suggestion['combined_score'] = (suggestion['heuristic_score'] * 0.6) + (llm_score * 0.4)
+            suggestion['reviewed'] = 'llm'
+            api_logger.info(f"LLM review complete for {url}: score={llm_score:.2f}")
+        else:
+            suggestion['reviewed'] = 'failed'
+            suggestion['llm_error'] = 'LLM scoring failed'
+    
+    suggestion['reviewed_at'] = datetime.now().isoformat()
+    all_suggestions[idx] = suggestion
+    
+    # Save updated suggestions
+    with open(suggestions_file, 'w') as f:
+        json.dump(all_suggestions, f, indent=2)
