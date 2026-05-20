@@ -8,6 +8,19 @@ Blog Feed discovers, ranks, and serves the best technical content from company e
 
 ---
 
+## Table of Contents
+
+- [Core Philosophy](#core-philosophy)
+- [Tech Stack](#tech-stack)
+- [Ranking Formula](#ranking-formula)
+- [Source Configuration](#source-configuration)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+
+---
+
 ## Core Philosophy
 
 The modern internet is flooded with:
@@ -24,6 +37,8 @@ Blog Feed indexes blogs that actually matter:
 - **technical density** — code, benchmarks, architecture
 - **operational wisdom** — incidents, migrations, war stories
 
+---
+
 ## Tech Stack
 
 ### Backend
@@ -31,9 +46,10 @@ Blog Feed indexes blogs that actually matter:
 | Component     | Technology                                      |
 | ------------- | ----------------------------------------------- |
 | API           | FastAPI                                         |
-| Database      | SQLite (with full‑text search)                  |
+| Database      | SQLite + Chroma DB (semantic search)            |
 | Crawler       | feedparser, trafilatura, Playwright, requests   |
 | Ranking       | Custom heuristic + optional Ollama              |
+| Keyword Extraction | RAKE (Rapid Automatic Keyword Extraction)  |
 | Authentication | API key (X‑API‑Key header)                     |
 | Rate Limiting | slowapi                                         |
 | Metrics       | Prometheus (/metrics endpoint)                  |
@@ -42,7 +58,7 @@ Blog Feed indexes blogs that actually matter:
 
 | Component  | Technology                       |
 | ---------- | -------------------------------- |
-| Framework  | React (via lovable.dev)          |
+| Framework  | React + TanStack Router          |
 | Styling    | Tailwind CSS                     |
 | Deployment | Cloudflare Pages                 |
 
@@ -50,10 +66,10 @@ Blog Feed indexes blogs that actually matter:
 
 | Component     | Technology                        |
 | ------------- | --------------------------------- |
-| Hosting       | Home server / localhost           |
+| Hosting       | Ubuntu home server                |
 | Reverse Proxy | Cloudflare Tunnel                 |
-| Scheduling    | Cron (daily/weekly scans) # Not yet implemented        | 
-| Monitoring    | Logging (api.log) + Prometheus    |
+| Monitoring    | Logging + systemd service         |
+| Vector DB     | Chroma (persistent embeddings)    |
 
 ---
 
@@ -61,17 +77,17 @@ Blog Feed indexes blogs that actually matter:
 
 Articles are scored using heuristic + optional LLM:
 
-### Heuristic Score (0–1, 0 = best)
+### Heuristic Score (0–1, lower = better)
 
 - **Technical density** — code indicators, numbers, technical terms
 - **Weasel words** — marketing phrases ("revolutionize", "unlock the power")
 - **Repetition** — sentence similarity penalties
 - **Readability** — oversimplified text penalty
 
-### LLM Score (0–1, 1 = best)
+### LLM Score (0–1, higher = better)
 
-- Local Ollama model (Mistral / TinyLlama)
-- Rates articles on technical depth and originality # Very simple prompt given right now.
+- Local Ollama model (granite3.3:2b / Mistral)
+- Rates articles on technical depth and originality
 
 ### Combined Score
 
@@ -87,37 +103,44 @@ combined_score = (heuristic_score * 0.6) + (llm_score * 0.4)  # if LLM available
 - Generic advice without specifics
 - Missing code/architecture details
 
+### Semantic Search
+
+Articles are embedded using `all-MiniLM-L6-v2` (384-dim) and stored in Chroma DB. Search queries find conceptually similar articles even without keyword matches.
+
 ---
 
 ## Source Configuration
 
-### RSS Feeds (curated)
+Blogs are configured in `config/blogs.csv`:
 
-- Netflix TechBlog
-- Cloudflare Blog
-- Stripe Engineering (via HTML fallback)
-- Tailscale
-- Fly.io
-- Supabase
-- Temporal
-- PostHog
-- Dagster
-- Neon
-- Warp
-- Pulumi
-- Convex (HTML extraction)
-- to add a whole lot more
+```csv
+name,url,rss
+Netflix,https://netflixtechblog.com,https://netflixtechblog.com/feed
+Cloudflare,https://blog.cloudflare.com,https://blog.cloudflare.com/rss
+Tailscale,https://tailscale.com/blog,https://tailscale.com/blog/feed.xml
+```
+
+**Currently indexed (50+ blogs):**
+- Netflix TechBlog, Cloudflare, Stripe, Uber, Spotify
+- Tailscale, Fly.io, Supabase, Temporal, PostHog
+- Dagster, Neon, Warp, Pulumi, Convex
+- AWS, Google Cloud, GitHub, GitLab, HashiCorp
+- And more being added regularly
 
 ---
 
 ## Deployment
 
-### Backend (Home Server)
+### Backend (Ubuntu Server)
 
 ```bash
 # Clone repository
 git clone https://github.com/artzuros/blog-feed
 cd blog-feed
+
+# Create conda environment
+conda create -n blog python=3.11
+conda activate blog
 
 # Install dependencies
 pip install -r requirements.txt
@@ -126,16 +149,18 @@ pip install -r requirements.txt
 export BLOG_SCOUT_API_KEY="your-secure-key"
 
 # Run the API
-uvicorn api.main:app --host 0.0.0.0 --port 8000
+uvicorn api.main:app --host 0.0.0.0 --port 8765
 
+# Run as systemd service (recommended)
+sudo systemctl start blog-feed-api
 ```
 
 ### Frontend (Cloudflare Pages)
 
-1. Fork https://github.com/artzuros/blog-feed-hub 
+1. Fork [github.com/artzuros/blog-feed-hub](https://github.com/artzuros/blog-feed-hub)
 2. Connect to Cloudflare Pages
-3. Set build command: `npm run build` (if applicable)
-4. Set output directory: `dist` or `build`
+3. Set build command: `npm run build`
+4. Set output directory: `dist`
 5. Add environment variable: `VITE_API_BASE=https://your-api-domain.com/api`
 
 ### Cloudflare Tunnel
@@ -148,14 +173,37 @@ cloudflared tunnel run blog-feed
 
 ---
 
+## API Endpoints
+
+| Endpoint | Method | Description | Auth |
+|----------|--------|-------------|------|
+| `/api/health` | GET | Health check | None |
+| `/api/stats` | GET | Database statistics | None |
+| `/api/search` | GET | Keyword search | None |
+| `/api/semantic-search` | GET | Semantic search | None |
+| `/api/suggestions` | GET | Reddit suggestions | None |
+| `/api/suggestions/{url}/vote` | POST | Vote on suggestion | None |
+| `/api/admin/verify` | GET | Admin verification | API Key |
+| `/api/blogs` | GET/POST/DELETE | Manage blogs | API Key |
+| `/api/blogs/{name}/refresh` | POST | Rescan a blog | API Key |
+| `/api/reddit/discover` | POST | Run Reddit discovery | API Key |
+| `/api/reddit/suggestions` | GET | Pending suggestions | API Key |
+
+Full API documentation available at `/docs` when running locally.
+
+---
+
 ## Contributing
 
 We welcome contributions! Especially:
 
 - New RSS feed sources (add to `config/blogs.csv`)
 - Ranking algorithm improvements (heuristics or prompts)
+- Keyword extraction enhancements
 - Bug fixes and performance tweaks
-- Frontend UI/UX enhancements
+- Frontend UI/UX improvements
+
+**Please read our [Contributing Guide](CONTRIBUTING.md) before submitting pull requests.**
 
 **How to contribute:**
 
@@ -164,7 +212,8 @@ We welcome contributions! Especially:
 3. Submit a pull request
 
 **Report issues or suggest features:**  
-GitHub Issues: [artzuros/blog-feed/issues](https://github.com/artzuros/blog-feed/issues)
+[GitHub Issues](https://github.com/artzuros/blog-feed/issues)
+
 
 ---
 
@@ -179,9 +228,13 @@ MIT © Pranav Bansal
 Built with:
 
 - [FastAPI](https://fastapi.tiangolo.com/)
-- [TanStack Start](https://tanstack.com/start) (frontend)
+- [TanStack Router](https://tanstack.com/router)
 - [Tailwind CSS](https://tailwindcss.com/)
-- [Ollama](https://ollama.ai/) (optional LLM scoring)
-- [Playwright](https://playwright.dev/) (JavaScript fallback)
+- [Ollama](https://ollama.ai/)
+- [Playwright](https://playwright.dev/)
+- [Chroma DB](https://www.trychroma.com/)
+- [sentence-transformers](https://www.sbert.net/)
 
 ---
+
+**Why another search engine?** Because good engineering content shouldn't be buried under SEO spam and AI-generated fluff. Blog Feed is my attempt to fix that — one blog at a time.
