@@ -95,6 +95,11 @@ def save_article(url, title, blog_name, score, llm_score, combined_score, reason
                 'url': url
             }
             update_article_embedding(rowid, article_data)
+            # Mark as updated
+            conn = sqlite3.connect(DB_FILE)
+            conn.execute("UPDATE articles SET embedding_updated = 1 WHERE rowid = ?", (rowid,))
+            conn.commit()
+            conn.close()
         
     except Exception as e:
         db_logger.error(f"Failed to save article {url}: {e}", exc_info=True)
