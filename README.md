@@ -4,7 +4,7 @@
 
 Blog Feed discovers, ranks, and serves the best technical content from company engineering blogs, incident reports, and deep dives — while filtering out AI slop, SEO spam, and superficial tutorials.
 
-**Live:** [blog-hub.pranav-bansal.com](https://blog-hub.pranav-bansal.com)
+**Live:** [blog-feed.pranav-bansal.com](https://blog-feed.pranav-bansal.com)
 
 ---
 
