@@ -62,5 +62,71 @@
   },
   "https://arstechnica.com": {
     "html_selector": "default"
+  },
+  "https://mistral.ai/news": {
+    "rss_url": "https://raw.githubusercontent.com/0xSMW/rss-feeds/main/feeds/feed_mistral_news.xml"
+  },
+  "https://blog.algolia.com/": {
+    "html_selector": "default"
+  },
+  "https://blog.asana.com/category/eng/": {
+    "html_selector": "default"
+  },
+  "https://developer.atlassian.com/blog/": {
+    "html_selector": "default"
+  },
+  "https://blog.cloudera.com/": {
+    "html_selector": "default"
+  },
+  "https://blog.codeship.com/": {
+    "html_selector": "default"
+  },
+  "https://doordash.engineering/blog/": {
+    "html_selector": "default"
+  },
+  "https://webuild.envato.com/": {
+    "html_selector": "default"
+  },
+  "https://www.eventbrite.com/engineering/": {
+    "html_selector": "default"
+  },
+  "http://engineering.gusto.com/": {
+    "html_selector": "default"
+  },
+  "https://blog.heroku.com/engineering": {
+    "html_selector": "default"
+  },
+  "http://blog.honeybadger.io/": {
+    "html_selector": "default"
+  },
+  "https://tech.just-eat.com/": {
+    "html_selector": "default"
+  },
+  "https://engineering.linecorp.com/en/blog": {
+    "html_selector": "default"
+  },
+  "https://engineering.riotgames.com/": {
+    "html_selector": "default"
+  },
+  "https://blog.risingstack.com/": {
+    "html_selector": "default"
+  },
+  "https://shopify.engineering/": {
+    "html_selector": "default"
+  },
+  "https://corner.squareup.com/": {
+    "html_selector": "default"
+  },
+  "http://engineering.wayfair.com/": {
+    "html_selector": "default"
+  },
+  "https://blog.golang.org/": {
+    "html_selector": "default"
+  },
+  "http://facebook.github.io/react-native/blog/": {
+    "html_selector": "default"
+  },
+  "https://developer.apple.com/swift/blog/": {
+    "html_selector": "default"
   }
 }

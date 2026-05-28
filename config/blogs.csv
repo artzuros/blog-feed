@@ -10,14 +10,109 @@ Neon,https://neon.tech/blog,https://neon.tech/blog/rss.xml
 Convex,https://stack.convex.dev,
 Warp,https://www.warp.dev/blog,https://www.warp.dev/blog/feed.xml
 Pulumi,https://www.pulumi.com/blog,https://www.pulumi.com/blog/rss.xml
-Stripe,https://stripe.com/blog,
 Cloudflare,https://blog.cloudflare.com,https://blog.cloudflare.com/rss
-Netflix,https://netflixtechblog.com,https://netflixtechblog.com/feed
-Spotify,https://engineering.atspotify.com,
 kevinpatel.xyz,https://kevinpatel.xyz,
 internals-for-interns.com,https://internals-for-interns.com,
 mwalterskirchen.dev,https://mwalterskirchen.dev,
 Netlify,https://www.netlify.com/blog,
 arstechnica.com,https://arstechnica.com,
 Mistral,https://mistral.ai/news,https://raw.githubusercontent.com/0xSMW/rss-feeds/main/feeds/feed_mistral_news.xml
-Postman,https://blog.postman.com,https://blog.postman.com/feed/
+8th Light,https://8thlight.com/blog/,https://8thlight.com/insights/feed/rss.xml
+Airbnb,https://medium.com/airbnb-engineering,https://medium.com/feed/airbnb-engineering
+Algolia,https://blog.algolia.com/,https://blog.algolia.com/blog/rss.xml
+Arkency,http://blog.arkency.com/,https://blog.arkency.com/feed.xml
+Artsy,http://artsy.github.io/,http://artsy.github.io/feed
+Asana,https://blog.asana.com/category/eng/,https://blog.asana.com/feed/
+Atlassian,https://developer.atlassian.com/blog/,https://www.atlassian.com/blog/feed
+Atomic Object,https://spin.atomicobject.com/,https://spin.atomicobject.com/feed/
+Auth0,https://auth0.com/blog/,https://auth0.com/blog/rss.xml
+AWS,https://aws.amazon.com/blogs/aws/,https://aws.amazon.com/blogs/aws/feed/
+Bandcamp,https://bandcamptech.wordpress.com/,https://bandcamptech.wordpress.com/feed/
+Benchling,https://benchling.engineering/,https://benchling.engineering/feed
+Canva,https://engineering.canva.com,https://www.canva.dev/blog/engineering/feed.xml
+Cerner,http://engineering.cerner.com/,https://engineering.cerner.com/index.xml
+Clever,https://engineering.clever.com/,https://engineering.clever.com/rss
+Cloudera,https://blog.cloudera.com/,https://blog.cloudera.com/feed/
+Codeship,https://blog.codeship.com/,https://blog.codeship.com/blog/feed/
+Confluent,https://www.confluent.io/blog,https://www.confluent.io/rss.xml
+Credit Karma,https://engineering.creditkarma.com/,https://engineering.creditkarma.com/feed
+Databricks,https://databricks.com/blog,https://www.databricks.com/feed
+Deliveroo,https://deliveroo.engineering/,https://deliveroo.engineering/feed.xml
+Discord,https://blog.discordapp.com/,https://discord.com/blog/rss.xml
+Docker,https://blog.docker.com/,https://www.docker.com/feed/
+DoorDash,https://doordash.engineering/blog/,https://doordash.engineering/blog/rss
+Dropbox,https://blogs.dropbox.com/tech/,https://dropbox.tech/feed
+Ebay,https://www.ebayinc.com/stories/blogs/tech/,https://www.ebayinc.com/stories/news/rss/
+Engine Yard,https://blog.engineyard.com/,https://blog.engineyard.com/rss
+Envato,https://webuild.envato.com/,https://webuild.envato.com/blog/rss.xml
+Envoy,https://envoy.engineering/,https://envoy.engineering/feed
+Eventbrite,https://www.eventbrite.com/engineering/,https://www.eventbrite.com/engineering/feed/
+Evil Martians,https://evilmartians.com/chronicles/,https://evilmartians.com/chronicles.atom
+Expedia,https://medium.com/expedia-group-tech,https://medium.com/feed/expedia-group-tech
+Facebook,https://code.facebook.com/posts/,https://engineering.fb.com/feed/
+Flickr,http://code.flickr.net/,https://code.flickr.net/feed/
+GitHub,https://githubengineering.com/,https://github.blog/engineering.atom
+GoCardless,https://gocardless.com/blog/tagged/engineering/,https://gocardless.com/content-platform/rss/resources.xml
+Grab,http://engineering.grab.com/,http://engineering.grab.com/feed.xml
+Groupon,https://engineering.groupon.com/,https://medium.com/feed/groupon-eng
+Gusto,http://engineering.gusto.com/,https://engineering.gusto.com/rss/
+Hashrocket,https://hashrocket.com/blog,https://hashrocket.com/blog.rss
+Heroku,https://blog.heroku.com/engineering,https://blog.heroku.com/engineering
+Honeybadger,http://blog.honeybadger.io/,http://blog.honeybadger.io/blog/feed.xml
+Hootsuite,http://code.hootsuite.com/,https://medium.com/feed/hootsuite-engineering
+HubSpot,http://product.hubspot.com/blog/topic/engineering,https://product.hubspot.com/blog/rss.xml
+Indeed,http://engineering.indeedblog.com/blog/,https://engineering.indeedblog.com/feed/
+Instagram,https://engineering.instagram.com/,https://instagram-engineering.com/feed
+Jane Street,https://blogs.janestreet.com/category/ocaml/,https://blogs.janestreet.com/feed.xml
+Just Eat,https://tech.just-eat.com/,https://tech.justeattakeaway.com/feed/
+LINE,https://engineering.linecorp.com/en/blog,https://engineering.linecorp.com/en/blog
+Lyft,https://eng.lyft.com/,https://eng.lyft.com/feed
+Medium,https://medium.com/medium-eng,https://medium.engineering/feed
+Microsoft Python Engineering,https://blogs.msdn.microsoft.com/pythonengineering/,https://devblogs.microsoft.com/python/feed/
+Mozilla Hacks,https://hacks.mozilla.org/,https://hacks.mozilla.org/feed/
+Netflix,https://medium.com/netflix-techblog,https://netflixtechblog.com/feed
+Nextdoor,https://engblog.nextdoor.com/,https://engblog.nextdoor.com/feed
+Nvidia,https://blogs.nvidia.com/,https://blogs.nvidia.com/feed/
+Okta,https://developer.okta.com/blog/,https://developer.okta.com/feed.xml
+Palantir,https://blog.palantir.com/,https://blog.palantir.com/feed
+Paypal,https://www.paypal-engineering.com/,https://medium.com/feed/paypal-tech
+Pinterest,https://medium.com/@Pinterest_Engineering,https://medium.com/feed/@Pinterest_Engineering
+Postman,https://medium.com/better-practices,https://medium.com/feed/better-practices
+Postmark,https://postmarkapp.com/blog,https://postmarkapp.com/blog/feed.atom
+REA Group,https://www.rea-group.com/category/tech/,https://www.rea-group.com/category/tech/feed/
+Riot Games,https://engineering.riotgames.com/,https://technology.riotgames.com/rss.xml
+RisingStack,https://blog.risingstack.com/,https://blog.risingstack.com/feed/
+Serverless,https://serverless.com/blog/,https://www.serverless.com/blog/rss.xml
+Shopify,https://shopify.engineering/,https://shopify.engineering/blog.atom
+SitePoint,https://sitepoint.com,https://sitepoint.com/sitepoint.rss
+Slack,https://slack.engineering/,https://slack.engineering/rss
+Soundcloud,https://developers.soundcloud.com/blog/,https://developers.soundcloud.com/blog/blog.rss
+Spotify,https://labs.spotify.com/,https://engineering.atspotify.com/feed
+Square,https://corner.squareup.com/,https://corner.squareup.com/blog/rss.xml
+Squarespace,https://engineering.squarespace.com/,https://engineering.squarespace.com/blog?format=rss
+Stack Overflow,https://stackoverflow.blog/engineering/,https://stackoverflow.blog/feed
+Stitch Fix,http://multithreaded.stitchfix.com/blog/,https://multithreaded.stitchfix.com/feed.xml
+Strava,https://medium.com/strava-engineering/,https://medium.com/feed/strava-engineering
+Stripe,https://stripe.com/blog,https://stripe.com/blog/feed.rss
+SurveyMonkey,https://engineering.surveymonkey.com/,https://www.surveymonkey.com/feed/
+Swiggy,https://bytes.swiggy.com/,https://bytes.swiggy.com/feed/
+Target,https://target.github.io/,https://target.github.io/feed.xml
+Thoughtbot,https://robots.thoughtbot.com/,https://feeds.feedburner.com/GiantRobotsSmashingIntoOtherGiantRobots
+Timescale,https://blog.timescale.com/,https://www.timescale.com/blog/rss/
+Tinder,https://tech.gotinder.com/,https://medium.com/feed/tinder
+Toptal,https://www.toptal.com/blog/,https://www.toptal.com/blog.rss
+Transferwise,http://tech.transferwise.com/,https://medium.com/feed/wise-engineering
+Tumblr,https://engineering.tumblr.com/,https://engineering.tumblr.com/rss
+Twilio,https://www.twilio.com/blog/,https://www.twilio.com/blog/feed
+Uber,https://eng.uber.com,https://eng.uber.com/feed/
+Wayfair,http://engineering.wayfair.com/,https://www.aboutwayfair.com/careers/tech-blog.rss
+Wealthfront,http://eng.wealthfront.com/,https://eng.wealthfront.com/feed/
+Yahoo,https://yahooeng.tumblr.com/,https://yahooeng.tumblr.com/rss
+Zendesk,https://medium.com/zendesk-engineering,https://zendesk.engineering/feed
+Crystal,https://crystal-lang.org/,https://crystal-lang.org/feed.xml
+Go,https://blog.golang.org/,https://blog.golang.org/blog/feed.atom
+Kotlin,https://blog.jetbrains.com/kotlin/,https://blog.jetbrains.com/kotlin/feed/
+.NET,https://blogs.msdn.microsoft.com/dotnet/,https://devblogs.microsoft.com/dotnet/feed/
+React Native,http://facebook.github.io/react-native/blog/,http://facebook.github.io/blog/rss.xml
+Rust,https://blog.rust-lang.org/,https://blog.rust-lang.org/feed.xml
+Swift,https://developer.apple.com/swift/blog/,https://developer.apple.com/swift/blog/news.rss
