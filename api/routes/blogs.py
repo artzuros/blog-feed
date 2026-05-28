@@ -83,7 +83,7 @@ def refresh_blogs():
             ['python', 'scripts/scheduled_scan.py'],
             capture_output=True,
             text=True,
-            timeout=600
+            timeout=1200
         )
         if result.returncode == 0:
             api_logger.info("Manual scan completed successfully")
