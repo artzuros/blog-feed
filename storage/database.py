@@ -111,6 +111,7 @@ def save_article(url, title, blog_name, score, llm_score, combined_score, reason
             "INSERT INTO articles_fts(rowid, title, keywords, blog_name, text_content) VALUES (?, ?, ?, ?, ?)",
             (rowid, title, keywords or '', blog_name, text_content or '')
         )
+        conn.commit()
 
         conn.close()
         
