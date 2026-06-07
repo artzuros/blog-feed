@@ -33,6 +33,30 @@ def init_db():
             )
         """)
         
+        # Ensure text_content column exists on older databases
+        try:
+            conn.execute("ALTER TABLE articles ADD COLUMN text_content TEXT")
+            db_logger.info("Added text_content column to articles table")
+        except sqlite3.OperationalError:
+            pass  # Column already exists
+
+        # FTS5 full-text search index
+        conn.execute("""
+            CREATE VIRTUAL TABLE IF NOT EXISTS articles_fts USING fts5(
+                title, keywords, blog_name, text_content
+            )
+        """)
+        # Backfill FTS5 index for existing articles that aren't indexed yet
+        backfill_count = conn.execute("""
+            INSERT OR IGNORE INTO articles_fts(rowid, title, keywords, blog_name, text_content)
+            SELECT rowid, title, COALESCE(keywords, ''), blog_name, COALESCE(text_content, '')
+            FROM articles
+        """).rowcount
+        if backfill_count > 0:
+            db_logger.info(f"FTS5 backfill: indexed {backfill_count} existing articles")
+
+        db_logger.info("FTS5 search index ready")
+
         # Suggestion reviews table
         conn.execute("""
             CREATE TABLE IF NOT EXISTS suggestion_reviews (
@@ -80,6 +104,14 @@ def save_article(url, title, blog_name, score, llm_score, combined_score, reason
         # Get the rowid of the inserted/updated article
         cursor = conn.execute("SELECT rowid FROM articles WHERE url = ?", (url,))
         rowid = cursor.fetchone()[0]
+
+        # Sync to FTS5 full-text search index
+        conn.execute("DELETE FROM articles_fts WHERE rowid = ?", (rowid,))
+        conn.execute(
+            "INSERT INTO articles_fts(rowid, title, keywords, blog_name, text_content) VALUES (?, ?, ?, ?, ?)",
+            (rowid, title, keywords or '', blog_name, text_content or '')
+        )
+
         conn.close()
         
         db_logger.info(f"Article saved: {title[:50]} (score: {combined_score:.2f})")

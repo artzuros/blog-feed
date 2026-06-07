@@ -9,6 +9,28 @@ from config.settings import RATE_LIMIT_REQUESTS, RATE_LIMIT_PERIOD
 router = APIRouter()
 limiter = Limiter(key_func=get_remote_address)
 
+
+def _sanitize_fts5_query(query: str) -> str:
+    """Make a user query safe for FTS5 MATCH, with prefix matching on last word."""
+    # Strip FTS5 special characters that cause syntax errors
+    for char in '*"()+-':
+        query = query.replace(char, ' ')
+    words = query.split()
+    if not words:
+        return None
+    # Prefix match on the last word so "kubernetes deploy" matches "deployment"
+    words[-1] = words[-1] + '*'
+    return ' '.join(words)
+
+
+def _fts5_available(conn) -> bool:
+    """Check if the FTS5 index table exists and has data."""
+    try:
+        count = conn.execute("SELECT COUNT(*) FROM articles_fts").fetchone()[0]
+        return count > 0
+    except Exception:
+        return False
+
 @router.get("/articles")
 @limiter.limit(f"{RATE_LIMIT_REQUESTS}/{RATE_LIMIT_PERIOD} second")
 async def list_articles(
@@ -78,52 +100,96 @@ async def search_articles(
     request: Request,
     q: str = Query(..., min_length=2, description="Search query"),
     limit: int = Query(50, ge=1, le=200),
+    offset: int = Query(0, ge=0),
     min_score: float = Query(0.0, ge=0.0, le=1.0, description="Minimum combined score"),
     source: Optional[str] = Query(None, regex="^(rss|reddit)$", description="Filter by source")
 ):
-    """Search articles by title or keywords."""
-    api_logger.info(f"Search: query='{q}', limit={limit}, min_score={min_score}, source={source} from {request.client.host}")
-    
+    """Full-text search articles with hybrid BM25 + quality ranking."""
+    api_logger.info(f"Search: query='{q}', limit={limit}, offset={offset}, "
+                    f"min_score={min_score}, source={source} from {request.client.host}")
+
     conn = get_db()
     if not conn:
         api_logger.error("Database connection failed during search")
         raise HTTPException(status_code=500, detail="Database not initialized")
-    
-    try:
-        # Build query based on source filter
+
+    fts5_query = _sanitize_fts5_query(q)
+    use_fts5 = _fts5_available(conn) and fts5_query
+
+    def _execute_search(use_fts5_flag):
+        """Build and execute the search query."""
+        clauses = []
+        params = []
+
+        if use_fts5_flag:
+            clauses.append("articles_fts MATCH ?")
+            params.append(fts5_query)
+        else:
+            clauses.append("(a.title LIKE ? OR a.keywords LIKE ?)")
+            params.extend([f'%{q}%', f'%{q}%'])
+
+        if min_score > 0:
+            clauses.append("a.combined_score >= ?")
+            params.append(min_score)
+
         if source:
-            cursor = conn.execute(
-                """SELECT url, title, blog_name, score, llm_score, combined_score, 
-                          reason, keywords, source, fetched_at 
-                   FROM articles 
-                   WHERE (title LIKE ? OR keywords LIKE ?) 
-                   AND combined_score >= ?
-                   AND source = ?
-                   ORDER BY combined_score DESC
-                   LIMIT ?""",
-                (f'%{q}%', f'%{q}%', min_score, source, limit)
-            )
-        else:            
-            cursor = conn.execute(
-                """SELECT url, title, blog_name, score, llm_score, combined_score, 
-                          reason, keywords, source, fetched_at 
-                   FROM articles 
-                   WHERE (title LIKE ? OR keywords LIKE ?) 
-                   AND combined_score >= ?
-                   ORDER BY combined_score DESC
-                   LIMIT ?""",
-                (f'%{q}%', f'%{q}%', min_score, limit)
-            )
-        
-        results = cursor.fetchall()
+            clauses.append("a.source = ?")
+            params.append(source)
+
+        where_sql = " AND ".join(clauses)
+
+        if use_fts5_flag:
+            sql = f"""
+                SELECT a.url, a.title, a.blog_name, a.score, a.llm_score,
+                       a.combined_score, a.reason, a.keywords, a.source,
+                       a.fetched_at,
+                       snippet(articles_fts, 2, '<mark>', '</mark>', '…', 32) AS snippet,
+                       rank AS fts_rank
+                FROM articles a
+                JOIN articles_fts ON a.rowid = articles_fts.rowid
+                WHERE {where_sql}
+                ORDER BY (a.combined_score * 100) - rank DESC
+                LIMIT ? OFFSET ?
+            """
+        else:
+            sql = f"""
+                SELECT a.url, a.title, a.blog_name, a.score, a.llm_score,
+                       a.combined_score, a.reason, a.keywords, a.source,
+                       a.fetched_at,
+                       NULL AS snippet, NULL AS fts_rank
+                FROM articles a
+                WHERE {where_sql}
+                ORDER BY a.combined_score DESC
+                LIMIT ? OFFSET ?
+            """
+
+        params.extend([limit, offset])
+        return conn.execute(sql, params).fetchall()
+
+    try:
+        if use_fts5:
+            try:
+                results = _execute_search(use_fts5_flag=True)
+                search_type = "fts5"
+            except Exception as fts5_err:
+                api_logger.warning(f"FTS5 query failed, falling back to LIKE: {fts5_err}")
+                results = _execute_search(use_fts5_flag=False)
+                search_type = "like"
+        else:
+            results = _execute_search(use_fts5_flag=False)
+            search_type = "like"
+
         conn.close()
-        
-        api_logger.info(f"Search for '{q}' returned {len(results)} results")
-        
+
+        api_logger.info(f"Search for '{q}' returned {len(results)} results (type={search_type})")
+
         return {
             "query": q,
             "count": len(results),
+            "limit": limit,
+            "offset": offset,
             "min_score": min_score,
+            "search_type": search_type,
             "articles": [
                 {
                     "url": r[0],
@@ -135,10 +201,12 @@ async def search_articles(
                     "reason": r[6],
                     "keywords": r[7],
                     "source": r[8],
-                    "fetched_at": r[9]
+                    "fetched_at": r[9],
+                    "snippet": r[10],
+                    "fts_rank": r[11],
                 }
                 for r in results
-            ]
+            ],
         }
     except Exception as e:
         api_logger.error(f"Search failed for query '{q}': {e}", exc_info=True)
