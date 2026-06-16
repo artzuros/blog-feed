@@ -186,7 +186,8 @@ def process_accepted_suggestion(suggestion, processed_list):
                     keywords=keywords,
                     source='reddit',
                     reddit_suggestion_id=suggestion.get('url', ''),
-                    added_by='manual_review'
+                    added_by='manual_review',
+                    text_content=text
                 )
                 scan_logger.debug(f"Saved article: {title[:50]} for {domain}")
                 print(f"      ✅ Added (combined score: {combined:.2f})")

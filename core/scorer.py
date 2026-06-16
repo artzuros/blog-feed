@@ -91,7 +91,7 @@ def score_blog(blog_name, base_url, rss_override, cache):
             
             # Save with new fields
             keywords = extract_keywords(text)
-            save_article(url, title, blog_name, score, llm_score, combined, reason, keywords)
+            save_article(url, title, blog_name, score, llm_score, combined, reason, keywords, text_content=text)
             success_count += 1
             verdict = "SLOP" if score > SLOP_THRESHOLD else "GOOD"
             root_logger.info(f"Article scored: {verdict} (heuristic: {score:.2f}, combined: {combined:.2f}) - {title[:50]}")
