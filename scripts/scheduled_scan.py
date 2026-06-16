@@ -60,7 +60,7 @@ def process_article(url, title, blog_name):
     keywords = extract_keywords(text)
     
     # 5. Save as blog (non-marketing)
-    save_article(url, title, blog_name, heuristic_score, llm_score, combined, reason, keywords, content_type='blog')
+    save_article(url, title, blog_name, heuristic_score, llm_score, combined, reason, keywords, content_type='blog', text_content=text)
     root_logger.info(f"Saved article: {title[:50]} - Heuristic: {heuristic_score:.2f}, Combined: {combined:.2f}")
 
 def main():
