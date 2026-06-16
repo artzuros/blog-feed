@@ -5,6 +5,7 @@ from slowapi.util import get_remote_address
 from api.dependencies import get_db
 from api.logger import api_logger
 from config.settings import RATE_LIMIT_REQUESTS, RATE_LIMIT_PERIOD
+from api.analytics import posthog_client
 
 router = APIRouter()
 limiter = Limiter(key_func=get_remote_address)
@@ -183,6 +184,21 @@ async def search_articles(
 
         api_logger.info(f"Search for '{q}' returned {len(results)} results (type={search_type})")
 
+        distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
+        posthog_client.capture(
+            "article_searched",
+            distinct_id=distinct_id,
+            properties={
+                "query_length": len(q),
+                "result_count": len(results),
+                "search_type": search_type,
+                "limit": limit,
+                "offset": offset,
+                "min_score": min_score,
+                "source_filter": source,
+            },
+        )
+
         return {
             "query": q,
             "count": len(results),
@@ -264,15 +280,25 @@ async def get_article(request: Request, article_identifier: str):
             api_logger.debug(f"Not a valid base64 string: {e}")
     
     conn.close()
-    
+
     if not article:
         api_logger.warning(f"Article not found for identifier: {article_identifier[:50]}...")
         raise HTTPException(status_code=404, detail="Article not found")
-    
+
     # Convert to dict (rowid becomes 'id')
     result = dict(article)
     result['id'] = result.pop('rowid')
-    
+
+    distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
+    posthog_client.capture(
+        "article_viewed",
+        distinct_id=distinct_id,
+        properties={
+            "article_id": result.get("id"),
+            "source": result.get("source"),
+        },
+    )
+
     return result
 
 @router.get("/semantic-search")
@@ -356,7 +382,19 @@ async def semantic_search_articles(
         })
     
     api_logger.info(f"Semantic search for '{q}' returned {len(articles)} results (filtered from {len(article_ids)})")
-    
+
+    distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
+    posthog_client.capture(
+        "semantic_search_performed",
+        distinct_id=distinct_id,
+        properties={
+            "query_length": len(q),
+            "result_count": len(articles),
+            "limit": limit,
+            "min_relevance": min_relevance,
+        },
+    )
+
     return {
         "query": q,
         "count": len(articles),

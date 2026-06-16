@@ -10,6 +10,7 @@ from datetime import datetime
 from api.auth import verify_admin_key
 from api.dependencies import get_db
 from api.logger import api_logger, scan_logger
+from api.analytics import posthog_client
 from config.settings import DB_FILE, BLOGS_CSV, CACHE_FILE
 from config.blogs_loader import load_blogs, save_blogs, remove_blog, add_blog
 from storage.cache import load_cache, save_cache
@@ -108,6 +109,16 @@ async def add_blog(request: Request, blog: BlogCreate):
         writer.writerows(blogs)
     
     api_logger.info(f"Blog added successfully: {blog.name}")
+
+    distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
+    posthog_client.capture(
+        "blog_added",
+        distinct_id=distinct_id,
+        properties={
+            "has_rss": bool(blog.rss),
+        },
+    )
+
     return {"success": True, "message": f"Added {blog.name}"}
 
 @router.delete("/blogs/{blog_name}")
@@ -136,6 +147,14 @@ async def delete_blog(request: Request, blog_name: str):
         writer.writerows(blogs)
     
     api_logger.info(f"Blog deleted: {blog_name}")
+
+    distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
+    posthog_client.capture(
+        "blog_deleted",
+        distinct_id=distinct_id,
+        properties={},
+    )
+
     return {"success": True, "message": f"Deleted {blog_name}"}
 
 @router.post("/blogs/{blog_name}/refresh")
@@ -155,13 +174,20 @@ async def refresh_blog(
     
     # Run in background
     background_tasks.add_task(
-        score_blog, 
-        blog_name, 
+        score_blog,
+        blog_name,
         blog[1],  # url
         blog[2],  # rss
         load_cache()
     )
-    
+
+    distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
+    posthog_client.capture(
+        "blog_refresh_triggered",
+        distinct_id=distinct_id,
+        properties={},
+    )
+
     return {"success": True, "message": f"Refresh queued for {blog_name}"}
 
 @router.get("/blogs/{blog_name}/articles", response_model=List[ArticleResponse])
@@ -236,6 +262,17 @@ async def update_article_score(
         conn.commit()
         conn.close()
         api_logger.info(f"Scores updated for article {article_id}")
+
+        distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
+        posthog_client.capture(
+            "article_score_updated",
+            distinct_id=distinct_id,
+            properties={
+                "article_id": article_id,
+                "fields_updated": [f.split(" = ")[0] for f in updates],
+            },
+        )
+
         return {"success": True, "message": "Score updated"}
     except Exception as e:
         api_logger.error(f"Failed to update scores: {e}", exc_info=True)
@@ -265,7 +302,14 @@ async def review_article(
     
     # Run in background
     background_tasks.add_task(process_article_llm_review, row[0], article_id)
-    
+
+    distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
+    posthog_client.capture(
+        "article_llm_review_triggered",
+        distinct_id=distinct_id,
+        properties={"article_id": article_id},
+    )
+
     return {"success": True, "message": f"LLM review queued for article {article_id}"}
 
 async def process_article_llm_review(url: str, article_id: int):
@@ -334,7 +378,14 @@ async def run_reddit_discovery(request: Request, background_tasks: BackgroundTas
     api_logger.info(f"Running Reddit discovery from {request.client.host}")
     
     background_tasks.add_task(run_reddit_discovery_script)
-    
+
+    distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
+    posthog_client.capture(
+        "reddit_discovery_triggered",
+        distinct_id=distinct_id,
+        properties={},
+    )
+
     return {"success": True, "message": "Reddit discovery started in background"}
 
 async def run_reddit_discovery_script():
@@ -455,9 +506,19 @@ async def accept_suggestion(request: Request, suggestion_url: str):
             keywords=keywords,
             source='reddit',
             reddit_suggestion_id=url,
-            added_by='manual_review'
+            added_by='manual_review',
+            text_content=text
         )
         api_logger.info(f"Article saved from accepted suggestion: {url}")
+
+        distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
+        posthog_client.capture(
+            "suggestion_accepted",
+            distinct_id=distinct_id,
+            properties={
+                "has_llm_score": llm_score is not None,
+            },
+        )
     except Exception as e:
         api_logger.error(f"Failed to save article: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Failed to save article: {str(e)}")

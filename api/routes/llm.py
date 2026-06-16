@@ -4,6 +4,7 @@ from typing import List, Optional
 from api.auth import verify_admin_key
 from api.dependencies import get_db
 from api.logger import llm_logger, api_logger
+from api.analytics import posthog_client
 from core.llm_scorer import score_with_llm
 from storage.database import save_article, get_articles_by_blog, article_exists
 import sqlite3
@@ -49,7 +50,10 @@ async def review_article_with_llm(request: Request, article_id: str, background_
     
     # Add to background task
     background_tasks.add_task(process_llm_review, url)
-    
+
+    distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
+    posthog_client.capture("article_llm_review_queued", distinct_id=distinct_id, properties={})
+
     return {"success": True, "message": "Article queued for LLM review"}
 
 async def process_llm_review(url: str):

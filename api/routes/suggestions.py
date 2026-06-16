@@ -8,6 +8,7 @@ import os
 from datetime import datetime
 from api.dependencies import get_db
 from api.logger import api_logger
+from api.analytics import posthog_client
 from config.settings import RATE_LIMIT_REQUESTS, RATE_LIMIT_PERIOD
 
 router = APIRouter()
@@ -117,7 +118,18 @@ async def vote_suggestion(
         conn.close()
         
         api_logger.debug(f"Vote recorded for {url[:100]}: new score={stats[0]}, votes={stats[1]}")
-        
+
+        distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
+        posthog_client.capture(
+            "suggestion_voted",
+            distinct_id=distinct_id,
+            properties={
+                "vote": vote_data.vote,
+                "new_vote_score": stats[0] if stats[0] else 0,
+                "total_votes": stats[1] if stats[1] else 0,
+            },
+        )
+
         # Return the full suggestion object for the frontend
         suggestions_file = "data/reddit_suggestions.json"
         suggestion = None
@@ -186,7 +198,14 @@ async def llm_review_suggestion(
     
     # Trigger background LLM review
     background_tasks.add_task(process_suggestion_llm_review, url, suggestions_file)
-    
+
+    distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
+    posthog_client.capture(
+        "suggestion_llm_review_triggered",
+        distinct_id=distinct_id,
+        properties={},
+    )
+
     return {"success": True, "message": "LLM review started for suggestion"}
 
 
