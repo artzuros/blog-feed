@@ -39,6 +39,10 @@ RATE_LIMIT_PERIOD = int(os.getenv("RATE_LIMIT_PERIOD", "60"))
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 LOG_FILE = os.getenv("LOG_FILE", "logs/api.log")
 
+# PostHog
+POSTHOG_PROJECT_TOKEN = os.getenv("POSTHOG_PROJECT_TOKEN", "your-posthog-token")
+POSTHOG_HOST = os.getenv("POSTHOG_HOST", "https://us.i.posthog.com")
+
 # Validate critical settings
 if API_KEY == "your-secret-key":
     root_logger.warning("Using default API key! Please set BLOG_SCOUT_API_KEY in .env")
