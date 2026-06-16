@@ -128,5 +128,29 @@
   },
   "https://developer.apple.com/swift/blog/": {
     "html_selector": "default"
+  },
+  "https://benchling.engineering/": {
+    "html_selector": "default"
+  },
+  "https://engineering.instagram.com/": {
+    "html_selector": "default"
+  },
+  "https://eng.lyft.com/": {
+    "html_selector": "default"
+  },
+  "https://medium.com/netflix-techblog": {
+    "html_selector": "default"
+  },
+  "https://engblog.nextdoor.com/": {
+    "html_selector": "default"
+  },
+  "https://bytes.swiggy.com/": {
+    "html_selector": "default"
+  },
+  "https://engineering.tumblr.com/": {
+    "html_selector": "default"
+  },
+  "https://yahooeng.tumblr.com/": {
+    "html_selector": "default"
   }
 }
