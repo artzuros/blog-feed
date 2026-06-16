@@ -12,3 +12,8 @@ python-dotenv==1.0.0
 prometheus-fastapi-instrumentator==6.1.0
 slowapi==0.1.9
 ollama
+posthog>=3.0.0
+
+# Testing
+pytest>=8.0.0
+httpx>=0.26.0
