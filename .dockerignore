@@ -1,0 +1,40 @@
+# Git
+.git/
+.gitignore
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+*.egg
+.pytest_cache/
+
+# Data (mounted as volume at runtime)
+data/
+
+# Logs
+logs/
+
+# IDE / editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Claude
+.claude/
+
+# Project-specific
+legacy/
+Dockerfile
+.dockerignore
+
+# Tests (not needed in production image)
+tests/

@@ -1,0 +1,19 @@
+# API Settings
+BLOG_SCOUT_API_KEY=
+RATE_LIMIT_REQUESTS=
+RATE_LIMIT_PERIOD=
+
+# Logging
+LOG_LEVEL=INFO
+LOG_FILE=logs/api.log
+
+# Paths (relative to project root)
+DATA_DIR=data
+CONFIG_DIR=config
+
+# LLM scoring via DeepSeek API
+DEEPSEEK_API_KEY=sk-<key>
+DEEPSEEK_MODEL=deepseek-chat
+
+POSTHOG_PROJECT_TOKEN=phc_<key>
+POSTHOG_HOST=https://us.i.posthog.com
