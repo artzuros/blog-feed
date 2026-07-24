@@ -23,7 +23,7 @@ COPY config/ config/
 COPY core/ core/
 COPY quality/ quality/
 COPY storage/ storage/
-COPY scripts/run_tests.sh scripts/run_tests.sh
+COPY scripts/ scripts/
 
 # Ensure data and logs directories exist (volumes mounted at runtime)
 RUN mkdir -p /app/data /app/logs
