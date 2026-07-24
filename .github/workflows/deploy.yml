@@ -31,6 +31,7 @@ jobs:
           username: ${{ secrets.EC2_USER || 'ec2-user' }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            sudo docker system prune -af --filter until=24h
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/blog-feed:latest
             sudo docker rm -f blog-feed 2>/dev/null || true
             sudo docker run -d --name blog-feed -p 8765:8765 \
