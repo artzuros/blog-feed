@@ -45,7 +45,8 @@ class BlogBase(BaseModel):
         return v
 
 class BlogResponse(BlogBase):
-    pass
+    article_count: int = 0
+    last_fetched: Optional[str] = None
 
 class BlogCreate(BlogBase):
     pass

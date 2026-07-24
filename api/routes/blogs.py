@@ -1,9 +1,10 @@
-from fastapi import APIRouter, HTTPException, Depends, Request
+from fastapi import APIRouter, HTTPException, Depends, Request, BackgroundTasks
 from typing import List
 import csv
 import os
 import subprocess
-from api.dependencies import load_blogs_csv
+import sys
+from api.dependencies import load_blogs_csv, get_db
 from api.models.schemas import BlogResponse, BlogCreate
 from api.auth import verify_admin_key
 from api.logger import api_logger, root_logger
@@ -17,7 +18,18 @@ router = APIRouter(dependencies=[Depends(verify_admin_key)])
 def get_blogs():
     api_logger.info("GET /blogs - Fetching all blogs")
     blogs = load_blogs_csv()
-    api_logger.debug(f"Returning {len(blogs)} blogs")
+    conn = get_db()
+    if conn:
+        for blog in blogs:
+            cursor = conn.execute(
+                "SELECT COUNT(*), MAX(fetched_at) FROM articles WHERE blog_name = ?",
+                (blog['name'],)
+            )
+            row = cursor.fetchone()
+            blog['article_count'] = row[0] if row[0] else 0
+            blog['last_fetched'] = row[1] if row[1] else None
+        conn.close()
+    api_logger.debug(f"Returning {len(blogs)} blogs with article counts")
     return blogs
 
 @router.post("/blogs")
@@ -83,13 +95,9 @@ def delete_blog(request: Request, blog_name: str):
         api_logger.error(f"Failed to delete blog {blog_name}: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Failed to delete blog: {str(e)}")
 
-@router.post("/blogs/refresh")
-def refresh_blogs(request: Request):
-    api_logger.info("POST /blogs/refresh - Manual scan triggered")
-
-    distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
-    posthog_client.capture("all_blogs_scan_triggered", distinct_id=distinct_id, properties={})
-
+def _run_scan_background():
+    """Run scheduled_scan.py in background and log results."""
+    api_logger.info("Background scan started (all blogs)")
     try:
         result = subprocess.run(
             ['python', 'scripts/scheduled_scan.py'],
@@ -98,23 +106,28 @@ def refresh_blogs(request: Request):
             timeout=1200
         )
         if result.returncode == 0:
-            api_logger.info("Manual scan completed successfully")
+            api_logger.info("Background scan completed successfully")
         else:
-            api_logger.error(f"Manual scan failed with code {result.returncode}")
-            api_logger.debug(f"Scan stderr: {result.stderr[:500]}")
-
-        return {
-            "message": "Blog refresh completed",
-            "stdout": result.stdout,
-            "stderr": result.stderr,
-            "returncode": result.returncode
-        }
+            api_logger.error(f"Background scan failed (exit {result.returncode})")
+        # Log stdout/stderr line by line
+        for line in result.stdout.splitlines():
+            api_logger.info(f"[scan] {line}")
+        for line in result.stderr.splitlines():
+            api_logger.warning(f"[scan-err] {line}")
     except subprocess.TimeoutExpired:
-        api_logger.error("Manual scan timed out after 10 minutes")
-        raise HTTPException(status_code=504, detail="Refresh timed out after 10 minutes")
+        api_logger.error("Background scan timed out after 10 minutes")
     except Exception as e:
-        api_logger.error(f"Manual scan failed: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"Refresh failed: {str(e)}")
+        api_logger.error(f"Background scan error: {e}", exc_info=True)
+
+@router.post("/blogs/refresh")
+def refresh_blogs(request: Request, background_tasks: BackgroundTasks):
+    api_logger.info("POST /blogs/refresh - Manual scan queued (background)")
+
+    distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
+    posthog_client.capture("all_blogs_scan_triggered", distinct_id=distinct_id, properties={})
+
+    background_tasks.add_task(_run_scan_background)
+    return {"message": "Blog refresh started in background", "status": "running"}
 
 @router.get("/admin/verify")
 def verify_admin_key_endpoint(api_key: str = Depends(verify_admin_key)):
