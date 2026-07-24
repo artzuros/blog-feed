@@ -1,6 +1,39 @@
-*.pyc
-*.db
-*.json
-*.json
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+*.egg
+.pytest_cache/
+
+# Environment
 .env
-aws/*
+.env.*
+
+# Data
+data/
+
+# Logs
+logs/
+
+# AWS CLI junk (files starting with --)
+--*
+
+# Systemd junk (files with spaces)
+*systemctl*
+
+# IDE / editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Claude
+.claude/
+CLAUDE.md
+
+# Project-specific generated files
+changes.txt
+posthog-setup-report.md
+aws/
