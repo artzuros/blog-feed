@@ -31,9 +31,9 @@ jobs:
           username: ${{ secrets.EC2_USER || 'ec2-user' }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/blog-feed:latest
-            docker rm -f blog-feed 2>/dev/null || true
-            docker run -d --name blog-feed -p 8765:8765 \
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/blog-feed:latest
+            sudo docker rm -f blog-feed 2>/dev/null || true
+            sudo docker run -d --name blog-feed -p 8765:8765 \
               -v /home/ec2-user/data:/app/data \
               --env DEEPSEEK_API_KEY='${{ secrets.DEEPSEEK_API_KEY }}' \
               --env DEEPSEEK_MODEL='${{ secrets.DEEPSEEK_MODEL || 'deepseek-chat' }}' \
@@ -42,4 +42,4 @@ jobs:
               --env POSTHOG_HOST='${{ secrets.POSTHOG_HOST || 'https://us.i.posthog.com' }}' \
               --restart unless-stopped \
               ${{ secrets.DOCKER_USERNAME }}/blog-feed:latest
-            docker image prune -f
+            sudo docker image prune -f
