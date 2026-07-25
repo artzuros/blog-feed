@@ -16,8 +16,6 @@ from api.auth import verify_admin_key
 from api.logger import root_logger, api_logger, reconfigure_logging
 from api.analytics import posthog_client
 from config.settings import RATE_LIMIT_REQUESTS, RATE_LIMIT_PERIOD, LOG_LEVEL, LOG_FILE
-from sentence_transformers import SentenceTransformer
-import chromadb
 from core.embeddings import init_embeddings
 
 # Reconfigure logging with actual settings
@@ -95,14 +93,6 @@ api_router.include_router(suggestions.router, tags=["suggestions"])
 api_router.include_router(blogs.router, tags=["blogs"])
 api_router.include_router(admin.router, tags=["admin"])
 api_router.include_router(llm.router, tags=["llm"])
-
-embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
-# Persistent Chroma DB
-chroma_client = chromadb.PersistentClient(path="data/chroma_db")
-article_collection = chroma_client.get_or_create_collection(
-    name="article_keywords",
-    metadata={"hnsw:space": "cosine"}
-)
 
 # ---------- Public endpoints (no auth, but rate limited) ----------
 @api_router.get("/stats")
