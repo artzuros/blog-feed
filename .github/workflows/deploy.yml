@@ -37,7 +37,7 @@ jobs:
             sudo docker run -d --name blog-feed -p 8765:8765 \
               -v /home/ec2-user/data:/app/data \
               --env DEEPSEEK_API_KEY='${{ secrets.DEEPSEEK_API_KEY }}' \
-              --env DEEPSEEK_MODEL='${{ secrets.DEEPSEEK_MODEL || 'deepseek-chat' }}' \
+              --env DEEPSEEK_MODEL='${{ secrets.DEEPSEEK_MODEL || 'deepseek-v4-flash' }}' \
               --env BLOG_SCOUT_API_KEY='${{ secrets.BLOG_SCOUT_API_KEY }}' \
               --env POSTHOG_PROJECT_TOKEN='${{ secrets.POSTHOG_PROJECT_TOKEN }}' \
               --env POSTHOG_HOST='${{ secrets.POSTHOG_HOST || 'https://us.i.posthog.com' }}' \
