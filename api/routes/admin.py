@@ -545,3 +545,93 @@ async def verify_admin(request: Request):
     """Verify that the API key is valid."""
     api_logger.debug(f"Admin verification from {request.client.host}")
     return {"valid": True, "message": "API key is valid"}
+
+# ---------- CrewAI Article Evaluation ----------
+@router.post("/admin/evaluate/{article_id}")
+async def evaluate_article(request: Request, article_id: int):
+    """Run CrewAI multi-agent evaluation on an article and store results."""
+    from quality.crew_evaluator import run_evaluation, save_evaluation, get_evaluation
+
+    api_logger.info(f"Agentic evaluation requested for article {article_id}")
+
+    # Check if already evaluated
+    existing = get_evaluation(article_id)
+    if existing:
+        api_logger.info(f"Article {article_id} already evaluated, returning cached result")
+        return {"cached": True, "evaluation": existing}
+
+    # Fetch article text
+    conn = get_db()
+    if not conn:
+        raise HTTPException(status_code=500, detail="Database not initialized")
+
+    try:
+        row = conn.execute(
+            "SELECT rowid, title, text_content FROM articles WHERE rowid = ?",
+            (article_id,)
+        ).fetchone()
+        conn.close()
+    except Exception as e:
+        conn.close()
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+
+    if not row:
+        raise HTTPException(status_code=404, detail=f"Article {article_id} not found")
+
+    title = row["title"] or "Untitled"
+    text = row["text_content"] or ""
+
+    if not text or len(text) < 300:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Article text too short ({len(text)} chars) — need at least 300"
+        )
+
+    # Run CrewAI evaluation
+    result = run_evaluation(title, text)
+    if not result:
+        raise HTTPException(status_code=500, detail="Agentic evaluation failed")
+
+    # Persist
+    save_evaluation(article_id, result)
+
+    return {
+        "article_id": article_id,
+        "title": title,
+        "evaluation": result.to_dict(),
+    }
+
+
+@router.get("/admin/evaluations")
+async def list_article_evaluations(
+    request: Request,
+    limit: int = 50,
+    offset: int = 0,
+    min_score: Optional[float] = None,
+    content_type: Optional[str] = None,
+    min_depth: Optional[int] = None,
+    has_code: Optional[bool] = None,
+    sort_by: str = "overall_score",
+):
+    """Query article evaluations with optional filters."""
+    from quality.crew_evaluator import list_evaluations
+
+    api_logger.info(f"Listing evaluations: limit={limit}, offset={offset}, "
+                    f"min_score={min_score}, type={content_type}")
+
+    results = list_evaluations(
+        limit=limit,
+        offset=offset,
+        min_score=min_score,
+        content_type=content_type,
+        min_depth=min_depth,
+        has_code=has_code,
+        sort_by=sort_by,
+    )
+
+    return {
+        "count": len(results),
+        "limit": limit,
+        "offset": offset,
+        "evaluations": results,
+    }

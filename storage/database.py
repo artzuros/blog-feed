@@ -75,10 +75,33 @@ def init_db():
         conn.execute("CREATE INDEX IF NOT EXISTS idx_added_by ON articles(added_by)")
         conn.execute("CREATE INDEX IF NOT EXISTS idx_combined_score ON articles(combined_score)")
         conn.execute("CREATE INDEX IF NOT EXISTS idx_fetched_at ON articles(fetched_at)")
-        
+
+        # Article evaluations table (CrewAI multi-agent evaluation results)
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS article_evaluations (
+                article_id INTEGER PRIMARY KEY,
+                content_type TEXT,
+                technical_depth INTEGER,
+                marketing_bias INTEGER,
+                originality INTEGER,
+                practical_value INTEGER,
+                has_code_examples INTEGER DEFAULT 0,
+                has_performance_data INTEGER DEFAULT 0,
+                is_practitioner INTEGER DEFAULT 0,
+                overall_score REAL,
+                reasoning TEXT,
+                tags_json TEXT,
+                raw_json TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        conn.execute("CREATE INDEX IF NOT EXISTS idx_eval_score ON article_evaluations(overall_score)")
+        conn.execute("CREATE INDEX IF NOT EXISTS idx_eval_depth ON article_evaluations(technical_depth)")
+        conn.execute("CREATE INDEX IF NOT EXISTS idx_eval_type ON article_evaluations(content_type)")
+
         conn.commit()
         conn.close()
-        
+
         db_logger.info("Database initialized successfully")
     except Exception as e:
         db_logger.error(f"Failed to initialize database: {e}", exc_info=True)
@@ -189,3 +212,11 @@ def update_llm_score(url, llm_score):
     except Exception as e:
         db_logger.error(f"Failed to update LLM score: {e}", exc_info=True)
         return False
+
+
+def get_db_conn():
+    """Get a fresh DB connection with Row factory. Creates file if it doesn't exist."""
+    from config.settings import DB_FILE
+    conn = sqlite3.connect(DB_FILE)
+    conn.row_factory = sqlite3.Row
+    return conn
