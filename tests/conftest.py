@@ -121,8 +121,13 @@ SAMPLE_ARTICLE = {
     "keywords": "kubernetes, deployment, docker",
     "text_content": (
         "This is a detailed technical article about Kubernetes deployment strategies. "
-        "We cover cluster management, pod scheduling, and service meshes. "
-        "The article includes code examples and architecture diagrams."
+        "We cover cluster management, pod scheduling, service meshes, ingress controllers, "
+        "and persistent volume claims. The article walks through setting up a production-grade "
+        "Kubernetes cluster from scratch, covering kubeadm initialization, CNI plugin selection "
+        "(Calico vs Flannel), and configuring RBAC for team access. It includes annotated YAML "
+        "manifests for Deployments, Services, ConfigMaps, and HorizontalPodAutoscalers, along "
+        "with a real-world example of migrating a Django application from Docker Compose to "
+        "Kubernetes with zero downtime using rolling updates and readiness probes."
     ),
 }
 
