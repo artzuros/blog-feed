@@ -21,6 +21,7 @@ Usage:
       --stop-timeout 30
 """
 from locust import HttpUser, task, between, tag, events, LoadTestShape
+import os
 import random
 import logging
 from urllib.request import Request, urlopen
@@ -30,7 +31,9 @@ import json
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-API_KEY = "a47c17c565c5582eb8116c6cf4c97965a66312c79fbc44870efa0ef1d3afc9ee"
+API_KEY = os.getenv("BLOG_SCOUT_API_KEY")
+if not API_KEY:
+    raise RuntimeError("BLOG_SCOUT_API_KEY env var not set — run with: BLOG_SCOUT_API_KEY=... locust ...")
 SEARCH_QUERIES = [
     "kubernetes", "docker", "aws", "python", "react",
     "machine learning", "database", "api design", "microservices",

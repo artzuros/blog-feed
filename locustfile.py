@@ -28,13 +28,16 @@ Usage:
       --csv=reports/locust-burst --html=reports/locust-burst.html
 """
 from locust import HttpUser, task, between, tag, events
+import os
 import random
 import logging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-API_KEY = "a47c17c565c5582eb8116c6cf4c97965a66312c79fbc44870efa0ef1d3afc9ee"
+API_KEY = os.getenv("BLOG_SCOUT_API_KEY")
+if not API_KEY:
+    raise RuntimeError("BLOG_SCOUT_API_KEY env var not set — run with: BLOG_SCOUT_API_KEY=... locust ...")
 
 # Rate-limit-aware pacing: 20 req / 60s per IP ≈ 1 req / 3s minimum.
 # We use 3.5-5.5s so a few users stay under the limit without being
