@@ -77,7 +77,7 @@ class TestEvaluateEndpoint:
     def test_evaluate_success(self, client, insert_sample_article):
         insert_sample_article()
 
-        with patch("api.routes.admin.run_evaluation") as mock_run:
+        with patch("quality.crew_evaluator.run_evaluation") as mock_run:
             mock_result = MagicMock()
             mock_result.content_type = "tutorial"
             mock_result.technical_depth = 7
@@ -120,7 +120,7 @@ class TestEvaluateEndpoint:
     def test_evaluate_cached(self, client, insert_sample_article):
         insert_sample_article()
 
-        with patch("api.routes.admin.run_evaluation") as mock_run:
+        with patch("quality.crew_evaluator.run_evaluation") as mock_run:
             mock_result = MagicMock()
             mock_result.content_type = "tutorial"
             mock_result.overall_score = 0.72
