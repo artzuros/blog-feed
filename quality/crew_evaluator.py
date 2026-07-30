@@ -18,9 +18,6 @@ import json
 import logging
 from typing import Optional
 
-from crewai import Agent, Task, Crew, Process
-from crewai.llm import LLM
-
 from api.logger import llm_logger
 from config.settings import DEEPSEEK_API_KEY, DEEPSEEK_MODEL
 
@@ -31,6 +28,7 @@ logger = logging.getLogger(__name__)
 
 def create_llm():
     """Configure DeepSeek via LiteLLM for CrewAI agents."""
+    from crewai.llm import LLM
     if not DEEPSEEK_API_KEY:
         llm_logger.warning("DEEPSEEK_API_KEY not set — agents will fail")
     return LLM(
@@ -45,6 +43,7 @@ def create_llm():
 
 def create_agents(llm):
     """Create the 4 specialized evaluation agents."""
+    from crewai import Agent
     classifier = Agent(
         role="Content Classification Specialist",
         goal="Identify the article's content type and extract key topic tags",
@@ -120,6 +119,7 @@ def create_tasks(agents, article_text, article_title):
 
     Each task receives the article + outputs from all previous tasks as context.
     """
+    from crewai import Task
     classifier, analyst, judge, editor = agents
 
     classify_task = Task(
@@ -286,6 +286,7 @@ def run_evaluation(title: str, text: str) -> Optional[EvaluationResult]:
     agents = create_agents(llm)
     tasks = create_tasks(agents, truncated, title)
 
+    from crewai import Crew, Process
     crew = Crew(
         agents=list(agents),
         tasks=list(tasks),

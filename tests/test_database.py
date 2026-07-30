@@ -1,7 +1,8 @@
 """Tests for the database layer (storage/database.py)."""
+import os
 import sqlite3
 import pytest
-from storage.database import save_article, article_exists, get_articles_by_blog, init_db
+from storage.database import save_article, article_exists, get_articles_by_blog, init_db, get_db_conn
 
 
 class TestInitDB:
@@ -190,3 +191,76 @@ class TestGetArticlesByBlog:
             )
         results = get_articles_by_blog("LimitBlog", limit=2)
         assert len(results) == 2
+
+
+class TestArticleEvaluations:
+    """Tests for the article_evaluations table (CrewAI evaluations)."""
+
+    def test_table_created(self, test_db_path):
+        init_db()
+        conn = sqlite3.connect(test_db_path)
+        tables = {r[0] for r in conn.execute(
+            "SELECT name FROM sqlite_master WHERE type='table'"
+        ).fetchall()}
+        conn.close()
+        assert "article_evaluations" in tables
+
+    def test_get_db_conn_returns_connection(self, test_db_path):
+        conn = get_db_conn()
+        assert conn is not None
+        # Should create the file if missing
+        assert os.path.exists(test_db_path)
+        conn.close()
+
+    def test_get_db_conn_has_row_factory(self, test_db_path):
+        conn = get_db_conn()
+        assert conn.row_factory is sqlite3.Row
+        conn.close()
+
+    def test_indexes_created(self, test_db_path):
+        init_db()
+        conn = sqlite3.connect(test_db_path)
+        indexes = {r[0] for r in conn.execute(
+            "SELECT name FROM sqlite_master WHERE type='index' AND name LIKE 'idx_eval%'"
+        ).fetchall()}
+        conn.close()
+        for idx in ("idx_eval_score", "idx_eval_depth", "idx_eval_type"):
+            assert idx in indexes, f"Missing index: {idx}"
+
+    def test_insert_and_read(self, conn, test_db_path):
+        conn.execute("""
+            INSERT INTO article_evaluations
+            (article_id, content_type, technical_depth, marketing_bias,
+             originality, practical_value, has_code_examples,
+             has_performance_data, is_practitioner, overall_score,
+             reasoning, tags_json)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, (1, "tutorial", 8, 2, 6, 7, 1, 1, 1, 0.85,
+              "Great technical depth with code examples", '["python","api"]'))
+        conn.commit()
+
+        row = conn.execute("SELECT * FROM article_evaluations WHERE article_id = 1").fetchone()
+        assert row["content_type"] == "tutorial"
+        assert row["technical_depth"] == 8
+        assert row["overall_score"] == 0.85
+        assert row["has_code_examples"] == 1
+
+    def test_replace_existing(self, conn):
+        conn.execute("""
+            INSERT INTO article_evaluations
+            (article_id, content_type, technical_depth, overall_score, reasoning)
+            VALUES (2, 'announcement', 2, 0.3, 'Marketing fluff')
+        """)
+        conn.commit()
+        conn.execute("""
+            INSERT OR REPLACE INTO article_evaluations
+            (article_id, content_type, technical_depth, overall_score, reasoning)
+            VALUES (2, 'tutorial', 7, 0.8, 'Much better on second look')
+        """)
+        conn.commit()
+
+        row = conn.execute(
+            "SELECT content_type, overall_score FROM article_evaluations WHERE article_id = 2"
+        ).fetchone()
+        assert row["content_type"] == "tutorial"
+        assert row["overall_score"] == 0.8
