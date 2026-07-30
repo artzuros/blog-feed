@@ -1,5 +1,7 @@
 """Tests for API endpoints (health, stats, article detail)."""
 import base64
+from unittest.mock import MagicMock, patch
+
 from config import settings
 
 
