@@ -1,6 +1,7 @@
 """Test fixtures and configuration."""
 import os
 import sys
+import types
 import tempfile
 from unittest.mock import MagicMock, patch
 
@@ -14,9 +15,25 @@ _sent_t = MagicMock()
 _sent_t.SentenceTransformer = MagicMock()
 sys.modules["sentence_transformers"] = _sent_t
 
-_chroma = MagicMock()
+_chroma = types.ModuleType("chromadb")
+_chroma.__path__ = ["chromadb"]
 _chroma.PersistentClient = MagicMock()
+
+_chroma_utils = types.ModuleType("chromadb.utils")
+_chroma_utils.__path__ = ["chromadb/utils"]
+_chroma.utils = _chroma_utils
+
+_chroma_utils_ef = types.ModuleType("chromadb.utils.embedding_functions")
+_chroma_utils_ef.__path__ = ["chromadb/utils/embedding_functions"]
+_chroma_utils.embedding_functions = _chroma_utils_ef
+
+_chroma_oef = types.ModuleType("chromadb.utils.embedding_functions.openai_embedding_function")
+_chroma_utils_ef.openai_embedding_function = _chroma_oef
+
 sys.modules["chromadb"] = _chroma
+sys.modules["chromadb.utils"] = _chroma_utils
+sys.modules["chromadb.utils.embedding_functions"] = _chroma_utils_ef
+sys.modules["chromadb.utils.embedding_functions.openai_embedding_function"] = _chroma_oef
 
 _posthog = MagicMock()
 _posthog.Posthog = MagicMock()
@@ -104,8 +121,13 @@ SAMPLE_ARTICLE = {
     "keywords": "kubernetes, deployment, docker",
     "text_content": (
         "This is a detailed technical article about Kubernetes deployment strategies. "
-        "We cover cluster management, pod scheduling, and service meshes. "
-        "The article includes code examples and architecture diagrams."
+        "We cover cluster management, pod scheduling, service meshes, ingress controllers, "
+        "and persistent volume claims. The article walks through setting up a production-grade "
+        "Kubernetes cluster from scratch, covering kubeadm initialization, CNI plugin selection "
+        "(Calico vs Flannel), and configuring RBAC for team access. It includes annotated YAML "
+        "manifests for Deployments, Services, ConfigMaps, and HorizontalPodAutoscalers, along "
+        "with a real-world example of migrating a Django application from Docker Compose to "
+        "Kubernetes with zero downtime using rolling updates and readiness probes."
     ),
 }
 
