@@ -548,8 +548,13 @@ async def verify_admin(request: Request):
 
 # ---------- CrewAI Article Evaluation ----------
 @router.post("/admin/evaluate/{article_id}")
-async def evaluate_article(request: Request, article_id: int):
-    """Run CrewAI multi-agent evaluation on an article and store results."""
+def evaluate_article(request: Request, article_id: int):
+    """Run CrewAI multi-agent evaluation on an article and store results.
+
+    Sync (not async) so crew.kickoff() runs in a threadpool — CrewAI
+    refuses synchronous agent execution from within a running event loop.
+    """
+    from quality.crew_evaluator import run_evaluation, save_evaluation, get_evaluation
     from quality.crew_evaluator import run_evaluation, save_evaluation, get_evaluation
 
     api_logger.info(f"Agentic evaluation requested for article {article_id}")
