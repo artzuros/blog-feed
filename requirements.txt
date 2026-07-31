@@ -5,7 +5,8 @@ lxml>=4.9.0
 trafilatura>=1.6.0
 textstat>=0.7.0
 playwright>=1.40.0
-fastapi==0.104.1
+crewai==1.15.8
+fastapi==0.141.1
 uvicorn[standard]==0.24.0
 pydantic==2.5.0
 python-dotenv==1.0.0

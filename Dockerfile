@@ -16,7 +16,8 @@ RUN pip install --no-cache-dir --verbose -r requirements.txt 2>&1
 
 # Remove build deps to keep image smaller
 RUN apt-get purge -y --auto-remove build-essential gcc g++ && rm -rf /var/lib/apt/lists/*
-
+RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
+RUN playwright install chromium --with-deps
 # Copy application code
 COPY api/ api/
 COPY config/ config/
