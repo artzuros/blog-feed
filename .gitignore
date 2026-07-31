@@ -16,6 +16,10 @@ data/
 # Logs
 logs/
 
+# Load test reports
+reports/
+!reports/.gitkeep
+
 # AWS CLI junk (files starting with --)
 --*
 
