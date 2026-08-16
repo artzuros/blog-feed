@@ -1,3 +1,4 @@
+import difflib
 from fastapi import APIRouter, Request, Query, HTTPException
 from typing import Optional
 from slowapi import Limiter
@@ -29,6 +30,46 @@ def _fts5_available(conn) -> bool:
         return count > 0
     except Exception:
         return False
+
+
+def _correct_query_words(query_words: list, conn) -> Optional[list]:
+    """Best-effort spelling correction of each word against the FTS5 index
+    vocabulary (edit-distance fuzzy, like Elasticsearch ``fuzziness`` / Algolia
+    typo tolerance).
+
+    Returns the corrected word list if at least one word changed, else None.
+    Only words >= 4 chars are touched, and only candidates sharing the same
+    first letter are considered (the ``prefix_length`` trick, for speed).
+    """
+    corrected = []
+    changed = False
+    for w in query_words:
+        lower = w.lower()
+        if len(lower) < 4 or not lower[0].isalpha():
+            corrected.append(w)
+            continue
+        # Terms are stored lowercased (unicode61); range-scan by first letter.
+        first = lower[0]
+        try:
+            # Ensure the vocab table exists (created once, kept in sync by FTS5).
+            conn.execute("""
+                CREATE VIRTUAL TABLE IF NOT EXISTS articles_fts_vocab
+                USING fts5vocab('articles_fts', 'row')
+            """)
+            rows = conn.execute(
+                "SELECT term FROM articles_fts_vocab WHERE term >= ? AND term < ?",
+                (first, chr(ord(first) + 1)),
+            ).fetchall()
+        except Exception:
+            return None
+        terms = [r[0] for r in rows]
+        match = difflib.get_close_matches(lower, terms, n=1, cutoff=0.75)
+        if match and match[0] != lower:
+            corrected.append(match[0])
+            changed = True
+        else:
+            corrected.append(w)
+    return corrected if changed else None
 
 
 # Relevance threshold for the semantic fallback. Slightly more lenient than the
@@ -198,14 +239,14 @@ async def search_articles(
     fts5_query = _sanitize_fts5_query(q)
     use_fts5 = _fts5_available(conn) and fts5_query
 
-    def _execute_search(use_fts5_flag):
+    def _execute_search(use_fts5_flag, fts_query=None):
         """Build and execute the search query."""
         clauses = []
         params = []
 
         if use_fts5_flag:
             clauses.append("articles_fts MATCH ?")
-            params.append(fts5_query)
+            params.append(fts_query if fts_query is not None else fts5_query)
         else:
             clauses.append("(a.title LIKE ? OR a.keywords LIKE ?)")
             params.extend([f'%{q}%', f'%{q}%'])
@@ -261,9 +302,59 @@ async def search_articles(
             results = _execute_search(use_fts5_flag=False)
             search_type = "like"
 
+        # Typo-tolerant rescue: if exact search found nothing, correct each query
+        # word against the index vocabulary and re-search (Elasticsearch "fuzziness"
+        # / Algolia typo tolerance style). Runs before conn.close() because
+        # _execute_search reuses this connection.
+        fuzzy_hit = None
+        if not results and use_fts5 and fts5_query:
+            corrected = _correct_query_words(q.split(), conn)
+            if corrected:
+                corrected_fts = _sanitize_fts5_query(" ".join(corrected))
+                if corrected_fts and corrected_fts != fts5_query:
+                    try:
+                        corrected_results = _execute_search(True, corrected_fts)
+                    except Exception:
+                        corrected_results = None
+                    if corrected_results:
+                        fuzzy_hit = (corrected_results, corrected)
+
         conn.close()
 
         api_logger.info(f"Search for '{q}' returned {len(results)} results (type={search_type})")
+
+        if fuzzy_hit:
+            corrected_results, corrected = fuzzy_hit
+            api_logger.info(
+                f"Fuzzy fallback for '{q}' -> {' '.join(corrected)} returned {len(corrected_results)} results"
+            )
+            return {
+                "query": q,
+                "count": len(corrected_results),
+                "limit": limit,
+                "offset": offset,
+                "min_score": min_score,
+                "search_type": "fuzzy",
+                "corrected_query": " ".join(corrected),
+                "fallback": True,
+                "articles": [
+                    {
+                        "url": r[0],
+                        "title": r[1],
+                        "blog_name": r[2],
+                        "score": r[3],
+                        "llm_score": r[4],
+                        "combined_score": r[5],
+                        "reason": r[6],
+                        "keywords": r[7],
+                        "source": r[8],
+                        "fetched_at": r[9],
+                        "snippet": r[10],
+                        "fts_rank": r[11],
+                    }
+                    for r in corrected_results
+                ],
+            }
 
         if not results:
             fallback_articles = _semantic_fallback(q, limit, offset, min_score, source)

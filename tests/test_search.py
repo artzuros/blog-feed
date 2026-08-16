@@ -1,6 +1,6 @@
 """Tests for the search endpoint and FTS5 utilities."""
 import pytest
-from api.routes.search import _sanitize_fts5_query
+from api.routes.search import _sanitize_fts5_query, _correct_query_words
 
 
 class TestSanitizeFTS5Query:
@@ -109,6 +109,38 @@ class TestSearchEndpoint:
         resp = client.get("/api/search?q=netowrk&source=reddit&limit=10")
         data = resp.json()
         assert data["count"] == 0
+
+    def test_correct_query_words(self, conn, insert_sample_article):
+        """A typo'd word is corrected against the FTS5 index vocabulary."""
+        insert_sample_article({
+            "title": "Network Incident Postmortem",
+            "keywords": "network, incident, postmortem",
+        })
+        corrected = _correct_query_words(["netowrk", "incident"], conn)
+        assert corrected == ["network", "incident"]
+
+    def test_search_fuzzy_correction(self, client, insert_sample_article):
+        """A 0-result typo query is corrected and re-searched (did-you-mean)."""
+        insert_sample_article({
+            "title": "Network Incident Postmortem",
+            "keywords": "network, incident, postmortem",
+        })
+        resp = client.get("/api/search?q=netowrk%20incident&limit=10")
+        data = resp.json()
+        assert data["search_type"] == "fuzzy"
+        assert data["corrected_query"] == "network incident"
+        assert data["fallback"] is True
+        assert data["count"] >= 1
+        assert data["articles"][0]["title"] == "Network Incident Postmortem"
+
+    def test_search_fuzzy_single_word(self, client, insert_sample_article):
+        """Single-word typos are corrected too."""
+        insert_sample_article()
+        resp = client.get("/api/search?q=kubernetse&limit=10")
+        data = resp.json()
+        assert data["search_type"] == "fuzzy"
+        assert data["corrected_query"] == "kubernetes"
+        assert data["count"] >= 1
 
     def test_search_pagination_offset(self, client, insert_sample_article):
         insert_sample_article({"url": "https://example.com/a1", "title": "Kubernetes A"})

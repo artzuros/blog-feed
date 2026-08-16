@@ -55,6 +55,13 @@ def init_db():
         if backfill_count > 0:
             db_logger.info(f"FTS5 backfill: indexed {backfill_count} existing articles")
 
+        # Vocabulary table so the search endpoint can do typo-tolerant
+        # ("did you mean") correction against the actual index terms.
+        conn.execute("""
+            CREATE VIRTUAL TABLE IF NOT EXISTS articles_fts_vocab
+            USING fts5vocab('articles_fts', 'row')
+        """)
+
         db_logger.info("FTS5 search index ready")
 
         # Suggestion reviews table
