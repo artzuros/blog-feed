@@ -30,6 +30,89 @@ def _fts5_available(conn) -> bool:
     except Exception:
         return False
 
+
+# Relevance threshold for the semantic fallback. Slightly more lenient than the
+# /semantic-search endpoint's default (0.5) so a typo or odd phrasing is more
+# likely to get rescued than to still return nothing.
+SEMANTIC_FALLBACK_MIN_RELEVANCE = 0.4
+
+
+def _semantic_fallback(query: str, limit: int, offset: int,
+                       min_score: float, source: Optional[str]):
+    """When FTS5/LIKE finds nothing, retry via embedding search.
+
+    Returns article dicts in the same shape as FTS5 results (with
+    ``semantic_relevance`` instead of ``snippet``/``fts_rank``), or None when
+    nothing passes the relevance / score / source filters.
+    """
+    from core.embeddings import semantic_search
+
+    try:
+        article_ids, similarities = semantic_search(query, limit + offset + 20)
+    except Exception as e:
+        api_logger.warning(f"Semantic fallback failed for '{query}': {e}")
+        return None
+    if not article_ids:
+        return None
+
+    conn = get_db()
+    if not conn:
+        return None
+    try:
+        placeholders = ",".join("?" * len(article_ids))
+        cursor = conn.execute(
+            f"""
+            SELECT rowid, url, title, blog_name, score, llm_score, combined_score,
+                   reason, keywords, source, fetched_at
+            FROM articles
+            WHERE rowid IN ({placeholders})
+            """,
+            list(article_ids),
+        )
+        rows = {r[0]: r for r in cursor.fetchall()}
+    except Exception as e:
+        api_logger.warning(f"Semantic fallback DB lookup failed for '{query}': {e}")
+        return None
+    finally:
+        conn.close()
+
+    matched = []
+    for article_id, sim in zip(article_ids, similarities):
+        if sim < SEMANTIC_FALLBACK_MIN_RELEVANCE:
+            continue
+        row = rows.get(article_id)
+        if not row:
+            continue
+        if min_score > 0 and (row[6] or 0) < min_score:
+            continue
+        if source and row[9] != source:
+            continue
+        matched.append((row, sim))
+
+    matched = matched[offset:offset + limit]
+    if not matched:
+        return None
+
+    return [
+        {
+            "url": row[1],
+            "title": row[2],
+            "blog_name": row[3],
+            "score": row[4],
+            "llm_score": row[5],
+            "combined_score": row[6],
+            "reason": row[7],
+            "keywords": row[8],
+            "source": row[9],
+            "fetched_at": row[10],
+            "snippet": None,
+            "fts_rank": None,
+            "semantic_relevance": round(sim, 4),
+        }
+        for (row, sim) in matched
+    ]
+
+
 @router.get("/articles")
 @limiter.limit(f"{RATE_LIMIT_REQUESTS}/{RATE_LIMIT_PERIOD} second")
 async def list_articles(
@@ -181,6 +264,21 @@ async def search_articles(
         conn.close()
 
         api_logger.info(f"Search for '{q}' returned {len(results)} results (type={search_type})")
+
+        if not results:
+            fallback_articles = _semantic_fallback(q, limit, offset, min_score, source)
+            if fallback_articles:
+                api_logger.info(f"Semantic fallback for '{q}' returned {len(fallback_articles)} results")
+                return {
+                    "query": q,
+                    "count": len(fallback_articles),
+                    "limit": limit,
+                    "offset": offset,
+                    "min_score": min_score,
+                    "search_type": "semantic",
+                    "fallback": True,
+                    "articles": fallback_articles,
+                }
 
         return {
             "query": q,
