@@ -81,6 +81,35 @@ class TestSearchEndpoint:
         data = resp.json()
         assert data["count"] == 0
 
+    def test_search_semantic_fallback(self, client, conn, insert_sample_article, monkeypatch):
+        """A 0-result FTS5 search falls back to semantic search."""
+        insert_sample_article()
+        rowid = conn.execute("SELECT rowid FROM articles LIMIT 1").fetchone()[0]
+
+        import core.embeddings
+        monkeypatch.setattr(core.embeddings, "semantic_search",
+                            lambda q, limit: ([rowid], [0.9]))
+
+        resp = client.get("/api/search?q=netowrk&limit=10")
+        data = resp.json()
+        assert data["search_type"] == "semantic"
+        assert data["fallback"] is True
+        assert data["count"] >= 1
+        assert data["articles"][0]["semantic_relevance"] == 0.9
+
+    def test_search_semantic_fallback_respects_source(self, client, conn, insert_sample_article, monkeypatch):
+        """Semantic fallback still applies the source filter."""
+        insert_sample_article({"source": "rss"})
+        rowid = conn.execute("SELECT rowid FROM articles LIMIT 1").fetchone()[0]
+
+        import core.embeddings
+        monkeypatch.setattr(core.embeddings, "semantic_search",
+                            lambda q, limit: ([rowid], [0.9]))
+
+        resp = client.get("/api/search?q=netowrk&source=reddit&limit=10")
+        data = resp.json()
+        assert data["count"] == 0
+
     def test_search_pagination_offset(self, client, insert_sample_article):
         insert_sample_article({"url": "https://example.com/a1", "title": "Kubernetes A"})
         insert_sample_article({"url": "https://example.com/a2", "title": "Kubernetes B"})
