@@ -5,7 +5,6 @@ from slowapi.util import get_remote_address
 from api.dependencies import get_db
 from api.logger import api_logger
 from config.settings import RATE_LIMIT_REQUESTS, RATE_LIMIT_PERIOD
-from api.analytics import posthog_client
 
 router = APIRouter()
 limiter = Limiter(key_func=get_remote_address)
@@ -22,7 +21,6 @@ def _sanitize_fts5_query(query: str) -> str:
     # Prefix match on the last word so "kubernetes deploy" matches "deployment"
     words[-1] = words[-1] + '*'
     return ' '.join(words)
-
 
 def _fts5_available(conn) -> bool:
     """Check if the FTS5 index table exists and has data."""
@@ -42,19 +40,19 @@ async def list_articles(
 ):
     """List articles with pagination."""
     api_logger.info(f"Listing articles: limit={limit}, offset={offset}, sort={sort} from {request.client.host}")
-    
+
     conn = get_db()
     if not conn:
         raise HTTPException(status_code=500, detail="Database not initialized")
-    
+
     try:
         # Get total count
         total_cursor = conn.execute("SELECT COUNT(*) FROM articles")
         total_count = total_cursor.fetchone()[0]
-        
+
         # Order by specified column
         order_by = "fetched_at DESC" if sort == "fetched_at" else "combined_score DESC"
-        
+
         cursor = conn.execute(
             f"""SELECT rowid, url, title, blog_name, score, llm_score, combined_score, 
                       reason, keywords, source, fetched_at 
@@ -65,9 +63,9 @@ async def list_articles(
         )
         results = cursor.fetchall()
         conn.close()
-        
+
         api_logger.debug(f"Returning {len(results)} articles (total: {total_count})")
-        
+
         return {
             "total": total_count,
             "limit": limit,
@@ -184,21 +182,6 @@ async def search_articles(
 
         api_logger.info(f"Search for '{q}' returned {len(results)} results (type={search_type})")
 
-        distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
-        posthog_client.capture(
-            "article_searched",
-            distinct_id=distinct_id,
-            properties={
-                "query_length": len(q),
-                "result_count": len(results),
-                "search_type": search_type,
-                "limit": limit,
-                "offset": offset,
-                "min_score": min_score,
-                "source_filter": source,
-            },
-        )
-
         return {
             "query": q,
             "count": len(results),
@@ -234,21 +217,21 @@ async def search_articles(
 async def get_article(request: Request, article_identifier: str):
     """
     Get single article by ID (numeric) or base64-encoded URL.
-    
+
     Examples:
     - /api/articles/1 (numeric ID)
     - /api/articles/aHR0cHM6Ly9leGFtcGxlLmNvbS9hcnRpY2xl (base64 URL)
     """
     import base64
-    
+
     api_logger.info(f"Fetching article with identifier: {article_identifier[:50]}...")
-    
+
     conn = get_db()
     if not conn:
         raise HTTPException(status_code=500, detail="Database not initialized")
-    
+
     article = None
-    
+
     # Try as numeric ID first
     if article_identifier.isdigit():
         api_logger.debug(f"Trying numeric ID: {article_identifier}")
@@ -257,28 +240,28 @@ async def get_article(request: Request, article_identifier: str):
             (int(article_identifier),)
         )
         article = cursor.fetchone()
-        
+
         if article:
             api_logger.info(f"Found article by numeric ID: {article_identifier}")
-    
+
     # If not found, try as base64 encoded URL
     if not article:
         try:
             # Try to decode as base64
             url = base64.b64decode(article_identifier).decode('utf-8')
             api_logger.debug(f"Trying base64 decoded URL: {url[:100]}...")
-            
+
             cursor = conn.execute(
                 "SELECT rowid, * FROM articles WHERE url = ?",
                 (url,)
             )
             article = cursor.fetchone()
-            
+
             if article:
                 api_logger.info(f"Found article by base64 URL")
         except Exception as e:
             api_logger.debug(f"Not a valid base64 string: {e}")
-    
+
     conn.close()
 
     if not article:
@@ -288,16 +271,6 @@ async def get_article(request: Request, article_identifier: str):
     # Convert to dict (rowid becomes 'id')
     result = dict(article)
     result['id'] = result.pop('rowid')
-
-    distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
-    posthog_client.capture(
-        "article_viewed",
-        distinct_id=distinct_id,
-        properties={
-            "article_id": result.get("id"),
-            "source": result.get("source"),
-        },
-    )
 
     return result
 
@@ -314,12 +287,12 @@ async def semantic_search_articles(
     Only returns results with relevance >= min_relevance (default 0.5).
     """
     api_logger.info(f"Semantic search: query='{q}', limit={limit}, min_relevance={min_relevance} from {request.client.host}")
-    
+
     from core.embeddings import semantic_search
-    
+
     # Get semantic search results
     article_ids, similarities = semantic_search(q, limit * 2)  # Get extra to filter
-    
+
     if not article_ids:
         api_logger.debug(f"No semantic results for '{q}'")
         return {
@@ -328,7 +301,7 @@ async def semantic_search_articles(
             "articles": [],
             "search_type": "semantic"
         }
-    
+
     # Filter by min_relevance and take top limit
     filtered_results = []
     for idx, (article_id, sim) in enumerate(zip(article_ids, similarities)):
@@ -336,7 +309,7 @@ async def semantic_search_articles(
             filtered_results.append((article_id, sim))
             if len(filtered_results) >= limit:
                 break
-    
+
     if not filtered_results:
         api_logger.debug(f"No results above {min_relevance} relevance for '{q}'")
         return {
@@ -346,12 +319,12 @@ async def semantic_search_articles(
             "search_type": "semantic",
             "min_relevance": min_relevance
         }
-    
+
     # Fetch full article details from SQLite
     conn = get_db()
     if not conn:
         raise HTTPException(status_code=500, detail="Database not initialized")
-    
+
     placeholders = ','.join('?' * len(filtered_results))
     article_ids_filtered = [id for id, _ in filtered_results]
     cursor = conn.execute(f"""
@@ -360,10 +333,10 @@ async def semantic_search_articles(
         FROM articles 
         WHERE rowid IN ({placeholders})
     """, article_ids_filtered)
-    
+
     results = cursor.fetchall()
     conn.close()
-    
+
     # Map results with similarity scores (NO keywords!)
     articles = []
     for (article_id, sim), row in zip(filtered_results, results):
@@ -380,20 +353,8 @@ async def semantic_search_articles(
             "semantic_relevance": round(sim, 4)  # Keep relevance score
             # keywords intentionally omitted
         })
-    
-    api_logger.info(f"Semantic search for '{q}' returned {len(articles)} results (filtered from {len(article_ids)})")
 
-    distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
-    posthog_client.capture(
-        "semantic_search_performed",
-        distinct_id=distinct_id,
-        properties={
-            "query_length": len(q),
-            "result_count": len(articles),
-            "limit": limit,
-            "min_relevance": min_relevance,
-        },
-    )
+    api_logger.info(f"Semantic search for '{q}' returned {len(articles)} results (filtered from {len(article_ids)})")
 
     return {
         "query": q,

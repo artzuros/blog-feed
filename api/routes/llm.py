@@ -4,7 +4,6 @@ from typing import List, Optional
 from api.auth import verify_admin_key
 from api.dependencies import get_db
 from api.logger import llm_logger, api_logger
-from api.analytics import posthog_client
 from core.llm_scorer import score_with_llm
 from storage.database import save_article, get_articles_by_blog, article_exists
 import sqlite3
@@ -19,11 +18,11 @@ class LLMQueueItem(BaseModel):
 async def get_llm_queue(request: Request):
     """Get articles pending LLM review."""
     api_logger.info(f"LLM queue status requested by {request.client.host}")
-    
+
     conn = get_db()
     if not conn:
         raise HTTPException(status_code=500, detail="Database not initialized")
-    
+
     cursor = conn.execute(
         """SELECT url, title, blog_name, score, keywords, fetched_at 
            FROM articles 
@@ -33,7 +32,7 @@ async def get_llm_queue(request: Request):
     )
     articles = [dict(row) for row in cursor.fetchall()]
     conn.close()
-    
+
     llm_logger.info(f"Returning {len(articles)} articles pending LLM review")
     return {"pending_count": len(articles), "articles": articles}
 
@@ -47,48 +46,45 @@ async def review_article_with_llm(request: Request, article_id: str, background_
     except:
         api_logger.error(f"Invalid article ID: {article_id}")
         raise HTTPException(status_code=400, detail="Invalid article ID")
-    
+
     # Add to background task
     background_tasks.add_task(process_llm_review, url)
-
-    distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
-    posthog_client.capture("article_llm_review_queued", distinct_id=distinct_id, properties={})
 
     return {"success": True, "message": "Article queued for LLM review"}
 
 async def process_llm_review(url: str):
     """Background task to process LLM review."""
     llm_logger.info(f"Starting LLM review for {url}")
-    
+
     conn = get_db()
     if not conn:
         llm_logger.error(f"Cannot review {url}: Database not available")
         return
-    
+
     # Get article
     cursor = conn.execute(
         "SELECT url, title, blog_name, text FROM articles WHERE url = ?",
         (url,)
     )
     article = cursor.fetchone()
-    
+
     if not article:
         llm_logger.warning(f"Article not found for LLM review: {url}")
         conn.close()
         return
-    
+
     # Get article text (you'd need to fetch it or store it)
     # For now, assuming we have it stored or will fetch
     text = article[3] if len(article) > 3 else None
-    
+
     if not text:
         llm_logger.warning(f"No text available for LLM review: {url}")
         conn.close()
         return
-    
+
     # Score with LLM
     llm_score = score_with_llm(text)
-    
+
     if llm_score is not None:
         # Update article
         conn.execute(
@@ -99,5 +95,5 @@ async def process_llm_review(url: str):
         llm_logger.info(f"LLM review complete for {url}: score={llm_score:.2f}")
     else:
         llm_logger.error(f"LLM scoring failed for {url}")
-    
+
     conn.close()

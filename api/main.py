@@ -14,7 +14,6 @@ from api.routes import search, suggestions, blogs, admin, llm
 from api.dependencies import get_db
 from api.auth import verify_admin_key
 from api.logger import root_logger, api_logger, reconfigure_logging
-from api.analytics import posthog_client
 from config.settings import RATE_LIMIT_REQUESTS, RATE_LIMIT_PERIOD, LOG_LEVEL, LOG_FILE
 from core.embeddings import init_embeddings
 
@@ -77,11 +76,6 @@ async def startup_event():
         api_logger.warning("Database file not found, will be created on first request")
     else:
         api_logger.info("Database found")
-
-@app.on_event("shutdown")
-async def shutdown_event():
-    api_logger.info("Blog Feed API shutting down")
-    posthog_client.shutdown()
 
 # ---------- API Router ----------
 from fastapi import APIRouter

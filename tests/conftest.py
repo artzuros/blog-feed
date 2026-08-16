@@ -35,11 +35,6 @@ sys.modules["chromadb.utils"] = _chroma_utils
 sys.modules["chromadb.utils.embedding_functions"] = _chroma_utils_ef
 sys.modules["chromadb.utils.embedding_functions.openai_embedding_function"] = _chroma_oef
 
-_posthog = MagicMock()
-_posthog.Posthog = MagicMock()
-_posthog.Posthog.return_value.shutdown = MagicMock()
-sys.modules["posthog"] = _posthog
-
 # Now safe to import project code.
 import sqlite3
 from fastapi.testclient import TestClient

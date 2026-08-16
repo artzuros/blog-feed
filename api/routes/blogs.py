@@ -8,7 +8,6 @@ from api.dependencies import load_blogs_csv, get_db
 from api.models.schemas import BlogResponse, BlogCreate
 from api.auth import verify_admin_key
 from api.logger import api_logger, root_logger
-from api.analytics import posthog_client
 from config.settings import BLOGS_CSV, CACHE_FILE
 import json
 
@@ -54,12 +53,6 @@ def add_blog(request: Request, blog: BlogCreate):
             writer.writerow([blog.name, blog.url, blog.rss if blog.rss else ''])
 
         api_logger.info(f"Successfully added blog: {blog.name}")
-        distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
-        posthog_client.capture(
-            "blog_created",
-            distinct_id=distinct_id,
-            properties={"has_rss": bool(blog.rss)},
-        )
         return {"message": f"Added {blog.name}", "blog": blog}
     except Exception as e:
         api_logger.error(f"Failed to add blog {blog.name}: {e}", exc_info=True)
@@ -88,8 +81,6 @@ def delete_blog(request: Request, blog_name: str):
                 writer.writerow([b['name'], b['url'], b['rss'] if b['rss'] else ''])
 
         api_logger.info(f"Successfully deleted blog: {blog_name}")
-        distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
-        posthog_client.capture("blog_removed", distinct_id=distinct_id, properties={})
         return {"message": f"Removed {blog_name}"}
     except Exception as e:
         api_logger.error(f"Failed to delete blog {blog_name}: {e}", exc_info=True)
@@ -123,9 +114,6 @@ def _run_scan_background():
 def refresh_blogs(request: Request, background_tasks: BackgroundTasks):
     api_logger.info("POST /blogs/refresh - Manual scan queued (background)")
 
-    distinct_id = request.headers.get("X-Forwarded-For", request.client.host)
-    posthog_client.capture("all_blogs_scan_triggered", distinct_id=distinct_id, properties={})
-
     background_tasks.add_task(_run_scan_background)
     return {"message": "Blog refresh started in background", "status": "running"}
 
@@ -139,7 +127,7 @@ def load_cache():
     """Load blog discovery cache from JSON file."""
     from api.logger import db_logger
     db_logger.debug(f"Loading cache from {CACHE_FILE}")
-    
+
     if os.path.exists(CACHE_FILE):
         try:
             with open(CACHE_FILE, 'r') as f:
@@ -154,7 +142,7 @@ def load_cache():
 def save_cache(cache):
     """Save blog discovery cache to JSON file."""
     from api.logger import db_logger
-    
+
     try:
         os.makedirs(os.path.dirname(CACHE_FILE), exist_ok=True)
         with open(CACHE_FILE, 'w') as f:

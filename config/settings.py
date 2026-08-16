@@ -39,10 +39,6 @@ RATE_LIMIT_PERIOD = int(os.getenv("RATE_LIMIT_PERIOD", "60"))
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 LOG_FILE = os.getenv("LOG_FILE", "logs/api.log")
 
-# PostHog
-POSTHOG_PROJECT_TOKEN = os.getenv("POSTHOG_PROJECT_TOKEN", "phc_CeBAfW7AvagFLBSNTHRhmHaV2AGkMCvteYjBTPYZ6PqP")
-POSTHOG_HOST = os.getenv("POSTHOG_HOST", "https://us.i.posthog.com")
-
 # LLM API (DeepSeek)
 DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
 DEEPSEEK_MODEL = os.getenv("DEEPSEEK_MODEL", "deepseek-v4-flash")
