@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -13,10 +13,12 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ArticleCard } from '../../components/ArticleCard';
 import { searchArticles, SearchArticle } from '../../lib/api';
-import { colors } from '../../lib/theme';
+import { fonts, Palette, useTheme } from '../../lib/theme';
 
 export default function SearchScreen() {
   const router = useRouter();
+  const c = useTheme();
+  const styles = useMemo(() => createStyles(c), [c]);
   const [query, setQuery] = useState('');
   const [articles, setArticles] = useState<SearchArticle[]>([]);
   const [resultInfo, setResultInfo] = useState<string | null>(null);
@@ -74,7 +76,7 @@ export default function SearchScreen() {
         <TextInput
           style={styles.searchInput}
           placeholder="Search engineering blogs…"
-          placeholderTextColor={colors.textMuted}
+          placeholderTextColor={c.textMuted}
           value={query}
           onChangeText={setQuery}
           onSubmitEditing={search}
@@ -92,7 +94,7 @@ export default function SearchScreen() {
           disabled={loading || query.trim().length < 2}
         >
           {loading ? (
-            <ActivityIndicator color="#fff" size="small" />
+            <ActivityIndicator color={c.onPrimary} size="small" />
           ) : (
             <Text style={styles.searchButtonText}>Search</Text>
           )}
@@ -139,87 +141,95 @@ export default function SearchScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: colors.bg,
-  },
-  header: {
-    paddingHorizontal: 20,
-    paddingTop: 24,
-    paddingBottom: 16,
-  },
-  title: {
-    fontSize: 34,
-    fontWeight: '800',
-    color: colors.text,
-    letterSpacing: -0.5,
-  },
-  subtitle: {
-    marginTop: 4,
-    fontSize: 13,
-    color: colors.textSub,
-  },
-  searchRow: {
-    flexDirection: 'row',
-    gap: 8,
-    paddingHorizontal: 20,
-    paddingBottom: 12,
-  },
-  searchInput: {
-    flex: 1,
-    height: 46,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: colors.border,
-    backgroundColor: colors.surface,
-    paddingHorizontal: 14,
-    fontSize: 16,
-    color: colors.text,
-  },
-  searchButton: {
-    height: 46,
-    paddingHorizontal: 18,
-    borderRadius: 12,
-    backgroundColor: colors.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  searchButtonPressed: {
-    opacity: 0.8,
-  },
-  searchButtonText: {
-    color: '#fff',
-    fontSize: 15,
-    fontWeight: '700',
-  },
-  resultInfo: {
-    paddingHorizontal: 20,
-    paddingBottom: 8,
-    fontSize: 12,
-    color: colors.textSub,
-    textTransform: 'uppercase',
-    letterSpacing: 0.6,
-  },
-  messageBox: {
-    marginHorizontal: 20,
-    marginBottom: 10,
-    padding: 12,
-    borderRadius: 10,
-    backgroundColor: colors.dangerBg,
-  },
-  errorText: {
-    color: colors.dangerText,
-    fontSize: 13,
-  },
-  listContent: {
-    paddingHorizontal: 20,
-    paddingBottom: 32,
-  },
-  emptyText: {
-    textAlign: 'center',
-    color: colors.textMuted,
-    fontSize: 14,
-    paddingVertical: 40,
-  },
-});
+const createStyles = (c: Palette) =>
+  StyleSheet.create({
+    safeArea: {
+      flex: 1,
+      backgroundColor: c.bg,
+    },
+    header: {
+      paddingHorizontal: 20,
+      paddingTop: 24,
+      paddingBottom: 16,
+    },
+    title: {
+      fontSize: 34,
+      fontWeight: '400',
+      fontFamily: fonts.serif,
+      color: c.text,
+      letterSpacing: -0.5,
+    },
+    subtitle: {
+      marginTop: 4,
+      fontSize: 13,
+      fontFamily: fonts.sans,
+      color: c.textSub,
+    },
+    searchRow: {
+      flexDirection: 'row',
+      gap: 8,
+      paddingHorizontal: 20,
+      paddingBottom: 12,
+    },
+    searchInput: {
+      flex: 1,
+      height: 46,
+      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: c.border,
+      backgroundColor: c.surface,
+      paddingHorizontal: 14,
+      fontSize: 16,
+      fontFamily: fonts.sans,
+      color: c.text,
+    },
+    searchButton: {
+      height: 46,
+      paddingHorizontal: 18,
+      borderRadius: 12,
+      backgroundColor: c.primary,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    searchButtonPressed: {
+      opacity: 0.8,
+    },
+    searchButtonText: {
+      color: c.onPrimary,
+      fontSize: 15,
+      fontWeight: '700',
+      fontFamily: fonts.sansBold,
+    },
+    resultInfo: {
+      paddingHorizontal: 20,
+      paddingBottom: 8,
+      fontSize: 12,
+      fontFamily: fonts.sansSemibold,
+      color: c.textSub,
+      textTransform: 'uppercase',
+      letterSpacing: 0.6,
+    },
+    messageBox: {
+      marginHorizontal: 20,
+      marginBottom: 10,
+      padding: 12,
+      borderRadius: 10,
+      backgroundColor: c.dangerBg,
+    },
+    errorText: {
+      color: c.dangerText,
+      fontSize: 13,
+      fontFamily: fonts.sans,
+    },
+    listContent: {
+      paddingHorizontal: 20,
+      paddingBottom: 32,
+    },
+    emptyText: {
+      textAlign: 'center',
+      color: c.textMuted,
+      fontSize: 14,
+      fontFamily: fonts.sans,
+      paddingVertical: 40,
+    },
+  });

@@ -1,5 +1,5 @@
 import { useLocalSearchParams } from 'expo-router';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   Linking,
@@ -9,13 +9,14 @@ import {
   Text,
   View,
 } from 'react-native';
-import { ArticleDetail, getArticle } from '../../lib/api';
-import { fmtDate } from '../../lib/format';
-import { colors } from '../../lib/theme';
 import { scoreTier } from '../../components/ArticleCard';
+import { ArticleDetail, getArticle } from '../../lib/api';
+import { fonts, Palette, useTheme } from '../../lib/theme';
 
 export default function ArticleScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const c = useTheme();
+  const styles = useMemo(() => createStyles(c), [c]);
   const [article, setArticle] = useState<ArticleDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -45,7 +46,7 @@ export default function ArticleScreen() {
   if (loading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator color={colors.primary} size="large" />
+        <ActivityIndicator color={c.primary} size="large" />
       </View>
     );
   }
@@ -63,7 +64,7 @@ export default function ArticleScreen() {
     );
   }
 
-  const tier = colors.scoreTiers[scoreTier(article.combined_score)];
+  const tier = c.scoreTiers[scoreTier(article.combined_score)];
   const keywords = (article.keywords ?? '')
     .split(',')
     .map((k) => k.trim())
@@ -83,19 +84,7 @@ export default function ArticleScreen() {
             Score {(article.combined_score ?? 0).toFixed(2)}
           </Text>
         </View>
-        {article.llm_score != null && (
-          <View style={[styles.badge, styles.llmBadge]}>
-            <Text style={styles.llmBadgeText}>LLM reviewed</Text>
-          </View>
-        )}
       </View>
-
-      {article.reason ? (
-        <View style={styles.reasonBox}>
-          <Text style={styles.reasonLabel}>Why this is worth reading</Text>
-          <Text style={styles.reasonText}>{article.reason}</Text>
-        </View>
-      ) : null}
 
       {keywords.length > 0 && (
         <View style={styles.keywordRow}>
@@ -106,18 +95,6 @@ export default function ArticleScreen() {
           ))}
         </View>
       )}
-
-      <Text style={styles.meta}>
-        {article.source} · fetched {fmtDate(article.fetched_at)}
-        {article.content_type ? ` · ${article.content_type}` : ''}
-      </Text>
-
-      {article.text_content ? (
-        <View style={styles.fullTextSection}>
-          <Text style={styles.fullTextLabel}>Full text</Text>
-          <Text style={styles.fullText}>{article.text_content}</Text>
-        </View>
-      ) : null}
 
       <Pressable
         onPress={() => openInBrowser(article.url)}
@@ -132,148 +109,106 @@ export default function ArticleScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: colors.bg,
-  },
-  center: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.bg,
-    padding: 24,
-    gap: 16,
-  },
-  content: {
-    padding: 20,
-    paddingBottom: 48,
-  },
-  blog: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: colors.primary,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-  },
-  title: {
-    marginTop: 8,
-    fontSize: 24,
-    fontWeight: '700',
-    lineHeight: 31,
-    color: colors.text,
-  },
-  badgeRow: {
-    flexDirection: 'row',
-    gap: 8,
-    marginTop: 14,
-  },
-  badge: {
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-  },
-  badgeText: {
-    fontSize: 12,
-    fontWeight: '800',
-    fontVariant: ['tabular-nums'],
-  },
-  llmBadge: {
-    backgroundColor: colors.press,
-  },
-  llmBadgeText: {
-    fontSize: 12,
-    fontWeight: '800',
-    color: colors.textSub,
-  },
-  reasonBox: {
-    marginTop: 18,
-    padding: 14,
-    borderRadius: 12,
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  reasonLabel: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: colors.textMuted,
-    textTransform: 'uppercase',
-    letterSpacing: 0.6,
-    marginBottom: 6,
-  },
-  reasonText: {
-    fontSize: 14,
-    lineHeight: 20,
-    color: colors.textSub,
-  },
-  keywordRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-    marginTop: 14,
-  },
-  keywordChip: {
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 999,
-    backgroundColor: colors.press,
-  },
-  keywordText: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: colors.textSub,
-  },
-  meta: {
-    marginTop: 16,
-    fontSize: 12,
-    color: colors.textMuted,
-  },
-  fullTextSection: {
-    marginTop: 22,
-  },
-  fullTextLabel: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: colors.textMuted,
-    textTransform: 'uppercase',
-    letterSpacing: 0.6,
-    marginBottom: 8,
-  },
-  fullText: {
-    fontSize: 14,
-    lineHeight: 21,
-    color: colors.text,
-  },
-  openButton: {
-    marginTop: 24,
-    height: 48,
-    borderRadius: 12,
-    backgroundColor: colors.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  openButtonPressed: {
-    opacity: 0.85,
-  },
-  openButtonText: {
-    color: '#fff',
-    fontSize: 15,
-    fontWeight: '700',
-  },
-  errorText: {
-    color: colors.dangerText,
-    fontSize: 14,
-    textAlign: 'center',
-  },
-  retryButton: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 10,
-    backgroundColor: colors.primary,
-  },
-  retryButtonText: {
-    color: '#fff',
-    fontWeight: '700',
-  },
-});
+const createStyles = (c: Palette) =>
+  StyleSheet.create({
+    screen: {
+      flex: 1,
+      backgroundColor: c.bg,
+    },
+    center: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: c.bg,
+      padding: 24,
+      gap: 16,
+    },
+    content: {
+      padding: 20,
+      paddingBottom: 48,
+    },
+    blog: {
+      fontSize: 13,
+      fontWeight: '700',
+      fontFamily: fonts.sansBold,
+      color: c.primary,
+      textTransform: 'uppercase',
+      letterSpacing: 0.5,
+    },
+    title: {
+      marginTop: 8,
+      fontSize: 24,
+      fontWeight: '400',
+      fontFamily: fonts.serif,
+      lineHeight: 31,
+      color: c.text,
+    },
+    badgeRow: {
+      flexDirection: 'row',
+      gap: 8,
+      marginTop: 14,
+    },
+    badge: {
+      borderRadius: 8,
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+    },
+    badgeText: {
+      fontSize: 12,
+      fontWeight: '800',
+      fontFamily: fonts.sansBold,
+      fontVariant: ['tabular-nums'],
+    },
+    keywordRow: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 8,
+      marginTop: 14,
+    },
+    keywordChip: {
+      paddingHorizontal: 10,
+      paddingVertical: 4,
+      borderRadius: 999,
+      backgroundColor: c.press,
+    },
+    keywordText: {
+      fontSize: 12,
+      fontWeight: '600',
+      fontFamily: fonts.sansSemibold,
+      color: c.textSub,
+    },
+    openButton: {
+      marginTop: 24,
+      height: 48,
+      borderRadius: 12,
+      backgroundColor: c.primary,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    openButtonPressed: {
+      opacity: 0.85,
+    },
+    openButtonText: {
+      color: c.onPrimary,
+      fontSize: 15,
+      fontWeight: '700',
+      fontFamily: fonts.sansSemibold,
+    },
+    errorText: {
+      color: c.dangerText,
+      fontSize: 14,
+      textAlign: 'center',
+      fontFamily: fonts.sans,
+    },
+    retryButton: {
+      paddingHorizontal: 20,
+      paddingVertical: 10,
+      borderRadius: 10,
+      backgroundColor: c.primary,
+    },
+    retryButtonText: {
+      color: c.onPrimary,
+      fontWeight: '700',
+      fontFamily: fonts.sansSemibold,
+    },
+  });

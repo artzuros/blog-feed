@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -12,7 +12,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { listSuggestions, Suggestion } from '../../lib/api';
 import { fmtDate } from '../../lib/format';
-import { colors } from '../../lib/theme';
+import { fonts, Palette, useTheme } from '../../lib/theme';
 
 const SORTS = [
   { key: 'reddit_score', label: 'Top' },
@@ -22,6 +22,8 @@ const SORTS = [
 type SortKey = (typeof SORTS)[number]['key'];
 
 export default function SuggestionsScreen() {
+  const c = useTheme();
+  const styles = useMemo(() => createStyles(c), [c]);
   const [sortBy, setSortBy] = useState<SortKey>('reddit_score');
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [loading, setLoading] = useState(true);
@@ -132,114 +134,124 @@ export default function SuggestionsScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: colors.bg,
-  },
-  header: {
-    paddingHorizontal: 20,
-    paddingTop: 24,
-    paddingBottom: 12,
-  },
-  title: {
-    fontSize: 34,
-    fontWeight: '800',
-    color: colors.text,
-    letterSpacing: -0.5,
-  },
-  subtitle: {
-    marginTop: 4,
-    fontSize: 13,
-    color: colors.textSub,
-  },
-  segRow: {
-    flexDirection: 'row',
-    gap: 8,
-    marginTop: 12,
-  },
-  seg: {
-    paddingHorizontal: 16,
-    paddingVertical: 7,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: colors.border,
-    backgroundColor: colors.surface,
-  },
-  segActive: {
-    backgroundColor: colors.primary,
-    borderColor: colors.primary,
-  },
-  segText: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: colors.textSub,
-  },
-  segTextActive: {
-    color: '#fff',
-  },
-  messageBox: {
-    marginHorizontal: 20,
-    marginBottom: 10,
-    padding: 12,
-    borderRadius: 10,
-    backgroundColor: colors.dangerBg,
-  },
-  errorText: {
-    color: colors.dangerText,
-    fontSize: 13,
-  },
-  listContent: {
-    paddingHorizontal: 20,
-    paddingBottom: 32,
-  },
-  emptyText: {
-    textAlign: 'center',
-    color: colors.textMuted,
-    fontSize: 14,
-    paddingVertical: 40,
-  },
-  card: {
-    backgroundColor: colors.surface,
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: colors.border,
-    padding: 16,
-    marginBottom: 12,
-  },
-  cardPressed: {
-    backgroundColor: colors.press,
-  },
-  cardHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 6,
-  },
-  cardSub: {
-    flex: 1,
-    fontSize: 12,
-    fontWeight: '700',
-    color: colors.primary,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-    marginRight: 8,
-  },
-  scoreText: {
-    fontSize: 12,
-    fontWeight: '800',
-    color: colors.textSub,
-    fontVariant: ['tabular-nums'],
-  },
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    lineHeight: 22,
-    color: colors.text,
-  },
-  cardMeta: {
-    marginTop: 8,
-    fontSize: 12,
-    color: colors.textMuted,
-  },
-});
+const createStyles = (c: Palette) =>
+  StyleSheet.create({
+    safeArea: {
+      flex: 1,
+      backgroundColor: c.bg,
+    },
+    header: {
+      paddingHorizontal: 20,
+      paddingTop: 24,
+      paddingBottom: 12,
+    },
+    title: {
+      fontSize: 34,
+      fontWeight: '400',
+      fontFamily: fonts.serif,
+      color: c.text,
+      letterSpacing: -0.5,
+    },
+    subtitle: {
+      marginTop: 4,
+      fontSize: 13,
+      fontFamily: fonts.sans,
+      color: c.textSub,
+    },
+    segRow: {
+      flexDirection: 'row',
+      gap: 8,
+      marginTop: 12,
+    },
+    seg: {
+      paddingHorizontal: 16,
+      paddingVertical: 7,
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: c.border,
+      backgroundColor: c.surface,
+    },
+    segActive: {
+      backgroundColor: c.primary,
+      borderColor: c.primary,
+    },
+    segText: {
+      fontSize: 13,
+      fontWeight: '600',
+      fontFamily: fonts.sansSemibold,
+      color: c.textSub,
+    },
+    segTextActive: {
+      color: c.onPrimary,
+    },
+    messageBox: {
+      marginHorizontal: 20,
+      marginBottom: 10,
+      padding: 12,
+      borderRadius: 10,
+      backgroundColor: c.dangerBg,
+    },
+    errorText: {
+      color: c.dangerText,
+      fontSize: 13,
+      fontFamily: fonts.sans,
+    },
+    listContent: {
+      paddingHorizontal: 20,
+      paddingBottom: 32,
+    },
+    emptyText: {
+      textAlign: 'center',
+      color: c.textMuted,
+      fontSize: 14,
+      fontFamily: fonts.sans,
+      paddingVertical: 40,
+    },
+    card: {
+      backgroundColor: c.surface,
+      borderRadius: 14,
+      borderWidth: 1,
+      borderColor: c.border,
+      padding: 16,
+      marginBottom: 12,
+    },
+    cardPressed: {
+      backgroundColor: c.press,
+    },
+    cardHeader: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: 6,
+    },
+    cardSub: {
+      flex: 1,
+      fontSize: 12,
+      fontWeight: '700',
+      fontFamily: fonts.sansBold,
+      color: c.primary,
+      textTransform: 'uppercase',
+      letterSpacing: 0.5,
+      marginRight: 8,
+    },
+    scoreText: {
+      fontSize: 12,
+      fontWeight: '800',
+      fontFamily: fonts.sansBold,
+      color: c.textSub,
+      fontVariant: ['tabular-nums'],
+    },
+    cardTitle: {
+      fontSize: 16,
+      fontWeight: '400',
+      fontFamily: fonts.serif,
+      lineHeight: 22,
+      color: c.text,
+    },
+    cardMeta: {
+      marginTop: 8,
+      fontSize: 12,
+      fontFamily: fonts.sans,
+      color: c.textMuted,
+    },
+  });

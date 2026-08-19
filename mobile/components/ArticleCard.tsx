@@ -1,5 +1,6 @@
+import { useMemo } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { colors } from '../lib/theme';
+import { fonts, Palette, useTheme } from '../lib/theme';
 
 /** 0 = low, 1 = mid, 2 = high, 3 = no score. */
 export function scoreTier(score: number | null): number {
@@ -24,7 +25,9 @@ export function ArticleCard({
   meta?: string;
   onPress: () => void;
 }) {
-  const tier = colors.scoreTiers[scoreTier(score)];
+  const c = useTheme();
+  const styles = useMemo(() => createStyles(c), [c]);
+  const tier = c.scoreTiers[scoreTier(score)];
   return (
     <Pressable
       onPress={onPress}
@@ -53,58 +56,64 @@ export function ArticleCard({
   );
 }
 
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: colors.surface,
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: colors.border,
-    padding: 16,
-    marginBottom: 12,
-  },
-  cardPressed: {
-    backgroundColor: colors.press,
-  },
-  cardHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 6,
-  },
-  cardBlog: {
-    flex: 1,
-    fontSize: 12,
-    fontWeight: '700',
-    color: colors.primary,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-    marginRight: 8,
-  },
-  scoreBadge: {
-    borderRadius: 8,
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-  },
-  scoreText: {
-    fontSize: 12,
-    fontWeight: '800',
-    fontVariant: ['tabular-nums'],
-  },
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    lineHeight: 22,
-    color: colors.text,
-  },
-  cardReason: {
-    marginTop: 6,
-    fontSize: 13,
-    lineHeight: 18,
-    color: colors.textSub,
-  },
-  cardMeta: {
-    marginTop: 8,
-    fontSize: 12,
-    color: colors.textMuted,
-  },
-});
+const createStyles = (c: Palette) =>
+  StyleSheet.create({
+    card: {
+      backgroundColor: c.surface,
+      borderRadius: 14,
+      borderWidth: 1,
+      borderColor: c.border,
+      padding: 16,
+      marginBottom: 12,
+    },
+    cardPressed: {
+      backgroundColor: c.press,
+    },
+    cardHeader: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: 6,
+    },
+    cardBlog: {
+      flex: 1,
+      fontSize: 12,
+      fontWeight: '700',
+      fontFamily: fonts.sansBold,
+      color: c.primary,
+      textTransform: 'uppercase',
+      letterSpacing: 0.5,
+      marginRight: 8,
+    },
+    scoreBadge: {
+      borderRadius: 8,
+      paddingHorizontal: 8,
+      paddingVertical: 3,
+    },
+    scoreText: {
+      fontSize: 12,
+      fontWeight: '800',
+      fontFamily: fonts.sansBold,
+      fontVariant: ['tabular-nums'],
+    },
+    cardTitle: {
+      fontSize: 16,
+      fontWeight: '400',
+      fontFamily: fonts.serif,
+      lineHeight: 22,
+      color: c.text,
+    },
+    cardReason: {
+      marginTop: 6,
+      fontSize: 13,
+      lineHeight: 18,
+      fontFamily: fonts.sans,
+      color: c.textSub,
+    },
+    cardMeta: {
+      marginTop: 8,
+      fontSize: 12,
+      fontFamily: fonts.sans,
+      color: c.textMuted,
+    },
+  });

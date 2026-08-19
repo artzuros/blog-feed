@@ -101,10 +101,10 @@ mobile/
 ├── app/                  # expo-router file-based routes
 │   ├── _layout.tsx       #   root Stack (tabs + article detail)
 │   ├── (tabs)/
-│   │   ├── _layout.tsx   #   tab bar: Search / Browse / Suggestions
+│   │   ├── _layout.tsx   #   tab bar: Search / Browse
 │   │   ├── index.tsx     #   Search screen (GET /api/search)
 │   │   ├── browse.tsx    #   Browse feed (GET /api/articles, sortable, paginated)
-│   │   └── suggestions.tsx  # Suggestions (GET /api/suggestions)
+│   │   └── suggestions.tsx  # hidden — Suggestions (GET /api/suggestions), no tab
 │   └── article/[id].tsx  # Article detail (GET /api/articles/{id})
 ├── components/
 │   └── ArticleCard.tsx   # shared article card (score badge, title, reason)

@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -13,7 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ArticleCard } from '../../components/ArticleCard';
 import { FeedArticle, listArticles } from '../../lib/api';
 import { fmtDate } from '../../lib/format';
-import { colors } from '../../lib/theme';
+import { fonts, Palette, useTheme } from '../../lib/theme';
 
 const PAGE_SIZE = 25;
 const SORTS = [
@@ -25,6 +25,8 @@ type SortKey = (typeof SORTS)[number]['key'];
 
 export default function BrowseScreen() {
   const router = useRouter();
+  const c = useTheme();
+  const styles = useMemo(() => createStyles(c), [c]);
   const [sort, setSort] = useState<SortKey>('fetched_at');
   const [articles, setArticles] = useState<FeedArticle[]>([]);
   const [total, setTotal] = useState<number | null>(null);
@@ -137,7 +139,7 @@ export default function BrowseScreen() {
           loadingMore ? (
             <ActivityIndicator
               style={styles.footerSpinner}
-              color={colors.primary}
+              color={c.primary}
             />
           ) : null
         }
@@ -161,74 +163,80 @@ export default function BrowseScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: colors.bg,
-  },
-  header: {
-    paddingHorizontal: 20,
-    paddingTop: 24,
-    paddingBottom: 12,
-  },
-  title: {
-    fontSize: 34,
-    fontWeight: '800',
-    color: colors.text,
-    letterSpacing: -0.5,
-  },
-  subtitle: {
-    marginTop: 4,
-    fontSize: 13,
-    color: colors.textSub,
-  },
-  segRow: {
-    flexDirection: 'row',
-    gap: 8,
-    marginTop: 12,
-  },
-  seg: {
-    paddingHorizontal: 16,
-    paddingVertical: 7,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: colors.border,
-    backgroundColor: colors.surface,
-  },
-  segActive: {
-    backgroundColor: colors.primary,
-    borderColor: colors.primary,
-  },
-  segText: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: colors.textSub,
-  },
-  segTextActive: {
-    color: '#fff',
-  },
-  messageBox: {
-    marginHorizontal: 20,
-    marginBottom: 10,
-    padding: 12,
-    borderRadius: 10,
-    backgroundColor: colors.dangerBg,
-  },
-  errorText: {
-    color: colors.dangerText,
-    fontSize: 13,
-  },
-  listContent: {
-    paddingHorizontal: 20,
-    paddingBottom: 32,
-  },
-  emptyText: {
-    textAlign: 'center',
-    color: colors.textMuted,
-    fontSize: 14,
-    paddingVertical: 40,
-  },
-  footerSpinner: {
-    paddingVertical: 16,
-  },
-});
+const createStyles = (c: Palette) =>
+  StyleSheet.create({
+    safeArea: {
+      flex: 1,
+      backgroundColor: c.bg,
+    },
+    header: {
+      paddingHorizontal: 20,
+      paddingTop: 24,
+      paddingBottom: 12,
+    },
+    title: {
+      fontSize: 34,
+      fontWeight: '400',
+      fontFamily: fonts.serif,
+      color: c.text,
+      letterSpacing: -0.5,
+    },
+    subtitle: {
+      marginTop: 4,
+      fontSize: 13,
+      fontFamily: fonts.sans,
+      color: c.textSub,
+    },
+    segRow: {
+      flexDirection: 'row',
+      gap: 8,
+      marginTop: 12,
+    },
+    seg: {
+      paddingHorizontal: 16,
+      paddingVertical: 7,
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: c.border,
+      backgroundColor: c.surface,
+    },
+    segActive: {
+      backgroundColor: c.primary,
+      borderColor: c.primary,
+    },
+    segText: {
+      fontSize: 13,
+      fontWeight: '600',
+      fontFamily: fonts.sansSemibold,
+      color: c.textSub,
+    },
+    segTextActive: {
+      color: c.onPrimary,
+    },
+    messageBox: {
+      marginHorizontal: 20,
+      marginBottom: 10,
+      padding: 12,
+      borderRadius: 10,
+      backgroundColor: c.dangerBg,
+    },
+    errorText: {
+      color: c.dangerText,
+      fontSize: 13,
+      fontFamily: fonts.sans,
+    },
+    listContent: {
+      paddingHorizontal: 20,
+      paddingBottom: 32,
+    },
+    emptyText: {
+      textAlign: 'center',
+      color: c.textMuted,
+      fontSize: 14,
+      fontFamily: fonts.sans,
+      paddingVertical: 40,
+    },
+    footerSpinner: {
+      paddingVertical: 16,
+    },
+  });
