@@ -1,6 +1,6 @@
 {
   "recommendations": [
-    "expo.expo",
+    "expo.vscode-expo-tools",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "msjsdiag.vscode-react-native"

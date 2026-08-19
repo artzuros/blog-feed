@@ -76,7 +76,7 @@ npx expo start
 
 The app points at the live API by default. To test against a locally-running backend:
 
-1. Edit `API_BASE` in [App.tsx](App.tsx).
+1. Edit `API_BASE` in [lib/api.ts](lib/api.ts).
 2. On **web / Android emulator**: `http://localhost:8765/api` (or `http://10.0.2.2:8765/api` from the Android emulator).
 3. On a **physical iPhone**: iOS blocks plain-HTTP by default (ATS). Use the live HTTPS API for phone testing, or add an `infoPlist.NSAppTransportSecurity` exception in [app.json](app.json) for your LAN IP.
 
@@ -98,17 +98,28 @@ npx eas-cli build --platform android
 
 ```
 mobile/
-├── App.tsx          # single search screen (the whole app, for now)
-├── app.json         # Expo app config (name, slug, scheme, icons)
-├── assets/          # icons, splash
-└── .vscode/         # editor config: extensions.json + settings.json
+├── app/                  # expo-router file-based routes
+│   ├── _layout.tsx       #   root Stack (tabs + article detail)
+│   ├── (tabs)/
+│   │   ├── _layout.tsx   #   tab bar: Search / Browse / Suggestions
+│   │   ├── index.tsx     #   Search screen (GET /api/search)
+│   │   ├── browse.tsx    #   Browse feed (GET /api/articles, sortable, paginated)
+│   │   └── suggestions.tsx  # Suggestions (GET /api/suggestions)
+│   └── article/[id].tsx  # Article detail (GET /api/articles/{id})
+├── components/
+│   └── ArticleCard.tsx   # shared article card (score badge, title, reason)
+├── lib/
+│   ├── api.ts            # API base, response types, fetch helpers
+│   ├── theme.ts          # shared color tokens
+│   └── format.ts         # date formatting
+├── app.json              # Expo app config (name, slug, scheme, icons)
+├── assets/               # icons, splash
+└── .vscode/              # editor config: extensions.json + settings.json
 ```
 
-The app is intentionally minimal — a search box hitting `GET /api/search`. Natural next steps:
-
-- Add tabs with [expo-router](https://docs.expo.dev/router/introduction/) (Search / Suggestions / Browse).
-- A `GET /api/articles` browse feed (sorted by `combined_score` or recency).
-- Use `GET /api/articles/{id}` for a detail screen, with the raw URL opened in the system browser.
+Search results carry no numeric id, so cards link to the detail screen via the
+base64-encoded URL identifier the API accepts (`GET /api/articles/{id}` handles
+both ids and base64 URLs).
 
 ## VSCode tips
 
