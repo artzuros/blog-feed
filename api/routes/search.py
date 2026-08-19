@@ -136,6 +136,7 @@ def _semantic_fallback(query: str, limit: int, offset: int,
 
     return [
         {
+            "id": row[0],
             "url": row[1],
             "title": row[2],
             "blog_name": row[3],
@@ -263,7 +264,7 @@ async def search_articles(
 
         if use_fts5_flag:
             sql = f"""
-                SELECT a.url, a.title, a.blog_name, a.score, a.llm_score,
+                SELECT a.rowid, a.url, a.title, a.blog_name, a.score, a.llm_score,
                        a.combined_score, a.reason, a.keywords, a.source,
                        a.fetched_at,
                        snippet(articles_fts, 2, '<mark>', '</mark>', '…', 32) AS snippet,
@@ -276,7 +277,7 @@ async def search_articles(
             """
         else:
             sql = f"""
-                SELECT a.url, a.title, a.blog_name, a.score, a.llm_score,
+                SELECT a.rowid, a.url, a.title, a.blog_name, a.score, a.llm_score,
                        a.combined_score, a.reason, a.keywords, a.source,
                        a.fetched_at,
                        NULL AS snippet, NULL AS fts_rank
@@ -339,18 +340,19 @@ async def search_articles(
                 "fallback": True,
                 "articles": [
                     {
-                        "url": r[0],
-                        "title": r[1],
-                        "blog_name": r[2],
-                        "score": r[3],
-                        "llm_score": r[4],
-                        "combined_score": r[5],
-                        "reason": r[6],
-                        "keywords": r[7],
-                        "source": r[8],
-                        "fetched_at": r[9],
-                        "snippet": r[10],
-                        "fts_rank": r[11],
+                        "id": r[0],
+                        "url": r[1],
+                        "title": r[2],
+                        "blog_name": r[3],
+                        "score": r[4],
+                        "llm_score": r[5],
+                        "combined_score": r[6],
+                        "reason": r[7],
+                        "keywords": r[8],
+                        "source": r[9],
+                        "fetched_at": r[10],
+                        "snippet": r[11],
+                        "fts_rank": r[12],
                     }
                     for r in corrected_results
                 ],
@@ -380,18 +382,19 @@ async def search_articles(
             "search_type": search_type,
             "articles": [
                 {
-                    "url": r[0],
-                    "title": r[1],
-                    "blog_name": r[2],
-                    "score": r[3],
-                    "llm_score": r[4],
-                    "combined_score": r[5],
-                    "reason": r[6],
-                    "keywords": r[7],
-                    "source": r[8],
-                    "fetched_at": r[9],
-                    "snippet": r[10],
-                    "fts_rank": r[11],
+                    "id": r[0],
+                    "url": r[1],
+                    "title": r[2],
+                    "blog_name": r[3],
+                    "score": r[4],
+                    "llm_score": r[5],
+                    "combined_score": r[6],
+                    "reason": r[7],
+                    "keywords": r[8],
+                    "source": r[9],
+                    "fetched_at": r[10],
+                    "snippet": r[11],
+                    "fts_rank": r[12],
                 }
                 for r in results
             ],

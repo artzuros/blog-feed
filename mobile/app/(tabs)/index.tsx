@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ArticleCard } from '../../components/ArticleCard';
-import { articleUrlId, searchArticles, SearchArticle } from '../../lib/api';
+import { searchArticles, SearchArticle } from '../../lib/api';
 import { colors } from '../../lib/theme';
 
 export default function SearchScreen() {
@@ -52,10 +52,10 @@ export default function SearchScreen() {
   }, [query]);
 
   const openArticle = useCallback(
-    (url: string) => {
+    (item: SearchArticle) => {
       router.push({
         pathname: '/article/[id]',
-        params: { id: articleUrlId(url) },
+        params: { id: String(item.id) },
       });
     },
     [router],
@@ -131,7 +131,7 @@ export default function SearchScreen() {
             blog={item.blog_name}
             score={item.combined_score}
             reason={item.reason}
-            onPress={() => openArticle(item.url)}
+            onPress={() => openArticle(item)}
           />
         )}
       />

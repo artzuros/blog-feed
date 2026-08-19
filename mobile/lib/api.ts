@@ -3,8 +3,9 @@
 // running the backend locally during development.
 export const API_BASE = 'https://blog-feed-aws.pranav-bansal.com/api';
 
-// Article in search results (GET /api/search) — keyed by URL, no numeric id.
+// Article in search results (GET /api/search) — numeric id, same shape as the browse feed.
 export type SearchArticle = {
+  id: number;
   url: string;
   title: string;
   blog_name: string;
@@ -123,12 +124,4 @@ export function listSuggestions(
   sortBy: 'discovered_at' | 'net_votes' | 'reddit_score' = 'discovered_at',
 ): Promise<Suggestion[]> {
   return getJson(`/suggestions?limit=${limit}&sort_by=${sortBy}`);
-}
-
-/**
- * Encode a URL as the article identifier the API accepts (base64, unpadded).
- * Search results have no numeric id, so we link via base64 URL instead.
- */
-export function articleUrlId(url: string): string {
-  return btoa(url).replace(/=+$/, '');
 }

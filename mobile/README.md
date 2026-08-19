@@ -117,9 +117,8 @@ mobile/
 └── .vscode/              # editor config: extensions.json + settings.json
 ```
 
-Search results carry no numeric id, so cards link to the detail screen via the
-base64-encoded URL identifier the API accepts (`GET /api/articles/{id}` handles
-both ids and base64 URLs).
+Search results carry a numeric `id` (same as the browse feed), and cards link
+to the detail screen with `GET /api/articles/{id}`.
 
 ## VSCode tips
 
